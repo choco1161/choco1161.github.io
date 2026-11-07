@@ -69,9 +69,34 @@ def service_key():
     k = (os.environ.get("DATA_GO_KR_KEY") or "").strip()
     if not k:
         raise ApiError("GitHub Secret DATA_GO_KR_KEY가 비어 있습니다")
+    # 흔한 붙여넣기 실수 정리: 따옴표, 'serviceKey=' 접두어, 중간 공백·줄바꿈
+    k = k.strip("'\"` ")
+    if k.lower().startswith("servicekey="):
+        k = k[len("servicekey="):]
+    k = "".join(k.split())
     if "%" in k:  # Encoding 키를 넣은 경우 Decoding 키로 되돌림
         k = urllib.parse.unquote(k)
     return k
+
+
+def key_shape():
+    """키 값은 드러내지 않고 길이·형식만 알려준다 (오류 원인 확인용)."""
+    raw = os.environ.get("DATA_GO_KR_KEY") or ""
+    k = service_key()
+    if all(c in "0123456789abcdefABCDEF" for c in k):
+        kind = "16진수"
+    elif all(c.isalnum() or c in "+/=" for c in k):
+        kind = "Base64"
+    else:
+        kind = "기타 문자 포함"
+    notes = []
+    if raw != raw.strip():
+        notes.append("앞뒤 공백")
+    if any(q in raw for q in "'\"`"):
+        notes.append("따옴표")
+    if "%" in raw:
+        notes.append("Encoding 키")
+    return f"키 {len(k)}자·{kind}" + (f"·{','.join(notes)}" if notes else "")
 
 
 def http_get(url, tries=4):
@@ -371,7 +396,12 @@ def main():
         try:
             print(f"[{API_NAME[api]}] {check(api, regions)}")
         except ApiError as e:
-            print(f"::error::[{API_NAME[api]}] 실패: {e}")
+            shape = ""
+            try:
+                shape = f" ({key_shape()})"
+            except ApiError:
+                pass
+            print(f"::error::[{API_NAME[api]}] 실패: {e}{shape}")
             sys.exit(1)
         return
 
