@@ -13,6 +13,8 @@ const AREAS = [
 // path는 영역 폴더 기준. 예) area: "macro", path: "rates/"
 // ───────────────────────────────────────────────
 const PROJECTS = [
+  { area: "stocks", icon: "🗽", path: "daily-pick/", title: "오늘의 미국주식",
+    desc: "평일 아침 미국주식 1종목 소개 · 주간·월간 성과 요약 · 29종목 누적 기록과 섹터 분포", date: "2026-11-07" },
   { area: "macro", icon: "📉", path: "rates-30y/", title: "한미 금리 30년",
     desc: "1997~2026 한미 금리 · 원/달러 · 달러인덱스 · 다우/나스닥/코스피 · IMF 물가 전망 · 연도별 이슈와 상관관계", date: "2026-11-07" },
 ];
