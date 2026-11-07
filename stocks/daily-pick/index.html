@@ -7,178 +7,145 @@
 <title>오늘의 미국주식 · Derek's Platform</title>
 <meta name="description" content="평일 아침마다 미국주식 1종목을 소개하고 주간·월간 성과를 요약하는 자동화 기록">
 <style>
-/* 소개 → 작동 방식 → 섹터 분포(누르면 표 필터) → 누적 기록 순서의 한 장짜리 페이지. */
+/* 최신 종목을 큰 카드로, 지금까지 소개한 티커를 카드 그리드로 맨 위에.
+   작동 방식·메모는 한 줄 요약 + 펼치기로 축약. */
 :root{
   --bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e4e2dc;--soft:#f3ece6;
-  --accent:#7a4b2a;--warn:#b4501a;
+  --accent:#7a4b2a;--accent-ink:#fff;--warn:#b4501a;
   --font:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
   --num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#161514;--card:#201f1d;--ink:#f1efea;--muted:#a09d96;--line:#33312e;--soft:#2c2620;
-  --accent:#d9a273;--warn:#f0a066;color-scheme:dark}}
+  --accent:#d9a273;--accent-ink:#1d1405;--warn:#f0a066;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#161514;--card:#201f1d;--ink:#f1efea;--muted:#a09d96;--line:#33312e;--soft:#2c2620;
-  --accent:#d9a273;--warn:#f0a066;color-scheme:dark}
+  --accent:#d9a273;--accent-ink:#1d1405;--warn:#f0a066;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14.5px;line-height:1.6}
 main{max-width:960px;margin:0 auto;padding:28px 16px 64px}
 a{color:var(--accent)}
 .back{display:inline-block;margin-bottom:14px;color:var(--muted);text-decoration:none;font-size:.9rem}
 .back:hover{color:var(--accent)}
-h1{font-size:26px;margin:0;letter-spacing:-.02em;text-wrap:balance}
-.lead{color:var(--muted);margin:4px 0 6px;max-width:60ch}
-.disc{display:inline-block;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:18px}
-h2{font-size:17px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
-.tile .l{font-size:12px;color:var(--muted)}
-.tile .v{font-family:var(--num);font-size:22px;font-weight:600;line-height:1.3;font-variant-numeric:tabular-nums;white-space:nowrap}
-.tile .v small{font-family:var(--font);font-size:12px;font-weight:400;color:var(--muted);margin-left:3px}
-.tile .s{font-size:12px;color:var(--muted)}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+h1{font-size:26px;margin:0;letter-spacing:-.02em}
+.meta{font-size:12.5px;color:var(--muted)}
+.lead{color:var(--muted);margin:4px 0 18px;font-size:13.5px}
+h2{font-size:16px;margin:30px 0 12px}
 
-.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.job{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.job .when{font-family:var(--num);font-size:12px;color:var(--accent);font-weight:600}
-.job h3{margin:4px 0 6px;font-size:15.5px}
-.job p{margin:0;color:var(--muted);font-size:13.5px}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.box h3{margin:0 0 8px;font-size:14.5px}
-.box ol,.box ul{margin:0;padding-left:20px;font-size:13.5px}
-.box li{margin:3px 0}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips span{font-size:12.5px;background:var(--soft);border-radius:999px;padding:3px 10px}
+/* 최신 종목 */
+.hero{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:20px 22px}
+.hero .eyebrow{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.02em}
+.hero .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:4px}
+.hero .tk{font-family:var(--num);font-size:40px;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+.hero .nm{font-size:18px;font-weight:700}
+.hero .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font-size:12px;background:var(--soft);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.hero .price{font-family:var(--num);font-size:22px;font-weight:600;margin-top:12px;font-variant-numeric:tabular-nums}
+.hero .price small{font-family:var(--font);font-size:12.5px;font-weight:400;color:var(--muted);margin-left:6px}
+.hero ul{margin:12px 0 0;padding-left:18px;font-size:14px}
+.hero li{margin:3px 0}
+.metrics{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.metrics .pill{font-family:var(--num);font-size:11.5px;background:var(--bg);border:1px solid var(--line)}
+.detail .metrics .pill{background:var(--card)}
 
-.sectors{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:4px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.sec{display:grid;grid-template-columns:74px minmax(0,1fr) 22px;align-items:center;gap:10px;font:inherit;font-size:13px;color:var(--ink);background:none;border:0;padding:4px 6px;border-radius:6px;cursor:pointer;text-align:left;min-height:32px}
-.sec:hover{background:var(--soft)}
-.sec[aria-pressed="true"]{background:var(--soft);font-weight:700}
-.sec .bar{height:12px;border-radius:0 4px 4px 0;background:var(--accent);opacity:.8}
-.sec .n{font-family:var(--num);text-align:right;color:var(--muted)}
-.sec .tk{grid-column:2/4;font-family:var(--num);font-size:11.5px;color:var(--muted);margin-top:-4px}
-.hint{font-size:12px;color:var(--muted);margin:8px 2px 0}
+/* 필터 */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{font:inherit;font-size:12.5px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 11px;min-height:32px;cursor:pointer;white-space:nowrap}
+.chip .c{color:var(--muted);margin-left:4px;font-family:var(--num);font-size:11.5px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed="true"] .c{color:inherit;opacity:.8}
+.search{display:flex;gap:8px;margin-bottom:12px}
+.search input{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-height:36px;flex:1;min-width:0}
+.search .count{align-self:center;font-size:12.5px;color:var(--muted);white-space:nowrap}
 
-.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
-.tools input{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-height:36px;flex:1 1 220px;min-width:0}
-.tools button{font:inherit;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;min-height:34px;cursor:pointer}
-.tools .count{font-size:12.5px;color:var(--muted)}
-input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* 티커 카드 그리드 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tcard{font:inherit;color:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;min-width:0;transition:border-color .15s,transform .15s}
+.tcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tcard[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.tcard .r1{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.tcard .tk{font-family:var(--num);font-size:20px;font-weight:700;letter-spacing:-.01em}
+.tcard .no{font-family:var(--num);font-size:11px;color:var(--muted)}
+.tcard .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard .r3{display:flex;justify-content:space-between;gap:6px;margin-top:6px;font-size:11.5px;color:var(--muted)}
+.tcard .sc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard .dt{font-family:var(--num);white-space:nowrap}
+.flagdot{color:var(--warn)}
 
-.tw{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-table{border-collapse:collapse;width:100%;font-size:13px}
-th{position:sticky;top:0;background:var(--card);text-align:left;font-weight:600;font-size:12px;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-tr:last-child td{border-bottom:0}
-td.num{font-family:var(--num);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
-td.no{font-family:var(--num);color:var(--muted);text-align:right}
-.tkr{font-family:var(--num);font-weight:700}
-.nm{display:block;font-size:12px;color:var(--muted);white-space:nowrap}
-.sct{font-size:12px;background:var(--soft);border-radius:999px;padding:1px 8px;white-space:nowrap}
-.cd{display:block;font-family:var(--font);font-size:11.5px;color:var(--muted)}
-.flag{color:var(--warn)}
-.pt{color:var(--ink);font-size:13px;line-height:1.5}
-.date{font-family:var(--num);font-size:12px;white-space:nowrap}
-.empty{padding:28px;text-align:center;color:var(--muted)}
+/* 펼친 상세 */
+.detail{grid-column:1/-1;background:var(--soft);border-radius:12px;padding:14px 16px;font-size:13.5px}
+.detail .dh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.detail .dh b{font-family:var(--num);font-size:16px}
+.detail .px{font-family:var(--num);font-variant-numeric:tabular-nums}
+.detail .cd{font-size:12px;color:var(--muted)}
+.detail ul{margin:8px 0 0;padding-left:18px}
+.detail li{margin:2px 0}
+.detail .warn{margin-top:6px;font-size:12px;color:var(--warn)}
+.empty{grid-column:1/-1;padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
 
-@media (max-width:680px){
-  thead{display:none}
-  table,tbody,tr,td{display:block;width:100%}
-  tr{padding:12px 14px;border-bottom:1px solid var(--line)}
-  tr:last-child{border-bottom:0}
-  td{border:0;padding:0;text-align:left!important}
-  td.no{display:none}
-  .row1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-  td.date{margin-bottom:2px;color:var(--muted)}
-  td.sc{margin:4px 0}
-  td.num{margin:2px 0 6px}
-  td.num .cd{display:inline;margin-left:6px}
-}
-@media (min-width:681px){ .row1{display:contents} }
+/* 축약 섹션 */
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:10px}
+summary{cursor:pointer;padding:12px 16px;font-size:13.5px;list-style:none;display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--muted);transition:transform .15s;display:inline-block}
+details[open] summary::before{transform:rotate(90deg)}
+summary b{white-space:nowrap}
+summary span{color:var(--muted)}
+.dbody{padding:0 16px 14px 32px;font-size:13.5px;color:var(--ink)}
+.dbody ul{margin:0;padding-left:18px}
+.dbody li{margin:3px 0}
+.dbody .muted{color:var(--muted)}
+input:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.notes{margin:0;padding-left:20px;color:var(--muted);font-size:13px}
-.notes li{margin:4px 0}
-footer{margin-top:48px;color:var(--muted);font-size:.85rem}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 footer p{margin:0 0 6px}
 footer .notice{font-size:.78rem;line-height:1.6}
+@media (max-width:480px){ .hero{padding:16px} .hero .tk{font-size:34px} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 </style>
 </head>
 <body>
 <main>
   <a class="back" href="../">← 주식으로</a>
-  <h1>🗽 오늘의 미국주식</h1>
-  <p class="lead">평일 아침마다 미국 대형주 1종목을 골라 한 장짜리 소개 카드로 정리하고, 금요일엔 한 주를, 월말엔 한 달을 돌아보는 자동화 기록입니다.</p>
-  <span class="disc">정보 제공용 · 투자 권유 아님</span>
-
-  <div class="kpis" id="kpis"></div>
-
-  <h2>어떻게 돌아가나요</h2>
-  <div class="jobs">
-    <div class="job">
-      <div class="when">평일 07:45 KST</div>
-      <h3>① 소개 카드</h3>
-      <p>지금까지 다루지 않은 종목 1개를 골라 수치를 웹에서 확인하고, 다크 테마 카드 한 장으로 만들어 보냅니다. 소개한 종목은 기록에 한 줄씩 쌓입니다.</p>
-    </div>
-    <div class="job">
-      <div class="when">금요일 08:10 KST</div>
-      <h3>② 주간 요약</h3>
-      <p>그 주에 소개한 종목들의 최근 종가를 다시 확인해 소개일 대비 등락률을 표로 보여주고, 주간 베스트·워스트와 이유를 한 줄씩 붙입니다.</p>
-    </div>
-    <div class="job">
-      <div class="when">매월 마지막 NYSE 거래일 08:20 KST</div>
-      <h3>③ 월간 요약</h3>
-      <p>섹터 분포, 수익률 순위, 종목별로 여전히 유효한 포인트와 바뀐 포인트, 누적 성과 한 줄(동일가중 평균, 필요하면 S&amp;P500 대비)을 정리합니다.</p>
-    </div>
+  <div class="top">
+    <h1>🗽 오늘의 미국주식</h1>
+    <span class="meta" id="meta"></span>
   </div>
+  <p class="lead">평일 아침마다 미국 대형주 1종목을 소개합니다. 정보 제공용이며 투자 권유가 아닙니다.</p>
 
-  <div class="cols">
-    <div class="box">
-      <h3>종목은 이렇게 고릅니다</h3>
-      <ul>
-        <li>이미 소개한 티커는 다시 고르지 않습니다.</li>
-        <li>기록상 덜 다룬 섹터를 먼저 채웁니다.</li>
-        <li>대형주 중심으로 고릅니다.</li>
-        <li>수치는 웹에서 확인한 것만 쓰고, 확인하지 못한 값은 n/a로 둡니다.</li>
-        <li>기준 종가는 소개일(KST) 직전에 마감한 미국 거래일 종가입니다.</li>
-      </ul>
-    </div>
-    <div class="box">
-      <h3>카드 한 장에 담는 것</h3>
-      <div class="chips">
-        <span>종목·티커·섹터·시총</span><span>종가·등락률</span><span>1개월·1년·연초 대비</span>
-        <span>52주 범위·고점 대비</span><span>Forward P/E</span><span>순이익률</span><span>ROIC</span>
-        <span>배당수익률·분기배당</span><span>다음 실적일</span><span>주요 기업활동</span>
-        <span>기대 미래가치</span><span>리스크</span><span>출처 각주</span>
-      </div>
-      <p class="hint">한 화면(약 516×900)에 스크롤 없이 들어오게 만들고, 상승은 초록 ▲, 하락은 빨강 ▼로 표시합니다.</p>
-    </div>
-  </div>
+  <section class="hero" id="hero" aria-live="polite"></section>
 
-  <h2>섹터 분포</h2>
-  <div class="sectors" id="sectors"></div>
-  <p class="hint">섹터를 누르면 아래 기록이 그 섹터만 보이게 바뀝니다. 다시 누르면 전체로 돌아갑니다.</p>
-
-  <h2>누적 기록</h2>
-  <div class="tools">
-    <input id="q" type="search" placeholder="티커, 종목명, 키워드 검색 (예: AI, 배당, 자사주)" aria-label="기록 검색">
-    <button id="order" type="button" aria-label="정렬 순서 바꾸기">최신순</button>
+  <h2>지금까지 소개한 종목</h2>
+  <div class="filters" id="filters" role="group" aria-label="섹터 필터"></div>
+  <div class="search">
+    <input id="q" type="search" placeholder="티커, 종목명, 키워드 (예: AI, 배당, 자사주)" aria-label="종목 검색">
     <span class="count" id="count"></span>
   </div>
-  <div class="tw">
-    <table>
-      <thead><tr><th>#</th><th>소개일</th><th>종목</th><th>섹터</th><th style="text-align:right">기준 종가</th><th>핵심 투자포인트</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-  </div>
+  <div class="grid" id="grid"></div>
 
-  <h2>데이터 메모</h2>
-  <ul class="notes">
-    <li>새로 소개된 종목은 평일 아침 08:30(KST) 무렵 기록 파일에서 자동으로 추가됩니다. 마지막 갱신: <span id="upd">-</span></li>
-    <li>표의 가격은 소개 시점의 기준 종가이며 현재가가 아닙니다.</li>
-    <li><span class="flag">●</span> #22 SO, #23 ABBV, #24 GS, #27 UNP는 소개일과 종가 기준일 사이가 벌어져 있어, 소개일 대비 수익률을 계산하면 오차가 생길 수 있습니다.</li>
-    <li><span class="flag">●</span> #28 MCD는 종가가 아니라 장 마감 직전 시세입니다.</li>
-    <li>재무 지표는 종목마다 출처와 기준일이 달라 각 카드 각주에 따로 적었습니다.</li>
-  </ul>
+  <h2>참고</h2>
+  <details>
+    <summary><b>작동 방식</b><span>평일 07:45 소개 카드 · 금 08:10 주간 요약 · 월말 월간 요약</span></summary>
+    <div class="dbody">
+      <ul>
+        <li><b>소개 카드 (평일 07:45 KST)</b> — 아직 다루지 않은 대형주 1종목을, 덜 다룬 섹터부터 고릅니다. 종가·수익률·52주 범위·Forward P/E·순이익률·ROIC·배당·실적일·기업활동·리스크를 카드 한 장에 담습니다.</li>
+        <li><b>주간 요약 (금 08:10 KST)</b> — 그 주에 소개한 종목의 소개일 대비 등락률과 베스트·워스트.</li>
+        <li><b>월간 요약 (마지막 NYSE 거래일 08:20 KST)</b> — 섹터 분포, 수익률 순위, 여전히 유효한 포인트와 바뀐 포인트, 누적 성과 한 줄.</li>
+        <li>수치는 웹에서 확인한 것만 쓰고, 확인하지 못한 값은 n/a로 둡니다. 기준 종가는 소개일(KST) 직전에 마감한 미국 거래일 종가입니다.</li>
+        <li class="muted">이 페이지의 기록은 평일 08:30 무렵 자동으로 추가됩니다.</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary><b>데이터 메모</b><span>가격은 소개 시점 기준 · <span class="flagdot">●</span> 표시는 기준일 주의</span></summary>
+    <div class="dbody">
+      <ul>
+        <li>표시된 가격은 소개 시점의 기준 종가이며 현재가가 아닙니다.</li>
+        <li><span class="flagdot">●</span> 소개일과 종가 기준일 사이가 벌어진 종목(SO, ABBV, GS, UNP)은 소개일 대비 수익률 계산에 오차가 있을 수 있습니다. MCD는 종가가 아니라 장 마감 직전 시세입니다.</li>
+        <li>재무 지표는 종목마다 출처와 기준일이 달라 각 카드 각주에 따로 적었습니다.</li>
+      </ul>
+    </div>
+  </details>
 
   <footer>
     <p>© 2026 Derek's Platform. All rights reserved.</p>
@@ -188,111 +155,145 @@ footer .notice{font-size:.78rem;line-height:1.6}
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var state = { picks: [], sector: null, q: "", newest: true };
+  var state = { picks: [], sector: null, q: "", open: null };
   var SECTOR_ORDER = ["정보기술","통신서비스","경기소비재","필수소비재","헬스케어","금융","산업재","에너지","유틸리티","소재","부동산"];
+  var FLAG_TEXT = { gap: "소개일과 종가 기준일 간격이 큼 — 소개일 대비 수익률 계산 시 오차 가능", unconfirmed: "종가 미확인 (장 마감 직전 시세)" };
 
   function md(iso) { var p = iso.split("-"); return +p[1] + "/" + +p[2]; }
   function usd(v) { return "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-
-  function renderKpis(d) {
-    var p = d.picks, first = p[0], last = p[p.length - 1];
-    var secs = {}; p.forEach(function (x) { secs[x.sector] = 1; });
-    var tiles = [
-      ["소개한 종목", p.length, "종목", "티커 중복 없음"],
-      ["기간", md(first.date) + "~" + md(last.date), "", first.date.slice(0, 4) + "년 · 평일만"],
-      ["다룬 섹터", Object.keys(secs).length, "개", "GICS 11개 섹터 전부"],
-      ["최근 소개", last.ticker, "", last.name + " · " + md(last.date)]
-    ];
-    var box = $("kpis");
-    tiles.forEach(function (t) {
-      var d2 = el("div", "tile");
-      d2.appendChild(el("div", "l", t[0]));
-      var v = el("div", "v", String(t[1]));
-      if (t[2]) v.appendChild(el("small", null, t[2]));
-      d2.appendChild(v);
-      d2.appendChild(el("div", "s", t[3]));
-      box.appendChild(d2);
+  // 쉼표 단위로 나눠 목록으로 (괄호 안 쉼표는 유지)
+  function splitPoint(s) {
+    var out = [], depth = 0, cur = "";
+    for (var i = 0; i < s.length; i++) {
+      var ch = s[i];
+      if (ch === "(") depth++; else if (ch === ")") depth = Math.max(0, depth - 1);
+      if (ch === "," && depth === 0 && s[i + 1] === " ") { if (cur.trim()) out.push(cur.trim()); cur = ""; } else cur += ch;
+    }
+    if (cur.trim()) out.push(cur.trim());
+    return out;
+  }
+  // 밸류에이션 지표(Forward P/E, 순이익률 등)는 따로 떼어 칩으로 보여준다
+  var METRIC = /^(Forward P\/E|순이익률|ROIC|배당수익률|52주 고점 대비)/;
+  function parsePoint(point) {
+    var items = [], metrics = [];
+    splitPoint(point).forEach(function (part) {
+      var keep = [];
+      part.split("·").forEach(function (t) { t = t.trim(); if (!t) return; (METRIC.test(t) ? metrics : keep).push(t); });
+      if (keep.length) items.push(keep.join("·"));
     });
+    return { items: items, metrics: metrics };
+  }
+  function bullets(point) {
+    var p = parsePoint(point), frag = document.createDocumentFragment();
+    var ul = el("ul"); p.items.forEach(function (t) { ul.appendChild(el("li", null, t)); }); frag.appendChild(ul);
+    if (p.metrics.length) {
+      var m = el("div", "metrics");
+      p.metrics.forEach(function (t) { m.appendChild(el("span", "pill", t)); });
+      frag.appendChild(m);
+    }
+    return frag;
   }
 
-  function renderSectors() {
+  function renderHero() {
+    var x = state.picks[state.picks.length - 1], box = $("hero");
+    box.textContent = "";
+    box.appendChild(el("div", "eyebrow", "최신 소개 · #" + x.n + " · " + x.date));
+    var h = el("div", "head");
+    h.appendChild(el("span", "tk", x.ticker));
+    h.appendChild(el("span", "nm", x.name));
+    box.appendChild(h);
+    var tags = el("div", "tags");
+    tags.appendChild(el("span", "pill", x.sector));
+    box.appendChild(tags);
+    var pr = el("div", "price", usd(x.close));
+    var sm = el("small", x.flag ? "flagdot" : null, (x.flag ? "● " : "") + x.closeDate + " 기준");
+    if (x.flag) sm.title = FLAG_TEXT[x.flag];
+    pr.appendChild(sm);
+    box.appendChild(pr);
+    box.appendChild(bullets(x.point));
+  }
+
+  function renderFilters() {
     var map = {};
-    state.picks.forEach(function (x) { (map[x.sector] = map[x.sector] || []).push(x.ticker); });
-    var names = Object.keys(map).sort(function (a, b) {
-      return (map[b].length - map[a].length) || (SECTOR_ORDER.indexOf(a) - SECTOR_ORDER.indexOf(b));
-    });
-    var max = Math.max.apply(null, names.map(function (n) { return map[n].length; }));
-    var box = $("sectors"); box.textContent = "";
-    names.forEach(function (n) {
-      var b = el("button", "sec"); b.type = "button";
-      b.setAttribute("aria-pressed", state.sector === n ? "true" : "false");
-      b.appendChild(el("span", null, n));
-      var track = el("span"); var bar = el("span", "bar"); bar.style.display = "block";
-      bar.style.width = (map[n].length / max * 100) + "%"; track.appendChild(bar); b.appendChild(track);
-      b.appendChild(el("span", "n", String(map[n].length)));
-      b.appendChild(el("span", "tk", map[n].join(" · ")));
-      b.addEventListener("click", function () {
-        state.sector = state.sector === n ? null : n;
-        renderSectors(); renderRows();
-      });
+    state.picks.forEach(function (x) { map[x.sector] = (map[x.sector] || 0) + 1; });
+    var names = Object.keys(map).sort(function (a, b) { return (map[b] - map[a]) || (SECTOR_ORDER.indexOf(a) - SECTOR_ORDER.indexOf(b)); });
+    var box = $("filters"); box.textContent = "";
+    [[null, "전체", state.picks.length]].concat(names.map(function (n) { return [n, n, map[n]]; })).forEach(function (f) {
+      var b = el("button", "chip"); b.type = "button";
+      b.setAttribute("aria-pressed", state.sector === f[0] ? "true" : "false");
+      b.appendChild(document.createTextNode(f[1]));
+      b.appendChild(el("span", "c", String(f[2])));
+      b.addEventListener("click", function () { state.sector = f[0]; state.open = null; renderFilters(); renderGrid(); });
       box.appendChild(b);
     });
   }
 
-  function renderRows() {
+  function renderGrid() {
     var q = state.q.trim().toLowerCase();
     var rows = state.picks.filter(function (x) {
       if (state.sector && x.sector !== state.sector) return false;
       if (!q) return true;
       return (x.ticker + " " + x.name + " " + x.sector + " " + x.point).toLowerCase().indexOf(q) >= 0;
-    });
-    if (state.newest) rows = rows.slice().reverse();
-    var tb = $("rows"); tb.textContent = "";
-    $("count").textContent = rows.length + " / " + state.picks.length + "종목" + (state.sector ? " · " + state.sector : "");
-    if (!rows.length) {
-      var tr0 = el("tr"); var td0 = el("td", "empty", "조건에 맞는 종목이 없어요."); td0.colSpan = 6; tr0.appendChild(td0); tb.appendChild(tr0);
-      return;
-    }
+    }).slice().reverse();
+    $("count").textContent = rows.length + " / " + state.picks.length;
+    var g = $("grid"); g.textContent = "";
+    if (!rows.length) { g.appendChild(el("div", "empty", "조건에 맞는 종목이 없어요.")); return; }
+
+    var cards = [];
     rows.forEach(function (x) {
-      var tr = el("tr");
-      tr.appendChild(el("td", "no", String(x.n)));
-      tr.appendChild(el("td", "date", x.date));
-      var tdN = el("td");
-      var r1 = el("div", "row1");
-      var name = el("span");
-      name.appendChild(el("span", "tkr", x.ticker));
-      name.appendChild(el("span", "nm", x.name));
-      r1.appendChild(name);
-      tdN.appendChild(r1);
-      tr.appendChild(tdN);
-      var tdS = el("td", "sc"); tdS.appendChild(el("span", "sct", x.sector)); tr.appendChild(tdS);
-      var tdP = el("td", "num", usd(x.close));
-      var cd = el("span", "cd" + (x.flag ? " flag" : ""), (x.flag ? "● " : "") + x.closeDate);
-      if (x.flag === "gap") cd.title = "소개일과 종가 기준일 간격이 큼";
-      if (x.flag === "unconfirmed") cd.title = "종가 미확인 (장 마감 직전 시세)";
-      tdP.appendChild(cd); tr.appendChild(tdP);
-      tr.appendChild(el("td", "pt", x.point));
-      tb.appendChild(tr);
+      var b = el("button", "tcard"); b.type = "button";
+      b.setAttribute("aria-expanded", state.open === x.n ? "true" : "false");
+      b.setAttribute("aria-label", x.ticker + " " + x.name + " 자세히 보기");
+      var r1 = el("div", "r1");
+      r1.appendChild(el("span", "tk", x.ticker));
+      r1.appendChild(el("span", "no", "#" + x.n));
+      b.appendChild(r1);
+      b.appendChild(el("div", "nm", x.name));
+      var r3 = el("div", "r3");
+      r3.appendChild(el("span", "sc", x.sector));
+      var dt = el("span", "dt", md(x.date));
+      if (x.flag) { var d = el("span", "flagdot", " ●"); d.title = FLAG_TEXT[x.flag]; dt.appendChild(d); }
+      r3.appendChild(dt);
+      b.appendChild(r3);
+      b.addEventListener("click", function () { state.open = state.open === x.n ? null : x.n; renderGrid(); });
+      g.appendChild(b);
+      cards.push({ x: x, b: b });
     });
+
+    // 펼친 카드의 상세를 그 카드가 있는 줄 바로 아래에 끼워 넣기
+    if (state.open != null) {
+      var hit = cards.filter(function (c) { return c.x.n === state.open; })[0];
+      if (hit) {
+        var top = hit.b.offsetTop, after = hit.b;
+        cards.forEach(function (c) { if (c.b.offsetTop === top) after = c.b; });
+        var x = hit.x, dv = el("div", "detail");
+        var dh = el("div", "dh");
+        dh.appendChild(el("b", null, x.ticker));
+        dh.appendChild(el("span", null, x.name + " · " + x.sector));
+        dh.appendChild(el("span", "px", usd(x.close)));
+        dh.appendChild(el("span", "cd", x.closeDate + " 기준 · 소개 " + x.date));
+        dv.appendChild(dh);
+        dv.appendChild(bullets(x.point));
+        if (x.flag) dv.appendChild(el("div", "warn", "● " + FLAG_TEXT[x.flag]));
+        after.insertAdjacentElement("afterend", dv);
+      }
+    }
   }
 
-  $("q").addEventListener("input", function (e) { state.q = e.target.value; renderRows(); });
-  $("order").addEventListener("click", function () {
-    state.newest = !state.newest;
-    this.textContent = state.newest ? "최신순" : "오래된순";
-    renderRows();
-  });
+  $("q").addEventListener("input", function (e) { state.q = e.target.value; state.open = null; renderGrid(); });
+  var rt; window.addEventListener("resize", function () { if (state.open == null) return; clearTimeout(rt); rt = setTimeout(renderGrid, 150); });
 
   fetch("picks.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) {
       state.picks = d.picks.slice().sort(function (a, b) { return a.n - b.n; });
-      renderKpis(d); renderSectors(); renderRows();
-      if (d.updated) $("upd").textContent = d.updated;
+      var first = state.picks[0], last = state.picks[state.picks.length - 1];
+      $("meta").textContent = state.picks.length + "종목 · " + md(first.date) + "~" + md(last.date) + (d.updated ? " · 갱신 " + d.updated : "");
+      renderHero(); renderFilters(); renderGrid();
     })
     .catch(function () {
-      $("rows").innerHTML = '<tr><td class="empty" colspan="6">기록을 불러오지 못했어요. 잠시 후 새로고침해 주세요.</td></tr>';
+      $("hero").textContent = "기록을 불러오지 못했어요. 잠시 후 새로고침해 주세요.";
     });
 })();
 </script>
