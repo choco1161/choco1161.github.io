@@ -24,9 +24,9 @@ jobs:
       # 공공데이터포털 일반 인증키 (Settings → Secrets and variables → Actions)
       DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
