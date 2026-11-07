@@ -1,0 +1,59 @@
+name: 부동산 데이터 갱신
+
+on:
+  schedule:
+    - cron: "30 21 * * *"   # 매일 06:30 KST (기본 브랜치에서만 실행)
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/fetch_realestate.py"
+      - ".github/workflows/realestate.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: realestate-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      # 공공데이터포털 일반 인증키 (Settings → Secrets and variables → Actions)
+      DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 키 확인 · 아파트 매매 실거래가
+        continue-on-error: true
+        run: python scripts/fetch_realestate.py check apt
+
+      - name: 키 확인 · 분양권전매 실거래가
+        continue-on-error: true
+        run: python scripts/fetch_realestate.py check silv
+
+      - name: 키 확인 · 청약홈 분양정보
+        continue-on-error: true
+        run: python scripts/fetch_realestate.py check apply
+
+      - name: 수집 및 광역권 지수 계산
+        run: python scripts/fetch_realestate.py fetch
+
+      - name: 데이터 커밋
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/realestate
+          if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+          git commit -m "부동산 데이터 갱신 $(TZ=Asia/Seoul date +'%Y-%m-%d %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && break
+            sleep 5
+          done
