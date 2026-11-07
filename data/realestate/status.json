@@ -1,0 +1,1 @@
+{"checked":"2026-11-07 16:20 KST","apis":{"apt":{"name":"국토교통부 아파트 매매 실거래가","ok":false,"msg":"실패: GitHub Secret DATA_GO_KR_KEY가 비어 있습니다"},"silv":{"name":"국토교통부 아파트 분양권전매 실거래가","ok":false,"msg":"실패: GitHub Secret DATA_GO_KR_KEY가 비어 있습니다"},"apply":{"name":"한국부동산원 청약홈 분양정보","ok":false,"msg":"실패: GitHub Secret DATA_GO_KR_KEY가 비어 있습니다"}}}
