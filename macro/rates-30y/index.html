@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>한미 금리 30년 · Derek's Platform</title>
+<meta name="description" content="1997~2026 한국·미국 금리, 원/달러 환율, 달러인덱스, 다우·나스닥·코스피, IMF 인플레이션 전망을 한 화면에서">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="page.css">
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 거시경제</a>
+  <h1>한미 금리 30년</h1>
+  <p class="sub">1997 외환위기부터 2026년까지 — 금리, 환율, 달러, 주가, 물가를 연도별로 한 화면에서</p>
+
+  <!-- 연도 선택: 모든 차트와 이슈 카드가 같이 움직임 -->
+  <section class="panel yearbar" aria-label="연도 선택">
+    <label for="year">연도</label>
+    <output id="yearOut"></output>
+    <input type="range" id="year" min="1997" max="2026" step="1" value="2008">
+  </section>
+  <section class="panel detail-panel"><div id="detail" class="detail"></div></section>
+
+  <section class="block">
+    <h2>① 기준금리 — 미국 vs 한국</h2>
+    <p class="note">미국: 연방기금 실효금리, 한국: 콜금리(기준금리와 거의 같음). 매년 12월 값, 2026은 최신값.
+      <label class="chk"><input type="checkbox" id="show10y"> 10년 국채금리도 보기 (점선)</label></p>
+    <div class="chart tall"><canvas id="cRates"></canvas></div>
+  </section>
+
+  <section class="block">
+    <h2>② 한미 금리차와 원/달러 환율</h2>
+    <p class="note">금리차 = 한국 − 미국. 0 아래(미국 금리가 더 높음)일수록 달러로 돈이 빠져나갈 압력 → 원화 약세 경향.</p>
+    <div class="grid2">
+      <div><h3>한미 정책금리 차 (%p) <small class="note">· 1997년 +15.8%p는 축 밖으로 잘림</small></h3><div class="chart"><canvas id="cSpread"></canvas></div></div>
+      <div><h3>원/달러 환율 (원, 연말)</h3><div class="chart"><canvas id="cKrw"></canvas></div></div>
+    </div>
+    <div class="grid2">
+      <div><h3>달러인덱스 DXY (연말)</h3><div class="chart"><canvas id="cDxy"></canvas></div></div>
+      <div class="insight" id="fxInsight"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>③ 주가지수 — 다우 · 나스닥 · 코스피 · 코스닥</h2>
+    <p class="note">지수 크기가 달라서 기준연도 = 100으로 맞추고 로그 눈금으로 표시.
+      <label class="chk">기준연도
+        <select id="baseYear"></select></label>
+      <label class="chk"><input type="checkbox" id="rawStocks"> 실제 지수값 보기</label></p>
+    <div class="chart tall"><canvas id="cStocks"></canvas></div>
+  </section>
+
+  <section class="block">
+    <h2>④ 연도별 메인 이슈</h2>
+    <p class="note">카드를 누르면 위 차트에서 그 해가 강조됩니다.
+      <span class="tags"><i class="t crisis">위기</i><i class="t tight">긴축</i><i class="t ease">완화</i><i class="t mixed">혼조</i></span></p>
+    <div id="issues" class="issues"></div>
+  </section>
+
+  <section class="block">
+    <h2>⑤ 상관관계 — 무엇이 같이 움직였나</h2>
+    <p class="note">1999~2026 연간 변화 기준 상관계수 (1997~98 외환위기 이상치 제외) (+1 같이 움직임, −1 반대로 움직임).
+      금리는 %p 변화, 환율·지수는 % 변화.
+      <label class="chk"><input type="checkbox" id="corrLevel"> 변화 대신 수준(level)으로 보기</label></p>
+    <div class="corr-wrap"><table id="corr" class="corr"></table></div>
+    <div id="corrInsight" class="insight"></div>
+  </section>
+
+  <section class="block">
+    <h2>⑥ IMF 인플레이션 — 1980년부터 2031년 전망까지</h2>
+    <p class="note">IMF 세계경제전망(WEO) 소비자물가 상승률(연평균 %). 회색 영역·점선은 IMF 전망치(2026~2031). 20%를 넘는 구간(1980년대 한국, 1990년대 세계)은 축 밖으로 잘림.</p>
+    <div class="toggles" id="cpiToggles"></div>
+    <div class="chart tall"><canvas id="cCpi"></canvas></div>
+  </section>
+
+  <section class="block">
+    <details>
+      <summary>데이터 표 보기</summary>
+      <div class="table-wrap"><table id="dataTable" class="data"></table></div>
+    </details>
+    <p class="note src">출처: FRED(세인트루이스 연준 — 연방기금금리, 미 10년물, 원/달러, OECD 한국 콜금리·10년물),
+      Yahoo Finance(달러인덱스, 다우, 나스닥, 코스피, 코스닥 월말 종가), IMF World Economic Outlook DataMapper(물가).
+      연도별 값은 그 해 마지막 관측치. 2026년은 <span id="asof"></span> 기준. 이슈 요약은 직접 정리한 것으로 투자 조언이 아닙니다.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="data.js"></script>
+<script src="issues.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
