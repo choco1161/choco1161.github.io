@@ -266,7 +266,30 @@ def ah_detail(no):
             "builder": builder, "types": list(types.values())}
 
 
+# 2026.7 행정구역 개편으로 나뉜 구: 공고문은 옛 이름을 쓰므로 동 이름으로 새 코드를 고른다
+#   인천 서구 → 서해구(28275) / 검단구(28290),  인천 중구 → 제물포구(28125) / 영종구(28155),
+#   화성시 동탄(동탄2 택지 등) → 화성동탄(41597)
+SPLIT_RULES = [
+    ("인천광역시 서구", r"검단|마전|당하|원당|불로|대곡|오류|왕길|금곡|아라", "28290", "28275"),
+    ("인천광역시 중구", r"영종|운서|운남|운북|중산|하늘도시|용유|을왕|덕교|무의", "28155", "28125"),
+    ("화성", r"동탄", "41597", None),
+]
+
+
+def _split_rule(addr, regions):
+    by = {r["code"]: r for r in regions}
+    for head, pat, hit, miss in SPLIT_RULES:
+        if head in addr:
+            code = hit if re.search(pat, addr) else miss
+            if code in by:
+                return by[code]
+    return None
+
+
 def match_region(addr, regions):
+    r = _split_rule(addr or "", regions)
+    if r:
+        return r
     # '김포 풍무역세권 B4블록 (경기도 김포시 사우동 …)'처럼 괄호 안에 실제 주소가 있으면 그것도 시도
     for inner in re.findall(r"\(([^()]+)\)", addr or ""):
         if inner.split() and inner.split()[0] in ADDR_SIDO:
