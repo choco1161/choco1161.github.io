@@ -278,12 +278,15 @@ def match_region(addr, regions):
         if s1.endswith(suf) and len(s1) > len(suf):
             s1 = s1[: -len(suf)]
             break
-    cands = ([s1 + t2[:-1]] if t2 else []) + [t1, s1, t1[:-1] if t1.endswith("구") else t1]
+    cands = ([s1 + t2[:-1], t2[:-1]] if t2 else []) + [t1, s1, t1[:-1] if t1.endswith("구") else t1]
+    if t1.endswith("군"):
+        cands.append(t1[:-1] + "구")   # 코드표에 '울주구'처럼 적힌 경우
     for c in cands:
         for r in regions:
             if r["name"] == c and (not sidos or r["sido"] in sidos):
                 return r
-    return None
+    one = [r for r in regions if r["sido"] in sidos]
+    return one[0] if len(one) == 1 else None   # 세종처럼 시도 = 시군구 하나
 
 
 def fetch_apply(regions, status):
@@ -423,24 +426,28 @@ def rtms_month(api, lawd, ym):
     return [len(ppm), round(statistics.median(ppm), 1) if ppm else None, cancel]
 
 
+def seed_apt(snap):
+    """10/20에 같은 API로 받아둔 시군구 월별 값(확정된 달만)으로 빈 달을 채운다. 키가 없어도 지수가 보이게."""
+    partial = set(snap.get("partial", []))
+    for i, ym in enumerate(snap["m"]):
+        path = os.path.join(OUT, "apt", f"{ym}.json")
+        if ym in partial or read_json(path):
+            continue
+        d = {}
+        for r in snap["r"]:
+            n, _, p = r[3].split(";")[i].partition(",")
+            d[r[0]] = [int(n) if n else 0, float(p) if p else None, None]
+        write_json(path, {"m": ym, "src": "snapshot 2026.10.20", "d": d})
+
+
 def fetch_rtms(api, regions, snap, status):
     months = months_between(BASE_MONTH, NOW.strftime("%Y%m"))
     recent = set(months[-REFRESH_MONTHS:])
-    seed = {m: i for i, m in enumerate(snap["m"])}
-    partial = set(snap.get("partial", []))
     todo = []
     for ym in months:
         path = os.path.join(OUT, api, f"{ym}.json")
         if read_json(path) and ym not in recent:
-            continue
-        if api == "apt" and ym in seed and ym not in recent and ym not in partial and not read_json(path):
-            i = seed[ym]   # 10/20에 같은 API로 받아둔 값으로 채움 (호출 절약)
-            d = {}
-            for r in snap["r"]:
-                n, _, p = r[3].split(";")[i].partition(",")
-                d[r[0]] = [int(n) if n else 0, float(p) if p else None, None]
-            write_json(path, {"m": ym, "src": "snapshot 2026.10.20", "d": d})
-            continue
+            continue   # 이미 받은(또는 스냅샷으로 채운) 확정 달은 다시 부르지 않음
         todo.append(ym)
     calls = 0
     for ym in todo:
@@ -557,6 +564,7 @@ def main():
                 status[src].update(ok=False, msg=f"수집 중 실패: {e}")
             except Exception as e:  # 화면 구조 변경 등 예상 못한 오류도 다른 소스는 계속
                 status[src].update(ok=False, msg=f"수집 중 오류: {type(e).__name__}: {e}")
+    seed_apt(snap)
     build_index(regions)
     write_json(os.path.join(OUT, "status.json"), {"checked": NOW.strftime("%Y-%m-%d %H:%M KST"), "apis": status})
     for v in status.values():
