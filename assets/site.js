@@ -35,7 +35,7 @@ function renderAreas(el) {
 // 영역 페이지: 제목과 작품 목록 그리기
 function renderArea(areaId) {
   const a = AREAS.find(x => x.id === areaId);
-  document.title = `${a.name} · choco1161`;
+  document.title = `${a.name} · Derek's Platform`;
   document.getElementById("title").textContent = `${a.icon} ${a.name}`;
   document.getElementById("desc").textContent = a.desc;
 
