@@ -18,6 +18,10 @@ h1 { font-size: 2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
 .back { display: inline-block; margin-bottom: 24px; color: var(--muted); text-decoration: none; font-size: .9rem; }
 .back:hover { color: var(--accent); }
 
+/* 메인: 섹션 */
+.section { margin-bottom: 40px; }
+.section h2 { font-size: 1.15rem; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+
 /* 메인: 영역 카드 */
 .areas { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .area {
