@@ -8,7 +8,7 @@
   apt   국토교통부_아파트 매매 실거래가 자료        RTMSDataSvcAptTrade
   silv  국토교통부_아파트 분양권전매 실거래가 자료  RTMSDataSvcSilvTrade
   apply 한국부동산원_청약홈 분양정보 조회 서비스    ApplyhomeInfoDetailSvc
-키 값은 어떤 파일·로그에도 남기지 않는다.
+키 값은 어떤 파일·로그에도 남기지 않는다. 키 오류는 status.json과 페이지 상단에 표시된다.
 """
 import json
 import os
