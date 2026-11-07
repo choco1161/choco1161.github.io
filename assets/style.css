@@ -47,3 +47,5 @@ h1 { font-size: 2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
   border: 1px dashed var(--line); border-radius: 12px;
 }
 footer { margin-top: 48px; color: var(--muted); font-size: .85rem; }
+footer p { margin: 0 0 6px; }
+footer .notice { font-size: .78rem; line-height: 1.6; }
