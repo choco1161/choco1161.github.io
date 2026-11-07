@@ -1,0 +1,49 @@
+:root {
+  --bg: #f7f6f3; --card: #ffffff; --text: #1d1d1f; --muted: #6b6b70;
+  --line: #e4e2dc; --accent: #7a4b2a;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #161514; --card: #201f1d; --text: #f1efea; --muted: #a09d96;
+          --line: #33312e; --accent: #d9a273; }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+  line-height: 1.6;
+}
+main { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+h1 { font-size: 2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+.sub { color: var(--muted); margin: 0 0 40px; }
+.back { display: inline-block; margin-bottom: 24px; color: var(--muted); text-decoration: none; font-size: .9rem; }
+.back:hover { color: var(--accent); }
+
+/* 메인: 영역 카드 */
+.areas { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.area {
+  display: block; padding: 24px 22px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 14px;
+  color: inherit; text-decoration: none; transition: border-color .15s, transform .15s;
+}
+.area:hover { border-color: var(--accent); transform: translateY(-2px); }
+.area .icon { font-size: 1.8rem; line-height: 1; }
+.area .name { font-weight: 700; font-size: 1.15rem; margin-top: 12px; }
+.area .desc { color: var(--muted); font-size: .9rem; }
+.area .count { color: var(--accent); font-size: .85rem; margin-top: 10px; }
+
+/* 영역 페이지: 작품 목록 */
+.list { display: grid; gap: 12px; padding: 0; margin: 0; list-style: none; }
+.list a {
+  display: block; padding: 18px 20px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 12px;
+  color: inherit; text-decoration: none; transition: border-color .15s, transform .15s;
+}
+.list a:hover { border-color: var(--accent); transform: translateY(-1px); }
+.list .title { font-weight: 600; font-size: 1.05rem; }
+.list .desc { color: var(--muted); font-size: .95rem; }
+.list .date { color: var(--muted); font-size: .8rem; float: right; }
+.empty {
+  padding: 32px 20px; text-align: center; color: var(--muted);
+  border: 1px dashed var(--line); border-radius: 12px;
+}
+footer { margin-top: 48px; color: var(--muted); font-size: .85rem; }
