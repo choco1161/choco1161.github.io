@@ -267,6 +267,16 @@ def ah_detail(no):
 
 
 def match_region(addr, regions):
+    # '김포 풍무역세권 B4블록 (경기도 김포시 사우동 …)'처럼 괄호 안에 실제 주소가 있으면 그것도 시도
+    for inner in re.findall(r"\(([^()]+)\)", addr or ""):
+        if inner.split() and inner.split()[0] in ADDR_SIDO:
+            r = _match_region(inner, regions)
+            if r:
+                return r
+    return _match_region(addr, regions)
+
+
+def _match_region(addr, regions):
     w = (addr or "").split()
     if len(w) < 2:
         return None
