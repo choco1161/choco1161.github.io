@@ -13,7 +13,8 @@ const AREAS = [
 // path는 영역 폴더 기준. 예) area: "macro", path: "rates/"
 // ───────────────────────────────────────────────
 const PROJECTS = [
-  // { area: "macro", path: "rates/", title: "기준금리 정리", desc: "주요국 기준금리 흐름", date: "2026-11-07" },
+  { area: "macro", icon: "📉", path: "rates-30y/", title: "한미 금리 30년",
+    desc: "1997~2026 한미 금리 · 원/달러 · 달러인덱스 · 다우/나스닥/코스피 · IMF 물가 전망 · 연도별 이슈와 상관관계", date: "2026-11-07" },
 ];
 
 // 메인 페이지: 영역 카드 그리기
