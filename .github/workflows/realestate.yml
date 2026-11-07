@@ -30,6 +30,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: 연결 확인 · KB 데이터허브 (키 불필요)
+        continue-on-error: true
+        run: python scripts/fetch_realestate.py check kb
+
+      - name: 연결 확인 · 청약홈 (키 불필요)
+        continue-on-error: true
+        run: python scripts/fetch_realestate.py check apply
+
       - name: 키 확인 · 아파트 매매 실거래가
         continue-on-error: true
         run: python scripts/fetch_realestate.py check apt
@@ -37,10 +45,6 @@ jobs:
       - name: 키 확인 · 분양권전매 실거래가
         continue-on-error: true
         run: python scripts/fetch_realestate.py check silv
-
-      - name: 키 확인 · 청약홈 분양정보
-        continue-on-error: true
-        run: python scripts/fetch_realestate.py check apply
 
       - name: 수집 및 광역권 지수 계산
         run: python scripts/fetch_realestate.py fetch
