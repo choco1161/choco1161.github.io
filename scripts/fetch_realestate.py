@@ -27,7 +27,7 @@ OUT = os.path.join(ROOT, "data", "realestate")
 SEED = os.path.join(ROOT, "data", "seed", "apt_snapshot.json")
 KST = timezone(timedelta(hours=9))
 NOW = datetime.now(KST)
-BASE_MONTH = "202509"      # 지수 기준월 = 100
+BASE_MONTH = "202509"      # 지수 기준월 = 100 (페이지 표시도 이 값을 따름)
 REFRESH_MONTHS = 3         # 신고기한(30일) 때문에 최근 N개월은 매일 다시 받음 (해제 신고 반영)
 
 RTMS = {
