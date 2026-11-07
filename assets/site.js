@@ -13,6 +13,8 @@ const AREAS = [
 // path는 영역 폴더 기준. 예) area: "macro", path: "rates/"
 // ───────────────────────────────────────────────
 const PROJECTS = [
+  { area: "realestate", icon: "📊", path: "region-index/", title: "광역권 지수 · 분양",
+    desc: "실거래가·분양권전매·청약홈 API 매일 갱신 · 광역권 매매지수와 분양가 비교", date: "2026-11-07" },
   // { area: "macro", path: "rates/", title: "기준금리 정리", desc: "주요국 기준금리 흐름", date: "2026-11-07" },
 ];
 

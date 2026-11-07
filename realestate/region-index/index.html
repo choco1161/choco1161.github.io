@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>광역권 지수 · 분양 · Derek's Platform</title>
+<meta name="description" content="공공데이터포털 실거래가·분양권전매·청약홈 API로 매일 갱신하는 광역권 아파트 지수와 분양 정보">
+<style>
+/* 광역권을 고르면 지수 차트, 시군구 표, 분양 목록, KB 매수우위가 함께 바뀌는 연결형 화면.
+   한국 시장 관례에 따라 상승은 붉은색, 하락은 푸른색. */
+:root{
+  --bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e4e2dc;--grid:#efede8;
+  --accent:#7a4b2a;--soft:#f3ece6;--up:#c23b25;--down:#2563b0;--ok:#2f7d4f;--bad:#b4501a;
+  --dim:#c9c6bf;
+  --font:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161514;--card:#201f1d;--ink:#f1efea;--muted:#a09d96;--line:#33312e;--grid:#2a2826;
+  --accent:#d9a273;--soft:#2c2620;--up:#ff7b63;--down:#74a9ff;--ok:#6fcf97;--bad:#f0a066;--dim:#4a4743;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161514;--card:#201f1d;--ink:#f1efea;--muted:#a09d96;--line:#33312e;--grid:#2a2826;
+  --accent:#d9a273;--soft:#2c2620;--up:#ff7b63;--down:#74a9ff;--ok:#6fcf97;--bad:#f0a066;--dim:#4a4743;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.55}
+main{max-width:1120px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent)}
+.back{display:inline-block;margin-bottom:14px;color:var(--muted);text-decoration:none;font-size:.9rem}
+h1{font-size:24px;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 12px;font-size:13px}
+h2{font-size:15px;margin:0}
+.status{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-bottom:14px}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer;min-height:32px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 8px;min-height:32px}
+.chip:focus-visible,select:focus-visible,tr:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.spacer{flex:1}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 14px;min-width:0}
+.tile .l{font-size:12px;color:var(--muted)}
+.tile .v{font-family:var(--num);font-size:22px;font-weight:600;line-height:1.3;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .v small{font-size:12px;font-weight:400;color:var(--muted);margin-left:3px}
+.tile .s{font-size:11.5px;color:var(--muted)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;min-width:0}
+.phead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.phead .note{margin:0}
+.grid2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.chart{position:relative}
+.chart svg{display:block;width:100%;overflow:visible;touch-action:pan-y}
+.ax{fill:var(--muted);font:11px var(--num)}
+.lb{font:600 11.5px var(--font)}
+.tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.14);white-space:nowrap;z-index:3;display:none}
+.tip .r{display:flex;justify-content:space-between;gap:14px;font-variant-numeric:tabular-nums}
+.tip .sw{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.tw{overflow:auto;max-height:460px;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{position:sticky;top:0;background:var(--card);color:var(--muted);font-weight:500;font-size:12px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+thead th[aria-sort=ascending]::after{content:" ↑"}thead th[aria-sort=descending]::after{content:" ↓"}
+thead th .u{display:block;font-size:10.5px;font-weight:400}
+tbody tr{border-bottom:1px solid var(--grid)}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover{background:var(--grid)}
+tbody tr[aria-selected=true]{background:var(--soft);box-shadow:inset 3px 0 0 var(--accent)}
+td.thin{opacity:.5}
+.up{color:var(--up)}.down{color:var(--down)}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:6px;background:var(--grid);color:var(--muted)}
+.tag.live{background:color-mix(in srgb,var(--up) 14%,transparent);color:var(--up)}
+.tag.soon{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+td.nm{text-align:left;white-space:normal;min-width:170px}
+td.nm b{display:block;font-weight:600}
+td.nm span{color:var(--muted);font-size:12px}
+.note{color:var(--muted);font-size:12px;margin:8px 0 0}
+.empty{padding:22px 0;text-align:center;color:var(--muted)}
+.pill{font-size:11px;border:1px dashed var(--bad);color:var(--bad);border-radius:99px;padding:1px 7px;margin-left:6px;font-weight:400}
+footer{color:var(--muted);font-size:12px;line-height:1.7;margin-top:18px}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← 대한민국 부동산</a>
+  <h1>광역권 지수 · 분양</h1>
+  <p class="sub">공공데이터포털 API로 매일 06:30 갱신 · 아파트 매매 ㎡당 중위가 지수(<span id="baseLbl">2025.09</span> = 100) · 분양권 전매 · 청약홈 분양</p>
+  <div class="status" id="status" aria-live="polite">불러오는 중…</div>
+
+  <div class="bar" role="group" aria-label="광역권 선택">
+    <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    <span class="spacer"></span>
+    <label style="font-size:12.5px;color:var(--muted)">기준월 <select id="month"></select></label>
+  </div>
+
+  <section class="kpis" id="kpis" aria-label="핵심 지표"></section>
+
+  <div class="grid2">
+    <section class="panel">
+      <div class="phead"><h2 id="hIdx">광역권 매매 지수</h2><p class="note">점선 구간은 신고기한(30일) 안이라 아직 바뀔 수 있어요</p></div>
+      <div class="chart" id="chIdx"></div>
+    </section>
+    <section class="panel">
+      <div class="phead"><h2 id="hKb">KB 매수우위지수</h2><span class="pill">스냅샷 2026.09 · 공공 API 아님</span></div>
+      <div class="chart" id="chKb"></div>
+      <p class="note">100 초과면 매수자 우위, 미만이면 매도자 우위(KB 설문). KB는 공개 API가 없어 자동 갱신되지 않아요.</p>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hTbl">시군구</h2><p class="note">행을 누르면 아래 분양 목록이 그 지역으로 좁혀져요</p></div>
+    <div class="tw"><table id="tbl"><thead><tr>
+      <th data-k="nm">지역</th>
+      <th data-k="ppm">매매 ㎡당<span class="u">만원·중위</span></th>
+      <th data-k="p84">84㎡ 환산<span class="u">억원</span></th>
+      <th data-k="mom">전월비</th>
+      <th data-k="idx">지수<span class="u" id="thBase">2025.09=100</span></th>
+      <th data-k="n">매매 거래</th>
+      <th data-k="sppm">분양권 ㎡당<span class="u">만원·중위</span></th>
+      <th data-k="sn">분양권 거래</th>
+      <th data-k="prem">분양권/매매</th>
+      <th data-k="ap">분양 공고</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+    <p class="note">흐린 행은 그 달 거래가 10건 미만이라 값이 크게 출렁일 수 있어요. 분양권/매매는 같은 시군구 분양권 전매 ㎡당가를 기존 아파트 매매 ㎡당가와 비교한 값이에요.</p>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hApply">분양 공고</h2>
+      <select id="stat" aria-label="청약 상태"><option value="">전체</option><option value="open">예정·진행</option><option value="done">종료</option></select>
+    </div>
+    <div class="tw" style="max-height:none"><table id="apTbl"><thead><tr>
+      <th style="cursor:default">상태</th><th style="cursor:default">단지</th><th style="cursor:default">세대</th><th style="cursor:default">청약 접수</th>
+      <th style="cursor:default">84㎡대 분양가<span class="u">억원·최고가</span></th>
+      <th style="cursor:default">분양 ㎡당<span class="u">만원·전용</span></th>
+      <th style="cursor:default">주변 매매 대비</th><th style="cursor:default">입주예정</th>
+    </tr></thead><tbody id="apBody"></tbody></table></div>
+    <p class="note">주변 매매 대비 = 분양가 전용 ㎡당 ÷ 같은 시군구 기준월 매매 ㎡당 중위가. 시군구를 못 찾으면 시도 값으로 비교해요. 분양가는 공고문 최고가 기준이라 실제는 더 낮을 수 있어요.</p>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<script>
+(function(){
+'use strict';
+var DATA='../../data/';
+var $=function(id){return document.getElementById(id)};
+var KBMAP={'전국':['전국','서울','부산'],'수도권':['서울','인천'],'부울경':['부산','울산'],'대경권':['대구'],'충청권':['대전'],'호남권':['광주'],'강원':[],'제주':[]};
+var COL=['#c23b25','#2563b0','#a87500','#1f7a6a','#6d4aa8','#c2571a','#5b6b7a'];
+var st={g:'전국',mi:-1,code:null,sortK:'n',sortD:-1,stat:'open'};
+var I,AP,S,KB;
+
+function ml(m){return m.slice(0,4)+'.'+m.slice(4)}
+function f1(v){return v==null||isNaN(v)?'–':(Math.round(v*10)/10).toFixed(1)}
+function n0(v){return v==null?'–':Math.round(v).toLocaleString()}
+function pct(v){return v==null||!isFinite(v)?'–':(v>0?'+':'')+v.toFixed(1)+'%'}
+function cls(v){return v==null?'':v>0.05?'up':v<-0.05?'down':''}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function med(a){a=a.filter(function(x){return x!=null}).sort(function(x,y){return x-y});if(!a.length)return null;var h=a.length>>1;return a.length%2?a[h]:(a[h-1]+a[h])/2}
+function get(u){return fetch(DATA+u,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(u+' '+r.status);return r.json()})}
+
+Promise.all([get('realestate/index.json'),get('realestate/status.json'),get('realestate/apply.json').catch(function(){return {rows:[]}}),get('seed/kb_snapshot.json').catch(function(){return null})])
+.then(function(r){I=r[0];S=r[1];AP=r[2];KB=r[3];init()})
+.catch(function(e){$('status').textContent='데이터를 불러오지 못했어요: '+e.message});
+
+/* ───── 준비 ───── */
+function members(){return I.regions.filter(function(r){return st.g==='전국'||r.g===st.g})}
+function aggPpm(list,api,i){ // 거래량 가중 대신 시군구 중위가의 가중 평균 (가중치 = 평소 거래량)
+  var num=0,den=0,n=0;
+  list.forEach(function(r){var v=r[api][i];if(!v)return;n+=v[0]||0;if(v[1]!=null&&v[0]>=3){num+=v[1]*r.w;den+=r.w}});
+  return {ppm:den?num/den:null,n:n};
+}
+function defaultMonth(){ // 거래가 평소의 60% 이상 모인 마지막 달
+  var n=I.idx['전국'].n, ref=med(n.slice(0,-3));
+  for(var i=I.m.length-1;i>=0;i--){if(n[i]!=null&&(!ref||n[i]>=ref*0.6))return i}
+  return I.m.length-1;
+}
+function init(){
+  $('baseLbl').textContent=ml(I.base);$('thBase').textContent=ml(I.base)+'=100';
+  // 상태 표시: 각 API 연결 여부
+  var a=S.apis||{};
+  $('status').innerHTML=Object.keys(a).map(function(k){var x=a[k];
+    return '<span title="'+esc(x.msg)+'"><span class="dot" style="background:'+(x.ok?'var(--ok)':'var(--bad)')+'"></span>'+esc(x.name)+' '+(x.ok?'연결됨':'<b style="color:var(--bad)">연결 안 됨</b>')+'</span>'}).join('')+
+    '<span>마지막 확인 '+esc(S.checked||'–')+'</span>';
+  var bad=Object.keys(a).filter(function(k){return !a[k].ok});
+  if(bad.length)$('status').insertAdjacentHTML('beforeend','<span style="flex-basis:100%">'+bad.map(function(k){return esc(a[k].name)+': '+esc(a[k].msg)}).join(' · ')+'</span>');
+  var gs=['전국'].concat(I.gwang);
+  $('chips').innerHTML=gs.map(function(g){return '<button class="chip" type="button" data-g="'+g+'" aria-pressed="'+(g===st.g)+'">'+g+'</button>'}).join('');
+  $('chips').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;st.g=b.dataset.g;st.code=null;render()});
+  st.mi=defaultMonth();
+  $('month').innerHTML=I.m.map(function(m,i){return '<option value="'+i+'">'+ml(m)+(I.recent.indexOf(m)>=0?' (집계 중)':'')+'</option>'}).reverse().join('');
+  $('month').value=String(st.mi);
+  $('month').addEventListener('change',function(e){st.mi=+e.target.value;render()});
+  $('stat').value=st.stat;$('stat').addEventListener('change',function(e){st.stat=e.target.value;renderApply()});
+  document.querySelector('#tbl thead').addEventListener('click',function(e){var th=e.target.closest('th');if(!th)return;var k=th.dataset.k;
+    if(st.sortK===k)st.sortD=-st.sortD;else{st.sortK=k;st.sortD=k==='nm'?1:-1}renderTable()});
+  $('tbody').addEventListener('click',pickRow);
+  $('tbody').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pickRow(e)}});
+  AP.rows.forEach(prepApply);
+  var ro;new ResizeObserver(function(){clearTimeout(ro);ro=setTimeout(function(){drawIdx();drawKb()},80)}).observe($('chIdx'));
+  $('foot').innerHTML='출처: 국토교통부 아파트 매매 실거래가·아파트 분양권전매 실거래가, 한국부동산원 청약홈 분양정보 (모두 공공데이터포털 API, GitHub Actions가 매일 수집). '+
+    '지수는 시군구별 ㎡당 중위가를 '+ml(I.base)+' 대비 비율로 바꾼 뒤 평소 거래량으로 가중 평균한 값이며 거래 5건 미만 시군구는 그 달 계산에서 빼요. 해제(취소) 거래는 제외했어요. '+
+    '한국부동산원·KB 공식 지수와는 산출 방식이 달라요. KB 매수우위는 KB부동산 데이터허브 2026.09 스냅샷이에요. 데이터 수집 '+esc(I.asof)+'. 투자 권유가 아닙니다.';
+  render();
+}
+function pickRow(e){var tr=e.target.closest('tr[data-c]');if(!tr)return;var c=tr.dataset.c;st.code=st.code===c?null:c;renderTable();renderApply()}
+
+/* ───── 분양 ───── */
+var TODAY=new Date();TODAY.setHours(0,0,0,0);
+function D(s){return s?new Date(String(s).slice(0,10)+'T00:00:00'):null}
+function prepApply(c){
+  var s=D(c.a0),e=D(c.a1||c.a0);
+  c.st=!s?'done':TODAY<s?'soon':TODAY<=e?'live':'done';
+  c.dd=s?Math.round((s-TODAY)/864e5):null;
+  var t=(c.types||[]).map(function(x){return {ex:parseFloat(x[0]),pr:x[4]}}).filter(function(x){return x.ex>0&&x.pr>0});
+  var t84=t.filter(function(x){return x.ex>=80&&x.ex<90});
+  c.p84=t84.length?Math.max.apply(null,t84.map(function(x){return x.pr})):null;
+  var pool=t84.length?t84:t;
+  c.ppm=pool.length?med(pool.map(function(x){return x.pr/x.ex})):null;
+}
+function applyRows(){
+  return AP.rows.filter(function(c){return (st.g==='전국'||c.g===st.g)&&(!st.code||c.code===st.code)});
+}
+
+/* ───── 렌더 ───── */
+function render(){
+  document.querySelectorAll('#chips button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.g===st.g))});
+  renderKpis();drawIdx();drawKb();renderTable();renderApply();
+}
+function renderKpis(){
+  var i=st.mi,L=members(),x=I.idx[st.g]||{i:[],n:[]};
+  var v=x.i[i],pv=x.i[i-1],y=x.i[i-12];
+  var a=aggPpm(L,'apt',i),s=aggPpm(L,'silv',i),sp=aggPpm(L,'silv',i-1);
+  var prem=a.ppm&&s.ppm?(s.ppm/a.ppm-1)*100:null;
+  var ap=applyRows(),open=ap.filter(function(c){return c.st!=='done'}).length;
+  var part=I.recent.indexOf(I.m[i])>=0?' · 집계 중':'';
+  function t(l,val,sub){return '<div class="tile"><div class="l">'+l+'</div><div class="v">'+val+'</div><div class="s">'+sub+'</div></div>'}
+  $('kpis').innerHTML=
+    t(st.g+' 매매 지수',f1(v),ml(I.m[i])+part+' · 전월 '+(v!=null&&pv!=null?'<span class="'+cls(v-pv)+'">'+(v-pv>0?'+':'')+(v-pv).toFixed(2)+'p</span>':'–')+(y!=null?' · 전년 '+pct((v/y-1)*100):''))+
+    t('매매 ㎡당 중위가',n0(a.ppm)+'<small>만원</small>','84㎡ 환산 '+(a.ppm?(a.ppm*84/1e4).toFixed(2)+'억':'–')+' · 거래 '+n0(a.n)+'건')+
+    t('분양권 전매 ㎡당',n0(s.ppm)+'<small>만원</small>','거래 '+n0(s.n)+'건'+(sp.n?' (전월 '+n0(sp.n)+')':''))+
+    t('분양권 / 매매',prem==null?'–':'<span class="'+cls(prem)+'">'+pct(prem)+'</span>','같은 지역 분양권 ㎡당가가 기존 아파트보다 '+(prem==null?'–':prem>=0?'비쌈':'쌈'))+
+    t('분양 공고',ap.length+'<small>건</small>','청약 예정·진행 '+open+'건'+(AP.since?' · '+esc(AP.since)+' 이후':''));
+  $('hIdx').textContent=(st.g==='전국'?'광역권':st.g+' · 시도')+' 매매 지수';
+  $('hTbl').textContent=(st.g==='전국'?'전국':st.g)+' 시군구 · '+ml(I.m[i]);
+}
+
+/* 지수 차트: 전국이면 광역권 7개, 광역권이면 그 안의 시도 */
+function seriesKeys(){
+  if(st.g==='전국')return [['전국','전국']].concat(I.gwang.map(function(g){return [g,g]}));
+  var sidos=[];I.regions.forEach(function(r){if(r.g===st.g&&sidos.indexOf(r.s)<0)sidos.push(r.s)});
+  return [[st.g,st.g]].concat(sidos.length>1?sidos.map(function(s){return ['시도:'+s,s]}):[]);
+}
+function drawIdx(){
+  var box=$('chIdx'),W=box.clientWidth||600,H=Math.max(220,Math.min(320,W*0.55)),pl=40,pr=64,pt=12,pb=26;
+  var keys=seriesKeys(),M=I.m,N=M.length,rec=I.recent;
+  var all=[];keys.forEach(function(k){(I.idx[k[0]]||{i:[]}).i.forEach(function(v){if(v!=null)all.push(v)})});
+  if(!all.length){box.innerHTML='<div class="empty">아직 지수를 계산할 데이터가 없어요. API 연결 후 다음 갱신 때 채워져요.</div>';return}
+  var lo=Math.min.apply(null,all.concat([100])),hi=Math.max.apply(null,all.concat([100])),pad=(hi-lo)*0.08||2;lo-=pad;hi+=pad;
+  var X=function(i){return pl+(W-pl-pr)*(N<2?0:i/(N-1))},Y=function(v){return pt+(H-pt-pb)*(1-(v-lo)/(hi-lo))};
+  var s='',step=(hi-lo)>20?5:(hi-lo)>8?2:1;
+  for(var g=Math.ceil(lo/step)*step;g<=hi;g+=step){s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="var(--grid)"/><text class="ax" x="'+(pl-6)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>'}
+  s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(100)+'" y2="'+Y(100)+'" stroke="var(--muted)" stroke-dasharray="2 3" opacity=".6"/>';
+  var ev=Math.max(1,Math.ceil(N/(W<480?4:7)));
+  M.forEach(function(m,i){if(i%ev===0||i===N-1)s+='<text class="ax" x="'+X(i)+'" y="'+(H-6)+'" text-anchor="middle">'+m.slice(2,4)+'.'+m.slice(4)+'</text>'});
+  s+='<line id="cur" x1="'+X(st.mi)+'" x2="'+X(st.mi)+'" y1="'+pt+'" y2="'+(H-pb)+'" stroke="var(--accent)" opacity=".35"/>';
+  var labels=[];
+  keys.forEach(function(k,ki){
+    var a=(I.idx[k[0]]||{i:[]}).i,c=ki===0?'var(--ink)':COL[(ki-1)%COL.length],wd=ki===0?2.6:1.7;
+    var solid='',dash='',last=null;
+    a.forEach(function(v,i){if(v==null){last=null;return}var p=X(i).toFixed(1)+' '+Y(v).toFixed(1);var inRec=rec.indexOf(M[i])>=0;
+      if(last){if(inRec)dash+='M'+last+'L'+p;else solid+='L'+p}else if(!inRec)solid+='M'+p;last=p});
+    s+='<path d="'+solid+'" fill="none" stroke="'+c+'" stroke-width="'+wd+'" stroke-linejoin="round"/>';
+    if(dash)s+='<path d="'+dash+'" fill="none" stroke="'+c+'" stroke-width="'+wd+'" stroke-dasharray="4 3"/>';
+    for(var j=st.mi;j>=0;j--)if(a[j]!=null){labels.push({y:Y(a[j]),t:k[1]+' '+f1(a[j]),c:c});break}
+  });
+  labels.sort(function(a,b){return a.y-b.y});for(var q=1;q<labels.length;q++)if(labels[q].y-labels[q-1].y<13)labels[q].y=labels[q-1].y+13;
+  labels.forEach(function(l){s+='<text class="lb" x="'+(W-pr+6)+'" y="'+(l.y+4)+'" fill="'+l.c+'">'+esc(l.t)+'</text>'});
+  box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" height="'+H+'" role="img" aria-label="광역권 매매 지수 추이">'+s+'<rect id="hit" x="'+pl+'" y="'+pt+'" width="'+(W-pl-pr)+'" height="'+(H-pt-pb)+'" fill="transparent"/></svg><div class="tip" id="tipI"></div>';
+  var tip=$('tipI'),svg=box.querySelector('svg');
+  function show(ev){var r=svg.getBoundingClientRect(),x=(ev.clientX-r.left)*(W/r.width),i=Math.round((x-pl)/((W-pl-pr)/(N-1)));i=Math.max(0,Math.min(N-1,i));
+    tip.innerHTML='<b>'+ml(M[i])+(rec.indexOf(M[i])>=0?' (집계 중)':'')+'</b>'+keys.map(function(k,ki){var v=(I.idx[k[0]]||{i:[]}).i[i];var c=ki===0?'var(--ink)':COL[(ki-1)%COL.length];
+      return '<div class="r"><span><span class="sw" style="background:'+c+'"></span>'+esc(k[1])+'</span><b>'+f1(v)+'</b></div>'}).join('');
+    tip.style.display='block';var px=X(i)*(r.width/W);tip.style.left=Math.min(px+12,r.width-tip.offsetWidth)+'px';tip.style.top='8px'}
+  svg.addEventListener('pointermove',show);svg.addEventListener('pointerleave',function(){tip.style.display='none'});
+  svg.addEventListener('click',function(ev){var r=svg.getBoundingClientRect(),x=(ev.clientX-r.left)*(W/r.width),i=Math.round((x-pl)/((W-pl-pr)/(N-1)));st.mi=Math.max(0,Math.min(N-1,i));$('month').value=String(st.mi);render()});
+}
+
+/* KB 매수우위 스냅샷 (최근 5년) */
+function drawKb(){
+  var box=$('chKb');
+  if(!KB){box.innerHTML='<div class="empty">KB 스냅샷 없음</div>';return}
+  var names=KBMAP[st.g]||[];
+  if(!names.length){box.innerHTML='<div class="empty">'+st.g+'은 KB가 매수우위지수를 따로 내지 않아요. 전국 값을 참고하세요.</div>';$('hKb').textContent='KB 매수우위지수';return}
+  $('hKb').textContent='KB 매수우위지수 · '+names.join('·');
+  var W=box.clientWidth||400,H=Math.max(200,Math.min(260,W*0.6)),pl=34,pr=64,pt=10,pb=24,len=KB.BS['전국'].length,from=len-60;
+  var X=function(i){return pl+(W-pl-pr)*(i-from)/(len-1-from)},Y=function(v){return pt+(H-pt-pb)*(1-v/160)};
+  var s='';[0,50,100,150].forEach(function(g){s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="'+(g===100?'var(--muted)':'var(--grid)')+'"'+(g===100?' stroke-dasharray="2 3"':'')+'/><text class="ax" x="'+(pl-6)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>'});
+  for(var yr=0;yr<6;yr++){var i=len-1-12*(5-yr);if(i>=from){var yy=2000+Math.floor(i/12);s+='<text class="ax" x="'+X(i)+'" y="'+(H-6)+'" text-anchor="middle">'+String(yy).slice(2)+'.'+String(i%12+1).padStart(2,'0')+'</text>'}}
+  var labels=[];
+  names.forEach(function(n,k){var a=KB.BS[n];if(!a)return;var c=COL[k%COL.length],d='';
+    for(var i=from;i<len;i++){if(!a[i])continue;d+=(d?'L':'M')+X(i).toFixed(1)+' '+Y(a[i]).toFixed(1)}
+    s+='<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="1.8"/>';labels.push({y:Y(a[len-1]),t:n+' '+f1(a[len-1]),c:c})});
+  labels.sort(function(a,b){return a.y-b.y});for(var q=1;q<labels.length;q++)if(labels[q].y-labels[q-1].y<13)labels[q].y=labels[q-1].y+13;
+  labels.forEach(function(l){s+='<text class="lb" x="'+(W-pr+6)+'" y="'+(l.y+4)+'" fill="'+l.c+'">'+esc(l.t)+'</text>'});
+  box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" height="'+H+'" role="img" aria-label="KB 매수우위지수 최근 5년">'+s+'</svg>';
+}
+
+/* 시군구 표 */
+var apCount={};
+function renderTable(){
+  var i=st.mi,L=members();
+  apCount={};AP.rows.forEach(function(c){if(c.code)apCount[c.code]=(apCount[c.code]||0)+1});
+  var rows=L.map(function(r){
+    var v=r.apt[i],p=r.apt[i-1],b=r.apt[I.m.indexOf(I.base)],s=r.silv[i];
+    var ppm=v&&v[1],n=v?v[0]:0,sppm=s&&s[1];
+    return {r:r,nm:r.nm,ppm:ppm,p84:ppm?ppm*84/1e4:null,mom:ppm&&p&&p[1]?(ppm/p[1]-1)*100:null,
+      idx:ppm&&b&&b[1]?ppm/b[1]*100:null,n:n,sppm:sppm,sn:s?s[0]:0,prem:ppm&&sppm&&s[0]>=3?(sppm/ppm-1)*100:null,ap:apCount[r.c]||0};
+  });
+  var k=st.sortK,d=st.sortD;
+  rows.sort(function(a,b){if(k==='nm')return d*a.nm.localeCompare(b.nm,'ko');var x=a[k],y=b[k];if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;return d*(x-y)});
+  document.querySelectorAll('#tbl thead th').forEach(function(th){if(th.dataset.k===k)th.setAttribute('aria-sort',d>0?'ascending':'descending');else th.removeAttribute('aria-sort')});
+  $('tbody').innerHTML=rows.length?rows.map(function(x){
+    return '<tr class="click" tabindex="0" data-c="'+x.r.c+'" aria-selected="'+(st.code===x.r.c)+'"><td>'+esc(x.nm)+(st.g==='전국'||st.g==='수도권'||st.g==='부울경'||st.g==='대경권'||st.g==='충청권'||st.g==='호남권'?' <span style="color:var(--muted);font-size:11.5px">'+esc(x.r.s)+'</span>':'')+'</td>'+
+      '<td class="'+(x.n<10?'thin':'')+'">'+n0(x.ppm)+'</td><td class="'+(x.n<10?'thin':'')+'">'+(x.p84==null?'–':x.p84.toFixed(2))+'</td>'+
+      '<td class="'+cls(x.mom)+(x.n<10?' thin':'')+'">'+pct(x.mom)+'</td><td class="'+(x.n<10?'thin':'')+'">'+f1(x.idx)+'</td><td>'+n0(x.n)+'</td>'+
+      '<td>'+n0(x.sppm)+'</td><td>'+(x.sn?n0(x.sn):'–')+'</td><td class="'+cls(x.prem)+'">'+pct(x.prem)+'</td><td>'+(x.ap||'–')+'</td></tr>'}).join('')
+    :'<tr><td colspan="10" class="empty">데이터가 없어요</td></tr>';
+}
+
+/* 분양 목록 */
+function renderApply(){
+  var i=st.mi,L=applyRows();
+  if(st.stat==='open')L=L.filter(function(c){return c.st!=='done'});else if(st.stat==='done')L=L.filter(function(c){return c.st==='done'});
+  L.sort(function(a,b){var o={live:0,soon:1,done:2};return (o[a.st]-o[b.st])||(a.st==='done'?String(b.a0).localeCompare(a.a0):String(a.a0).localeCompare(b.a0))});
+  var byCode={};I.regions.forEach(function(r){byCode[r.c]=r});
+  var nmSel=st.code&&byCode[st.code]?byCode[st.code].nm:null;
+  $('hApply').textContent='분양 공고 · '+(nmSel||(st.g==='전국'?'전국':st.g))+' '+L.length+'건';
+  if(!AP.rows.length){$('apBody').innerHTML='<tr><td colspan="8" class="empty">청약홈 API가 연결되면 다음 갱신 때 채워져요.</td></tr>';return}
+  $('apBody').innerHTML=L.length?L.map(function(c){
+    var tag=c.st==='soon'?'<span class="tag soon">예정 D-'+c.dd+'</span>':c.st==='live'?'<span class="tag live">청약 중</span>':'<span class="tag">종료</span>';
+    var ref=null,refNm='';
+    if(c.code&&byCode[c.code]){var v=byCode[c.code].apt[i];if(v&&v[1]&&v[0]>=5){ref=v[1];refNm=byCode[c.code].nm}}
+    if(!ref){var sl=I.regions.filter(function(r){return r.s===c.sido});var a=aggPpm(sl,'apt',i);ref=a.ppm;refNm=c.sido+' 평균'}
+    var vs=c.ppm&&ref?(c.ppm/ref-1)*100:null;
+    var where=(c.addr||'').split(' ').slice(1,3).join(' ');
+    return '<tr'+(c.st==='done'?' style="opacity:.6"':'')+'><td>'+tag+'</td><td class="nm"><b>'+(c.url?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">'+esc(c.name)+'</a>':esc(c.name))+'</b><span>'+esc(where)+' · '+esc(c.kind)+'</span></td>'+
+      '<td>'+n0(c.tot)+'</td><td>'+(c.a0?String(c.a0).slice(5).replace('-','.')+'~'+String(c.a1||c.a0).slice(5).replace('-','.'):'–')+'</td>'+
+      '<td>'+(c.p84?(c.p84/1e4).toFixed(2):'–')+'</td><td>'+n0(c.ppm)+'</td>'+
+      '<td class="'+cls(vs)+'" title="'+esc(refNm)+' 매매 ㎡당 '+n0(ref)+'만원">'+pct(vs)+'</td><td>'+(c.move?String(c.move).slice(0,4)+'.'+String(c.move).slice(4,6):'–')+'</td></tr>'}).join('')
+    :'<tr><td colspan="8" class="empty">조건에 맞는 공고가 없어요</td></tr>';
+}
+})();
+</script>
+</body>
+</html>
