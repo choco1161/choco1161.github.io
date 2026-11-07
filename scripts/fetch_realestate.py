@@ -28,7 +28,7 @@ SEED = os.path.join(ROOT, "data", "seed", "apt_snapshot.json")
 KST = timezone(timedelta(hours=9))
 NOW = datetime.now(KST)
 BASE_MONTH = "202509"      # 지수 기준월 = 100
-REFRESH_MONTHS = 3         # 신고기한(30일) 때문에 최근 N개월은 매일 다시 받음
+REFRESH_MONTHS = 3         # 신고기한(30일) 때문에 최근 N개월은 매일 다시 받음 (해제 신고 반영)
 
 RTMS = {
     "apt": "https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade",
