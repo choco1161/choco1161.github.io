@@ -548,6 +548,7 @@ def main():
             sys.exit(1)
         return
 
+    seed_apt(snap)   # 실거래 호출 전에 확정 달을 채워 중복 호출을 막음
     status = {}
     for src in ("kb", "apply", "apt", "silv"):
         try:
@@ -564,7 +565,6 @@ def main():
                 status[src].update(ok=False, msg=f"수집 중 실패: {e}")
             except Exception as e:  # 화면 구조 변경 등 예상 못한 오류도 다른 소스는 계속
                 status[src].update(ok=False, msg=f"수집 중 오류: {type(e).__name__}: {e}")
-    seed_apt(snap)
     build_index(regions)
     write_json(os.path.join(OUT, "status.json"), {"checked": NOW.strftime("%Y-%m-%d %H:%M KST"), "apis": status})
     for v in status.values():
