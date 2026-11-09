@@ -22,11 +22,16 @@ window.CATALOG = (function () {
     { id: "realestate", industry: "realestate", icon: "🏠", name: "대한민국 부동산", desc: "집값, 전세, 청약, 정책 정리" },
     { id: "travel",     industry: "life",       icon: "✈️", name: "여행",           desc: "환율과 물가로 고르는 여행지" },
     { id: "useful",     industry: "life",       icon: "🧰", name: "유용한 페이지",   desc: "생활과 업무에 바로 쓰는 페이지" },
+    { id: "trends",     industry: "life",       icon: "🗞️", name: "트렌드",         desc: "사람들이 지금 무엇에 관심 갖는지 매일 정리" },
   ];
 
   // path는 영역 폴더 기준. tags = 관련 페이지를 잇는 열쇠말 (같은 태그가 많을수록 가깝게 연결)
   // art = 배경 그림 종류(towers·grid·candles·lines·dots), hue = 대표 색(0~360)
   const PROJECTS = [
+    { area: "trends", icon: "🗞️", path: "daily/", title: "오늘의 관심사",
+      tagline: "국내 화제와 해외 급상승 토픽, 매일 Top 10 카드로",
+      art: "grid", hue: 45, tags: ["트렌드", "AI", "소비"],
+      desc: "국내 실시간 화제 5개 + 해외 급상승 토픽 5개를 번갈아 놓은 Top 10 · 방향성 3줄 · 날짜별 카드 아카이브와 반복 등장 토픽", date: "2026-11-09" },
     { area: "travel", icon: "🧭", path: "fx-compass/", title: "환율 여행 나침반",
       tagline: "지금 원화로 어디가 평소보다 쌀까",
       art: "dots", hue: 195, tags: ["환율", "여행", "물가"],
@@ -69,6 +74,10 @@ window.CATALOG = (function () {
   //  q = 이 페이지가 답하는 질문 · who = 이런 분께 · get = 여기서 알 수 있는 것 3가지 · freq = 갱신 주기(없으면 생략)
   //  새 페이지를 만들면 여기에도 한 줄 추가
   const PURPOSE = {
+    "trends/daily/": { q: "요즘 사람들은 무엇에 관심을 가질까?",
+      who: "국내외 화제와 소비 트렌드를 빠르게 훑고 싶은 분",
+      get: ["오늘의 국내 화제 5개와 해외 급상승 토픽 5개", "흐름을 세 줄로 정리한 방향성", "지난 카드와 여러 번 등장한 토픽"],
+      freq: "평일 아침 갱신" },
     "travel/fx-compass/": { q: "지금 원화로 어디를 여행하면 평소보다 쌀까?",
       who: "여행지를 고르는 중이거나 환전 시기를 보는 분",
       get: ["18개 여행지의 '평소 대비 저렴도' 순위", "환율만 볼 때와 현지 물가까지 볼 때의 차이", "나라별 10년 흐름과 1년 전 대비 변화"],
