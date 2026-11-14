@@ -1,0 +1,20 @@
+[
+ {"id": "JP", "name": "일본", "flag": "🇯🇵", "cur": "JPY", "curName": "엔", "unit": 100, "imf": "JPN", "region": "동북아"},
+ {"id": "TW", "name": "대만", "flag": "🇹🇼", "cur": "TWD", "curName": "대만 달러", "unit": 1, "imf": "TWN", "region": "동북아"},
+ {"id": "CN", "name": "중국", "flag": "🇨🇳", "cur": "CNY", "curName": "위안", "unit": 1, "imf": "CHN", "region": "동북아"},
+ {"id": "HK", "name": "홍콩", "flag": "🇭🇰", "cur": "HKD", "curName": "홍콩 달러", "unit": 1, "imf": "HKG", "region": "동북아", "peg": "USD"},
+ {"id": "VN", "name": "베트남", "flag": "🇻🇳", "cur": "VND", "curName": "동", "unit": 100, "imf": "VNM", "region": "동남아"},
+ {"id": "TH", "name": "태국", "flag": "🇹🇭", "cur": "THB", "curName": "바트", "unit": 1, "imf": "THA", "region": "동남아"},
+ {"id": "PH", "name": "필리핀", "flag": "🇵🇭", "cur": "PHP", "curName": "페소", "unit": 1, "imf": "PHL", "region": "동남아"},
+ {"id": "SG", "name": "싱가포르", "flag": "🇸🇬", "cur": "SGD", "curName": "싱가포르 달러", "unit": 1, "imf": "SGP", "region": "동남아"},
+ {"id": "MY", "name": "말레이시아", "flag": "🇲🇾", "cur": "MYR", "curName": "링깃", "unit": 1, "imf": "MYS", "region": "동남아"},
+ {"id": "ID", "name": "인도네시아", "flag": "🇮🇩", "cur": "IDR", "curName": "루피아", "unit": 100, "imf": "IDN", "region": "동남아"},
+ {"id": "US", "name": "미국·괌", "flag": "🇺🇸", "cur": "USD", "curName": "달러", "unit": 1, "imf": "USA", "region": "미주"},
+ {"id": "CA", "name": "캐나다", "flag": "🇨🇦", "cur": "CAD", "curName": "캐나다 달러", "unit": 1, "imf": "CAN", "region": "미주"},
+ {"id": "AU", "name": "호주", "flag": "🇦🇺", "cur": "AUD", "curName": "호주 달러", "unit": 1, "imf": "AUS", "region": "오세아니아"},
+ {"id": "NZ", "name": "뉴질랜드", "flag": "🇳🇿", "cur": "NZD", "curName": "뉴질랜드 달러", "unit": 1, "imf": "NZL", "region": "오세아니아"},
+ {"id": "EU", "name": "유럽(유로권)", "flag": "🇪🇺", "cur": "EUR", "curName": "유로", "unit": 1, "imf": "EURO", "region": "유럽"},
+ {"id": "GB", "name": "영국", "flag": "🇬🇧", "cur": "GBP", "curName": "파운드", "unit": 1, "imf": "GBR", "region": "유럽"},
+ {"id": "CH", "name": "스위스", "flag": "🇨🇭", "cur": "CHF", "curName": "프랑", "unit": 1, "imf": "CHE", "region": "유럽"},
+ {"id": "TR", "name": "튀르키예", "flag": "🇹🇷", "cur": "TRY", "curName": "리라", "unit": 1, "imf": "TUR", "region": "유럽"}
+]

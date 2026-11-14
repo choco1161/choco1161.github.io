@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../re.css?v=20261114b">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+<title>아파트 분양 공고·분양가 비교 · Derek's Platform</title>
+<meta name="description" content="청약홈 APT 분양 공고와 국토부 분양권 전매 실거래가를 매일 갱신하고, 분양가를 같은 시군구 주변 매매 시세와 비교.">
+<meta name="keywords" content="청약,아파트분양,분양공고,분양가,분양권,청약홈,실거래가">
+<link rel="canonical" href="https://choco1161.github.io/realestate/bunyang/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="아파트 분양 공고·분양가 비교">
+<meta property="og:description" content="청약홈 APT 분양 공고와 국토부 분양권 전매 실거래가를 매일 갱신하고, 분양가를 같은 시군구 주변 매매 시세와 비교.">
+<meta property="og:url" content="https://choco1161.github.io/realestate/bunyang/">
+<meta name="twitter:card" content="summary"></head>
+<body>
+<main>
+  <a class="back" href="../">← 대한민국 부동산</a>
+  <h1>분양</h1>
+  <p class="sub">매일 06:30 자동 갱신 · 청약홈 APT 분양 공고 · 분양권 전매 실거래 · 분양가 vs 주변 매매 시세 · <a data-carry="../region-index/" href="../region-index/">광역권 지수 화면 →</a></p>
+  <div data-purpose></div>
+  <div class="status" id="status" aria-live="polite">불러오는 중…</div>
+
+  <div class="bar" role="group" aria-label="광역권 선택">
+    <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    <span class="spacer"></span>
+    <label style="font-size:12.5px;color:var(--muted)">기준월 <select id="month"></select></label>
+  </div>
+
+  <section class="kpis" id="kpis" aria-label="핵심 지표"></section>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hApply">분양 공고</h2>
+      <select id="stat" aria-label="청약 상태"><option value="">전체</option><option value="open">예정·진행</option><option value="done">종료</option></select>
+    </div>
+    <div class="tw" style="max-height:none"><table id="apTbl"><thead><tr>
+      <th style="cursor:default">상태</th><th style="cursor:default">단지</th><th style="cursor:default">세대</th><th style="cursor:default">청약 접수</th>
+      <th style="cursor:default">84㎡대 분양가<span class="u">억원·최고가</span></th>
+      <th style="cursor:default">분양 ㎡당<span class="u">만원·전용</span></th>
+      <th style="cursor:default">주변 매매 대비</th><th style="cursor:default">입주예정</th>
+    </tr></thead><tbody id="apBody"></tbody></table></div>
+    <p class="note">주변 매매 대비 = 분양가 전용 ㎡당 ÷ 같은 시군구 기준월 매매 ㎡당 중위가. 시군구를 못 찾으면 시도 값으로 비교해요. 분양가는 공고문 최고가 기준이라 실제는 더 낮을 수 있고, 입주 시점 시세가 아닌 지금 시세와 비교한 값이에요.</p>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hTbl">시군구 분양권 전매</h2><p class="note">행을 누르면 위 분양 공고가 그 지역으로 좁혀져요 · 머리글로 정렬</p></div>
+    <div class="tw"><table id="tbl"><thead><tr>
+      <th data-k="nm">지역</th>
+      <th data-k="sppm">분양권 ㎡당<span class="u">만원·중위</span></th>
+      <th data-k="sn">분양권 거래</th>
+      <th data-k="ppm">기존 매매 ㎡당<span class="u">만원·중위</span></th>
+      <th data-k="prem">분양권/매매</th>
+      <th data-k="ap">분양 공고</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+    <p class="note">분양권 거래나 분양 공고가 있는 시군구만 보여요. 흐린 값은 분양권 거래가 5건 미만이에요. 분양권/매매는 같은 시군구 분양권 ㎡당가를 기존 아파트 매매 ㎡당가와 비교한 값이에요.</p>
+  </section>
+
+  <footer>
+    <p id="foot"></p>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script>window.RE_VIEW='bunyang'</script>
+<script src="../re.js?v=20261114b"></script>
+<script src="../../assets/catalog.js?v=20261114b"></script><script src="../../assets/related.js?v=20261114b"></script><script src="../../assets/purpose.js?v=20261114b"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+{
+ "days": [
+  {
+   "date": "2026-11-14",
+   "dow": "토",
+   "headline": "비 8.8~10.5℃ — 오늘은 <b>김장 수육</b> 어때요?",
+   "pick": {
+    "id": "suyuk-bossam",
+    "name": "김장 수육",
+    "emoji": "🥬",
+    "cat": "한식",
+    "kind": "고기",
+    "score": 8.6,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 1,
+      "text": "햇배추 맛이 오르는 11월, 이맘때 아니면 아쉬운 김장 수육",
+      "pts": 4.0
+     },
+     {
+      "type": "special",
+      "tpl": 0,
+      "text": "김장철, 갓 버무린 김장김치에 수육·굴을 싸 먹는 시기",
+      "pts": 2.5
+     },
+     {
+      "type": "weekday",
+      "tpl": 0,
+      "text": "토요일, 여럿이 모여 나눠 먹기 좋은 메뉴가 잘 어울려요",
+      "pts": 1.0
+     },
+     {
+      "type": "news",
+      "tpl": 1,
+      "text": "요즘 기사 제목에 자주 등장하는 '수육', 화제의 김장 수육",
+      "pts": 0.7
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "bangeo",
+     "name": "방어회",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 6.5,
+     "reason": {
+      "type": "news",
+      "tpl": 2,
+      "text": "맛집·외식 뉴스에서 10번 언급된 방어회, 요즘 사람들 입에 오르내리는 메뉴예요",
+      "pts": 3.0
+     }
+    },
+    {
+     "id": "guljeon",
+     "name": "굴전",
+     "emoji": "🦪",
+     "cat": "한식",
+     "kind": "전",
+     "score": 6.1,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 굴로 만든 굴전, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "chueotang",
+     "name": "추어탕",
+     "emoji": "🥣",
+     "cat": "한식",
+     "kind": "국물",
+     "score": 5.4,
+     "reason": {
+      "type": "season",
+      "tpl": 0,
+      "text": "11월은 미꾸라지가 제철, 지금 먹는 추어탕이 1년 중 가장 맛있어요",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "godeungeo",
+     "name": "고등어구이",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 5.2,
+     "reason": {
+      "type": "season",
+      "tpl": 3,
+      "text": "11월 장바구니 단골 고등어, 오늘은 고등어구이로 즐겨 보세요",
+      "pts": 4.0
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 10.5,
+     "tmin": 8.8,
+     "rain": 7.5,
+     "pop": 100,
+     "snow": 0,
+     "code": 55,
+     "desc": "비"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "수육",
+      "menu": "김장 수육",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 10
+     },
+     {
+      "word": "추어탕",
+      "menu": "추어탕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "라면",
+      "menu": "라면",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "떡볶이",
+      "menu": "떡볶이",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "육개장",
+      "menu": "육개장",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "찜닭",
+      "menu": "찜닭",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "김밥",
+      "menu": "김밥",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "봄동",
+      "menu": "봄동비빔밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "샐러드",
+      "menu": "샐러드",
+      "src": "news",
+      "count": 1
+     }
+    ],
+    "hot": [],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 90,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  }
+ ],
+ "updated": "2026-11-14 16:36"
+}

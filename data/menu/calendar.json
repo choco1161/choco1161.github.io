@@ -1,0 +1,26 @@
+{
+  "_doc": "기념일·시기. fixed=매년 같은 날(MM-DD), dated=그해만(YYYY-MM-DD, 음력 명절·수능 등은 해마다 날짜를 확인해 추가), periods=기간(MM-DD~MM-DD). menus=가산점 받을 메뉴 id, why=추천 이유 문장",
+  "fixed": [
+    {"md":"01-01","name":"새해 첫날","menus":["tteokguk"],"why":"새해 첫날엔 떡국 한 그릇으로 나이도 한 살, 마음도 새로"},
+    {"md":"02-14","name":"밸런타인데이","menus":["pasta","sushi"],"why":"밸런타인데이, 둘이 마주 앉기 좋은 메뉴로"},
+    {"md":"03-03","name":"삼겹살데이","menus":["samgyeopsal"],"why":"3월 3일은 삼겹살데이, 정육점과 마트가 가장 바쁜 날"},
+    {"md":"03-14","name":"화이트데이","menus":["pasta","sushi"],"why":"화이트데이, 사탕만으로는 아쉬운 날"},
+    {"md":"04-14","name":"블랙데이","menus":["jjajangmyeon"],"why":"4월 14일 블랙데이, 솔로들이 짜장면을 먹는 날"},
+    {"md":"09-09","name":"구구데이","menus":["chicken","dakgalbi","jjimdak"],"why":"9월 9일 구구데이(닭고기 먹는 날), 닭 요리가 주인공"},
+    {"md":"11-11","name":"가래떡데이","menus":["garaetteok","tteokbokki"],"why":"11월 11일은 농업인의 날이자 가래떡데이, 빼빼로 대신 햅쌀 가래떡"},
+    {"md":"12-24","name":"크리스마스이브","menus":["chicken","pizza"],"why":"크리스마스이브, 치킨·피자 주문이 1년 중 가장 몰리는 밤"},
+    {"md":"12-25","name":"크리스마스","menus":["chicken","pizza","pasta"],"why":"크리스마스, 함께 나눠 먹는 메뉴가 잘 어울리는 날"},
+    {"md":"12-31","name":"한 해 마지막 날","menus":["jokbal","samgyeopsal","hoguo"],"why":"한 해의 마지막 날, 둘러앉아 정리하기 좋은 메뉴로"}
+  ],
+  "dated": [
+    {"date":"2026-11-16","name":"수능 주간","menus":["jeonbokjuk","seolleongtang","galbitang"],"why":"수능 주간, 속 편하고 든든한 메뉴가 수험생 집 식탁의 정석"},
+    {"date":"2026-11-17","name":"수능 주간","menus":["jeonbokjuk","seolleongtang","galbitang"],"why":"수능 이틀 전, 낯선 음식보다 익숙하고 소화 잘되는 한 그릇"},
+    {"date":"2026-11-18","name":"수능 전날","menus":["jeonbokjuk","seolleongtang"],"why":"수능 전날, 자극적인 음식은 피하고 소화 잘되는 죽·탕으로"},
+    {"date":"2026-11-19","name":"수능날","menus":["chicken","pizza","samgyeopsal"],"why":"수능이 끝나는 날 저녁, 고생한 수험생과 함께 시켜 먹는 치킨·피자가 가장 많이 팔리는 날"},
+    {"date":"2026-12-22","name":"동지","menus":["patjuk"],"why":"동지(밤이 가장 긴 날)엔 팥죽, 붉은 팥으로 액운을 쫓는다는 풍습"}
+  ],
+  "periods": [
+    {"from":"11-01","to":"12-10","name":"김장철","menus":["suyuk-bossam","gul-bossam"],"why":"김장철, 갓 버무린 김장김치에 수육·굴을 싸 먹는 시기"},
+    {"from":"12-01","to":"02-28","name":"겨울 별미철","menus":["bungeoppang","hotteok","goguma","eomuk-tang"],"why":"길거리 겨울 간식 시즌, '붕세권'을 찾는 검색이 늘어나는 때"}
+  ]
+}
