@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>환율 여행 나침반 · Derek's Platform</title>
+<meta name="description" content="일본·베트남·태국·유럽 등 18개 여행지를 환율과 현지 물가로 비교 · 지금 원화가 평소보다 유리한 여행지 순위">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="page.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 여행</a>
+  <h1>환율 여행 나침반</h1>
+  <p class="sub">지금 원화로 어디가 평소보다 싼지 — 환율에 현지 물가 변화까지 반영해 18개 여행지를 비교해요</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">데이터를 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>데이터를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden>
+    <section class="top" aria-labelledby="topTitle">
+      <h2 id="topTitle" class="sr">지금 원화가 가장 유리한 여행지</h2>
+      <div class="top3" id="top3"></div>
+    </section>
+
+    <div class="controls panel">
+      <div class="ctl">
+        <span class="ctl-l">비교 기준</span>
+        <div class="seg" id="base" role="group" aria-label="비교 기준 기간">
+          <button type="button" data-v="120">10년 평균</button><button type="button" data-v="60">5년 평균</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-l">정렬</span>
+        <div class="seg" id="sort" role="group" aria-label="정렬">
+          <button type="button" data-v="real">물가 반영</button><button type="button" data-v="nom">환율만</button><button type="button" data-v="yoy">1년 전보다</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-l">지역</span>
+        <div class="chips" id="regions" role="group" aria-label="지역"></div>
+      </div>
+    </div>
+
+    <section class="block">
+      <h2>여행지 순위</h2>
+      <p class="note">막대는 <b>물가 반영</b> 기준이에요. 오른쪽(파랑)으로 길수록 평소보다 원화로 더 많이 살 수 있어요. 줄을 누르면 자세한 흐름이 열려요.</p>
+      <ol class="rank" id="rank"></ol>
+    </section>
+
+    <section class="block" id="detailBlock">
+      <h2 id="dTitle"></h2>
+      <p class="lede" id="dLede"></p>
+      <div class="chart"><canvas id="cDest" aria-label="원화 구매력 지수 추이"></canvas></div>
+      <p class="note">100 = 비교 기준 기간 평균. <b>위로 갈수록</b> 같은 원화로 현지에서 더 많이 살 수 있어요(여행에 유리).</p>
+      <div class="dstats" id="dStats"></div>
+    </section>
+
+    <section class="block">
+      <h2>어떻게 계산하나요</h2>
+      <div class="how">
+        <div>
+          <h3>환율만 보면 틀리는 이유</h3>
+          <p>통화 가치가 떨어져도 현지 물가가 그보다 더 오르면 여행 경비는 오히려 늘어요. 튀르키예 리라가 대표적이에요. 반대로 엔화처럼 환율도 싸고 물가도 덜 오른 곳은 실제로 싸져요.</p>
+        </div>
+        <div>
+          <h3>물가 반영 지수</h3>
+          <p>매달 <b>원/현지통화 환율 × 현지 물가 ÷ 한국 물가</b>를 구해, 비교 기준 기간 평균과 지금 값을 비교해요. 같은 현지 장바구니를 원화로 살 때 평소보다 얼마나 싼지 보는 셈이에요.</p>
+        </div>
+        <div>
+          <h3>한계</h3>
+          <p>항공권, 숙박 성수기, 현지 관광 물가는 반영하지 않아요. 물가는 IMF 연평균 상승률(올해 이후는 전망치)을 월별로 이어 붙인 근삿값이에요. 홍콩 달러처럼 달러에 고정된 통화는 미국과 거의 같이 움직여요.</p>
+        </div>
+      </div>
+      <p class="note">지금 환율은 <a href="../../macro/fx/">원화 환율</a> 페이지에서 날마다 자세히 볼 수 있어요.</p>
+    </section>
+
+    <p class="note src" id="src"></p>
+  </div>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="app.js"></script>
+<script src="../../assets/catalog.js"></script><script src="../../assets/related.js"></script><script src="../../assets/purpose.js"></script>
+</body>
+</html>

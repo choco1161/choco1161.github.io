@@ -1,0 +1,7 @@
+[
+ {"sym": "NVDA", "kr": "엔비디아", "short": "엔비"},
+ {"sym": "TSLA", "kr": "테슬라", "short": "테슬"},
+ {"sym": "AAPL", "kr": "애플", "short": "애플"},
+ {"sym": "RXRX", "kr": "리커전 파마슈티컬스", "short": "리커전"},
+ {"sym": "QQQ", "kr": "나스닥100 ETF", "short": "QQQ"}
+]
