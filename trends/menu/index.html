@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noai, noimageai">
+<title>오늘의 메뉴 — 제철·날씨·검색 화제로 고른 한 끼 · Derek's Platform</title>
+<meta name="description" content="제철 재료, 오늘 날씨, 기념일, 실시간 검색어와 먹거리 뉴스 화제를 모아 매일 한 끼를 추천하고, 왜 추천했는지 이유를 쌓아 가는 페이지.">
+<meta name="keywords" content="오늘의메뉴,점심메뉴추천,저녁메뉴추천,제철음식,메뉴추천,오늘뭐먹지">
+<link rel="canonical" href="https://choco1161.github.io/trends/menu/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="오늘의 메뉴 — 제철·날씨·검색 화제로 고른 한 끼">
+<meta property="og:description" content="제철 재료, 오늘 날씨, 기념일, 실시간 검색어와 먹거리 뉴스 화제를 모아 매일 한 끼를 추천하고, 추천 이유를 쌓아 가요.">
+<meta property="og:url" content="https://choco1161.github.io/trends/menu/">
+<meta name="twitter:card" content="summary">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+<style>
+:root{
+  --bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e4e2dc;--soft:#f6efe8;
+  --accent:#b4552d;--accent-ink:#fff;--warm:#e07a3f;
+  --c-season:#3f8f4f;--c-weather:#3b7dc4;--c-buzz:#c4405a;--c-special:#9a5bc4;--c-day:#a0782a;--c-fresh:#6b6b70;
+  --font:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media all{:root:not([data-theme="light"]){
+  --bg:#0b0b0c;--card:#161618;--ink:#f1efea;--muted:#a09d96;--line:#2a2a2e;--soft:#1f1a16;
+  --accent:#f0915f;--accent-ink:#1d1006;--warm:#f0915f;
+  --c-season:#7fcf8c;--c-weather:#7db6ef;--c-buzz:#f2879b;--c-special:#c79bef;--c-day:#e0bc6a;--c-fresh:#a09d96;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0b0c;--card:#161618;--ink:#f1efea;--muted:#a09d96;--line:#2a2a2e;--soft:#1f1a16;
+  --accent:#f0915f;--accent-ink:#1d1006;--warm:#f0915f;
+  --c-season:#7fcf8c;--c-weather:#7db6ef;--c-buzz:#f2879b;--c-special:#c79bef;--c-day:#e0bc6a;--c-fresh:#a09d96;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14.5px;line-height:1.6}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent)}
+.back{display:inline-block;margin-bottom:14px;color:var(--muted);text-decoration:none;font-size:.9rem}
+.back:hover{color:var(--accent)}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+h1{font-size:26px;margin:0;letter-spacing:-.02em}
+.meta{font-size:12.5px;color:var(--muted)}
+.lead{color:var(--muted);margin:4px 0 18px;font-size:13.5px}
+h2{font-size:16px;margin:34px 0 12px;display:flex;align-items:baseline;gap:8px}
+h2 small{font-size:12px;color:var(--muted);font-weight:400}
+
+.daynav{display:flex;align-items:center;gap:8px;margin:0 0 12px}
+.daynav button{font:inherit;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:38px;padding:0 12px;cursor:pointer;white-space:nowrap}
+.daynav button:disabled{opacity:.4;cursor:default}
+.daynav select{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:38px;padding:0 8px;flex:1;min-width:0}
+
+/* 오늘의 메뉴 카드 */
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.hero-top{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:center;padding:22px 22px 18px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--warm) 16%,transparent),transparent 70%)}
+.dish{font-size:64px;line-height:1;grid-row:span 3;filter:drop-shadow(0 4px 10px rgba(0,0,0,.18))}
+.stamp{font-family:var(--num);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.name{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:1px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--card)}
+.headline{margin:0;padding:12px 22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.headline b{color:var(--ink)}
+.why{padding:6px 22px 18px}
+.why h3{font-size:13px;margin:12px 0 8px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.reasons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.reasons li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.badge{font-size:11px;font-weight:700;text-align:center;padding:2px 0;border-radius:6px;white-space:nowrap;
+  color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.reasons p{margin:0;font-size:14.5px;line-height:1.55}
+.bar{height:3px;border-radius:2px;background:var(--c);opacity:.55;margin-top:5px}
+.reroll{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 20px}
+.btn{font:inherit;font-size:13.5px;font-weight:600;border-radius:10px;min-height:40px;padding:0 16px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.daynav button:focus-visible,.alt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* 후보 */
+.alts{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.alt{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.alt:hover,.alt[aria-pressed="true"]{border-color:var(--accent)}
+.alt .e{font-size:26px;line-height:1}
+.alt .n{font-weight:700;font-size:15px}
+.alt .r{font-size:12.5px;color:var(--muted);line-height:1.45}
+.alt .badge{align-self:flex-start;padding:1px 7px}
+
+/* 신호 */
+.signals{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.sig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sig h4{margin:0 0 6px;font-size:12.5px;color:var(--muted);font-weight:600}
+.sig .big{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.sig .tags{display:flex;flex-wrap:wrap;gap:5px}
+.sig .tags span{font-size:12.5px;padding:1px 9px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.sig .tags span i{font-style:normal;font-family:var(--num);font-size:11px;color:var(--muted);margin-left:3px}
+.off{font-size:12.5px;color:var(--muted)}
+
+/* 레파토리 */
+.rep{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.dist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.dist li{display:grid;grid-template-columns:70px 1fr 34px;gap:8px;align-items:center;font-size:13px}
+.dist .track{height:8px;border-radius:4px;background:var(--soft);overflow:hidden}
+.dist .fill{height:100%;background:var(--c)}
+.dist .v{font-family:var(--num);font-size:12px;color:var(--muted);text-align:right}
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.rank li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding:3px 0}
+.rank li:last-child{border-bottom:0}
+.rank .v{font-family:var(--num);font-size:12px;color:var(--muted)}
+.lines{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lines li{display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13.5px;line-height:1.5}
+.lines .c{font-family:var(--num);font-size:11.5px;color:var(--muted);white-space:nowrap}
+.filter{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.filter button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:3px 11px;cursor:pointer;min-height:30px}
+.filter button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:700}
+
+.archive{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.archive button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:86px 34px 1fr;gap:8px;align-items:center;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-size:13.5px}
+.archive button:hover,.archive button[aria-current="true"]{border-color:var(--accent)}
+.archive .d{font-family:var(--num);font-size:12.5px;color:var(--muted)}
+.archive .e{font-size:20px;text-align:center}
+.archive .h{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-s{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+details.how{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px}
+details.how summary{cursor:pointer;font-weight:600}
+details.how table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}
+details.how td{border-top:1px solid var(--line);padding:6px 4px;vertical-align:top}
+details.how td:first-child{white-space:nowrap;color:var(--muted);width:1%;padding-right:12px}
+footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+footer p{margin:4px 0}
+@media (max-width:480px){
+  .hero-top{padding:18px 16px 14px;gap:4px 14px}.dish{font-size:50px}.name{font-size:26px}
+  .headline,.why{padding-left:16px;padding-right:16px}.reroll{padding:0 16px 16px}
+  .lines li{grid-template-columns:56px 1fr}.lines .c{grid-column:2}
+}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← 트렌드</a>
+  <div class="top">
+    <h1>오늘의 메뉴</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+  <p class="lead">제철 재료 · 오늘 날씨 · 기념일 · 실시간 검색어와 먹거리 뉴스를 모아 매일 한 끼를 고르고, 왜 골랐는지 이유를 쌓아 가요.</p>
+  <div data-purpose></div>
+
+  <div class="daynav">
+    <button type="button" id="prev" aria-label="이전 날짜">← 이전</button>
+    <select id="pick" aria-label="날짜 선택"></select>
+    <button type="button" id="next" aria-label="다음 날짜">다음 →</button>
+  </div>
+
+  <section class="hero" id="hero" aria-live="polite">불러오는 중…</section>
+
+  <h2>다른 후보 <small>눌러서 이유 보기</small></h2>
+  <div class="alts" id="alts"></div>
+
+  <h2>오늘 모은 신호</h2>
+  <div class="signals" id="signals"></div>
+
+  <h2>추천 이유 레파토리 <small id="repMeta"></small></h2>
+  <div class="rep">
+    <div class="sig"><h4>어떤 이유로 많이 골랐나</h4><ul class="dist" id="dist"></ul></div>
+    <div class="sig"><h4>자주 추천된 메뉴</h4><ul class="rank" id="rank"></ul></div>
+  </div>
+  <h2>쌓인 추천 이유 <small>날마다 다른 문장으로 늘어나요</small></h2>
+  <div class="filter" id="filter"></div>
+  <ul class="lines" id="lines"></ul>
+  <button type="button" class="btn" id="more" hidden style="margin-top:10px">더 보기</button>
+
+  <h2>지난 메뉴</h2>
+  <ul class="archive" id="archive"></ul>
+
+  <h2>어떻게 고르나요</h2>
+  <details class="how">
+    <summary>점수 매기는 방법</summary>
+    <table>
+      <tr><td>제철</td><td>그달이 제철인 재료·계절 메뉴에 가산점, 재료가 가장 맛있는 달이면 더</td></tr>
+      <tr><td>날씨</td><td>서울 예보로 추위·쌀쌀·비·눈·더위·맑음을 판단해 어울리는 메뉴에 가산점</td></tr>
+      <tr><td>기념일</td><td>삼겹살데이·가래떡데이·수능·동지·김장철처럼 먹는 날이 정해진 때는 크게 가산</td></tr>
+      <tr><td>검색 화제</td><td>구글 실시간 급상승 검색어, 최근 7일 먹거리 뉴스 제목 언급 수, (연결 시) 네이버 검색량 증가율</td></tr>
+      <tr><td>요일</td><td>월요일은 든든하게, 금·토요일은 나눠 먹는 메뉴에 조금 더</td></tr>
+      <tr><td>겹침 방지</td><td>최근 7일 안에 메인으로 나온 메뉴는 크게 감점, 후보끼리는 종류(국물·면·고기…)가 겹치지 않게</td></tr>
+    </table>
+    <p class="note-s">이유 문장은 신호마다 여러 개의 틀이 있고, 최근에 쓴 문장은 피해서 골라요. 그래서 같은 메뉴라도 날마다 다른 이유로 소개돼요.</p>
+  </details>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">날씨는 Open-Meteo 예보(서울), 검색 화제는 Google Trends 급상승 검색어·Google News 먹거리 기사 제목 기준이에요. 추천은 참고용 재미 콘텐츠예요. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var rich = function (s) { return esc(s).replace(/&lt;(\/?)b&gt;/g, "<$1b>"); };
+  var KDOW = ["일", "월", "화", "수", "목", "금", "토"];
+  // 이유 종류 → 묶음(색)과 이름
+  var GROUP = {
+    "season": ["season", "제철"], "season-dish": ["season", "계절"],
+    "cold": ["weather", "날씨"], "chilly": ["weather", "날씨"], "rain": ["weather", "비"], "snow": ["weather", "눈"], "hot": ["weather", "더위"], "clear": ["weather", "날씨"],
+    "trend": ["buzz", "실검"], "news": ["buzz", "뉴스"], "datalab": ["buzz", "검색량"], "manual": ["buzz", "SNS"],
+    "special": ["special", "기념일"], "weekday": ["day", "요일"], "fresh": ["fresh", "새로움"]
+  };
+  var GNAME = { season: "제철", weather: "날씨", buzz: "검색·화제", special: "기념일·시기", day: "요일", fresh: "새로움" };
+  function g(t) { return GROUP[t] || ["fresh", "기타"]; }
+  function badge(t) { var x = g(t); return '<span class="badge" style="--c:var(--c-' + x[0] + ')">' + esc(x[1]) + '</span>'; }
+  function dt(iso) { var p = iso.split("-").map(Number); return new Date(Date.UTC(p[0], p[1] - 1, p[2])); }
+  function short(iso) { var d = dt(iso); return (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + " (" + KDOW[d.getUTCDay()] + ")"; }
+  function stamp(iso) { return iso.replace(/-/g, ".") + " · " + KDOW[dt(iso).getUTCDay()] + "요일"; }
+
+  var days = [], idx = 0, view = 0; // view: 0=메인, 1~4=후보
+
+  function heroHtml(d, v) {
+    var m = v === 0 ? d.pick : d.alts[v - 1];
+    var reasons = v === 0 ? d.pick.reasons : [m.reason];
+    var max = Math.max.apply(null, reasons.map(function (r) { return r.pts || 0; }).concat([1]));
+    var items = reasons.map(function (r) {
+      var c = "var(--c-" + g(r.type)[0] + ")";
+      return '<li>' + badge(r.type) + '<div><p>' + esc(r.text) + '</p>' +
+        (r.pts ? '<div class="bar" style="--c:' + c + ';width:' + Math.round((r.pts / max) * 100) + '%"></div>' : "") + '</div></li>';
+    }).join("");
+    return '<div class="hero-top">' +
+        '<div class="dish" aria-hidden="true">' + esc(m.emoji) + '</div>' +
+        '<div class="stamp">' + esc(stamp(d.date)) + (v ? " · 후보 " + v : " · 오늘의 메뉴") + '</div>' +
+        '<h2 class="name" style="margin:0;display:block">' + esc(m.name) + '</h2>' +
+        '<div class="chips"><span class="chip">' + esc(m.cat) + '</span><span class="chip">' + esc(m.kind) + '</span><span class="chip">점수 ' + esc(m.score) + '</span></div>' +
+      '</div>' +
+      (v === 0 ? '<p class="headline">' + rich(d.headline) + '</p>' : "") +
+      '<div class="why"><h3>왜 ' + esc(m.name) + '?</h3><ul class="reasons">' + items + '</ul></div>' +
+      '<div class="reroll">' +
+        '<button type="button" class="btn primary" id="roll">' + (v < d.alts.length ? "🎲 다른 거 없어?" : "↺ 처음 추천으로") + '</button>' +
+        (v ? '<button type="button" class="btn" id="home">오늘의 메뉴 보기</button>' : "") +
+      '</div>';
+  }
+
+  function renderHero() {
+    var d = days[idx];
+    $("hero").innerHTML = heroHtml(d, view);
+    $("roll").onclick = function () { view = view < d.alts.length ? view + 1 : 0; renderHero(); };
+    if ($("home")) $("home").onclick = function () { view = 0; renderHero(); };
+    document.querySelectorAll("#alts .alt").forEach(function (b, i) { b.setAttribute("aria-pressed", String(view === i + 1)); });
+  }
+
+  function renderAlts(d) {
+    $("alts").innerHTML = d.alts.map(function (a, i) {
+      return '<button type="button" class="alt" data-i="' + (i + 1) + '" aria-pressed="false">' +
+        '<span class="e" aria-hidden="true">' + esc(a.emoji) + '</span><span class="n">' + esc(a.name) + '</span>' +
+        badge(a.reason.type) + '<span class="r">' + esc(a.reason.text) + '</span></button>';
+    }).join("");
+  }
+  $("alts").addEventListener("click", function (e) {
+    var b = e.target.closest(".alt"); if (!b) return;
+    view = +b.dataset.i; renderHero(); $("hero").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  function tags(list) { return '<div class="tags">' + list.join("") + '</div>'; }
+  function renderSignals(d) {
+    var s = d.signals || {}, w = s.weather, src = s.sources || {}, out = [];
+    out.push('<div class="sig"><h4>☁️ 날씨 (서울)</h4>' + (w
+      ? '<div class="big">' + esc(w.desc) + ' ' + esc(w.tmin) + '~' + esc(w.tmax) + '℃</div><div class="off">강수 ' + esc(w.rain) + 'mm' + (w.pop != null ? ' · 강수확률 ' + esc(w.pop) + '%' : "") + '</div>'
+      : '<div class="off">이날은 날씨 예보를 받지 못했어요.</div>') + '</div>');
+    out.push('<div class="sig"><h4>🌿 ' + (dt(d.date).getUTCMonth() + 1) + '월 제철 재료</h4>' +
+      (s.season && s.season.length ? tags(s.season.map(function (x) { return '<span>' + esc(x) + '</span>'; })) : '<div class="off">—</div>') + '</div>');
+    out.push('<div class="sig"><h4>📅 기념일·시기</h4>' +
+      (s.special && s.special.length ? tags(s.special.map(function (x) { return '<span>' + esc(x) + '</span>'; })) : '<div class="off">특별한 날은 아니에요.</div>') + '</div>');
+    var buzz = (s.buzz || []).map(function (b) {
+      var lab = { trend: "실검", news: "뉴스", datalab: "검색량", manual: "SNS" }[b.src] || "";
+      var c = b.count == null ? "" : (b.src === "datalab" ? "+" + b.count + "%" : "×" + b.count);
+      return '<span title="' + esc(b.menu) + '">' + esc(b.word) + '<i>' + esc(lab + (c ? " " + c : "")) + '</i></span>';
+    });
+    var hot = (s.hot || []).map(function (h) { return '<span>' + esc(h[0]) + (h[1] ? '<i>×' + esc(h[1]) + '</i>' : "") + '</span>'; });
+    out.push('<div class="sig"><h4>🔥 검색·뉴스 화제 (메뉴와 연결된 것)</h4>' +
+      (buzz.length ? tags(buzz) : '<div class="off">' + (src.trends || src.news ? "오늘은 메뉴와 겹치는 화제가 없었어요." : "이날은 검색·뉴스 신호를 모으지 못했어요.") + '</div>') + '</div>');
+    out.push('<div class="sig"><h4>💬 요즘 회자되는 먹거리</h4>' +
+      (hot.length ? tags(hot) + '<p class="note-s">뉴스 제목에서 열풍·오픈런·품절과 함께 따옴표로 등장한 말이에요.</p>' : '<div class="off">새로 떠오른 먹거리 키워드가 없었어요.</div>') + '</div>');
+    $("signals").innerHTML = out.join("");
+  }
+
+  var filterGroup = "all", lineLimit = 12;
+  function renderRepertoire() {
+    var cnt = {}, menus = {}, lines = {}, total = 0;
+    days.forEach(function (d) {
+      var m = menus[d.pick.id] || (menus[d.pick.id] = { name: d.pick.name, emoji: d.pick.emoji, n: 0 }); m.n++;
+      var all = d.pick.reasons.concat(d.alts.map(function (a) { return a.reason; }));
+      all.forEach(function (r) {
+        var k = g(r.type)[0];
+        if (d.pick.reasons.indexOf(r) >= 0) { cnt[k] = (cnt[k] || 0) + 1; total++; }
+        var L = lines[r.text] || (lines[r.text] = { text: r.text, type: r.type, n: 0, last: d.date }); L.n++;
+        if (d.date > L.last) L.last = d.date;
+      });
+    });
+    var keys = Object.keys(GNAME).filter(function (k) { return cnt[k]; }).sort(function (a, b) { return cnt[b] - cnt[a]; });
+    var mx = Math.max.apply(null, keys.map(function (k) { return cnt[k]; }).concat([1]));
+    $("dist").innerHTML = keys.map(function (k) {
+      return '<li><span>' + esc(GNAME[k]) + '</span><span class="track"><span class="fill" style="display:block;--c:var(--c-' + k + ');width:' + Math.round(cnt[k] / mx * 100) + '%"></span></span><span class="v">' + cnt[k] + '</span></li>';
+    }).join("") || '<li class="off">아직 기록이 없어요.</li>';
+    var rk = Object.keys(menus).map(function (k) { return menus[k]; }).sort(function (a, b) { return b.n - a.n; }).slice(0, 8);
+    $("rank").innerHTML = rk.map(function (m) { return '<li><span>' + esc(m.emoji + " " + m.name) + '</span><span class="v">' + m.n + '회</span></li>'; }).join("");
+    var L = Object.keys(lines).map(function (k) { return lines[k]; });
+    $("repMeta").textContent = days.length + "일 · 이유 문장 " + L.length + "개";
+    var present = {}; L.forEach(function (x) { present[g(x.type)[0]] = 1; });
+    $("filter").innerHTML = ['<button type="button" data-g="all" aria-pressed="' + (filterGroup === "all") + '">전체</button>']
+      .concat(Object.keys(GNAME).filter(function (k) { return present[k]; }).map(function (k) {
+        return '<button type="button" data-g="' + k + '" aria-pressed="' + (filterGroup === k) + '">' + esc(GNAME[k]) + '</button>';
+      })).join("");
+    var shown = L.filter(function (x) { return filterGroup === "all" || g(x.type)[0] === filterGroup; })
+      .sort(function (a, b) { return b.last.localeCompare(a.last) || b.n - a.n; });
+    $("more").hidden = shown.length <= lineLimit;
+    $("more").textContent = "더 보기 (" + (shown.length - lineLimit) + "개 남음)";
+    shown = shown.slice(0, lineLimit);
+    $("lines").innerHTML = shown.map(function (x) {
+      return '<li>' + badge(x.type) + '<span>' + esc(x.text) + '</span><span class="c">' + esc(short(x.last)) + (x.n > 1 ? " · ×" + x.n : "") + '</span></li>';
+    }).join("");
+  }
+  $("filter").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-g]"); if (!b) return; filterGroup = b.dataset.g; lineLimit = 12; renderRepertoire();
+  });
+  $("more").addEventListener("click", function () { lineLimit += 20; renderRepertoire(); });
+
+  function renderArchive() {
+    $("archive").innerHTML = days.map(function (d) {
+      return '<li><button type="button" data-date="' + esc(d.date) + '"><span class="d">' + esc(short(d.date)) + '</span><span class="e" aria-hidden="true">' + esc(d.pick.emoji) + '</span>' +
+        '<span class="h"><b>' + esc(d.pick.name) + '</b> · ' + esc((d.pick.reasons[0] || {}).text || "") + '</span></button></li>';
+    }).join("");
+  }
+  $("archive").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-date]"); if (!b) return;
+    show(days.findIndex(function (d) { return d.date === b.dataset.date; }), true);
+    $("hero").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  function show(i, push) {
+    idx = Math.max(0, Math.min(days.length - 1, i)); view = 0;
+    var d = days[idx];
+    renderAlts(d); renderHero(); renderSignals(d);
+    $("pick").value = d.date;
+    $("prev").disabled = idx >= days.length - 1;
+    $("next").disabled = idx <= 0;
+    document.querySelectorAll("#archive button").forEach(function (b) { b.setAttribute("aria-current", b.dataset.date === d.date ? "true" : "false"); });
+    if (push) { try { history.replaceState(null, "", idx === 0 ? location.pathname : "#" + d.date); } catch (e) {} }
+  }
+  $("prev").addEventListener("click", function () { show(idx + 1, true); });
+  $("next").addEventListener("click", function () { show(idx - 1, true); });
+  $("pick").addEventListener("change", function (e) { show(days.findIndex(function (d) { return d.date === e.target.value; }), true); });
+
+  fetch("../../data/menu/days.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) {
+      days = (data.days || []).slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (!days.length) throw new Error("empty");
+      $("meta").textContent = days.length + "일째 쌓는 중 · 갱신 " + (data.updated || days[0].date);
+      $("pick").innerHTML = days.map(function (d) { return '<option value="' + esc(d.date) + '">' + esc(stamp(d.date) + " · " + d.pick.name) + '</option>'; }).join("");
+      renderArchive(); renderRepertoire();
+      var want = decodeURIComponent(location.hash.slice(1));
+      var i = days.findIndex(function (d) { return d.date === want; });
+      show(i >= 0 ? i : 0, false);
+    })
+    .catch(function () { $("hero").textContent = "메뉴를 불러오지 못했어요. 잠시 후 새로고침해 주세요."; });
+})();
+</script>
+<script src="../../assets/catalog.js?v=20261114b"></script><script src="../../assets/related.js?v=20261114b"></script><script src="../../assets/purpose.js?v=20261114b"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noai, noimageai">
+<title>오늘의 관심사 — 매일 트렌드 Top 10 · Derek's Platform</title>
+<meta name="description" content="국내 화제 키워드와 해외 급상승 토픽을 섞어 매일 Top 10 카드로 정리한 트렌드 브리핑 아카이브.">
+<meta name="keywords" content="트렌드,실시간검색어,오늘의이슈,화제키워드,급상승토픽">
+<link rel="canonical" href="https://choco1161.github.io/trends/daily/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="오늘의 관심사 — 매일 트렌드 Top 10">
+<meta property="og:description" content="국내 화제 키워드와 해외 급상승 토픽을 섞어 매일 Top 10 카드로 정리한 트렌드 브리핑 아카이브.">
+<meta property="og:url" content="https://choco1161.github.io/trends/daily/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+<style>
+/* 페이지 틀은 사이트 공통 톤(밝은/어두운 테마),
+   가운데 카드는 확정된 '오늘의 관심사' 카드뉴스 디자인을 .tcard 안에 그대로 옮김 (CSS 값 변경 없음) */
+:root{
+  --bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e4e2dc;--soft:#f3ece6;
+  --accent:#7a4b2a;--accent-ink:#fff;
+  --font:system-ui,-apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media all{:root:not([data-theme="light"]){
+  --bg:#0b0b0c;--card:#161618;--ink:#f1efea;--muted:#a09d96;--line:#2a2a2e;--soft:#1f1c19;
+  --accent:#d9a273;--accent-ink:#1d1405;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0b0c;--card:#161618;--ink:#f1efea;--muted:#a09d96;--line:#2a2a2e;--soft:#1f1c19;
+  --accent:#d9a273;--accent-ink:#1d1405;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14.5px;line-height:1.6}
+main{max-width:960px;margin:0 auto;padding:28px 16px 64px}
+a{color:var(--accent)}
+.back{display:inline-block;margin-bottom:14px;color:var(--muted);text-decoration:none;font-size:.9rem}
+.back:hover{color:var(--accent)}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+h1{font-size:26px;margin:0;letter-spacing:-.02em}
+.meta{font-size:12.5px;color:var(--muted)}
+.lead{color:var(--muted);margin:4px 0 18px;font-size:13.5px}
+h2{font-size:16px;margin:30px 0 12px}
+/* 날짜 이동 */
+.daynav{display:flex;align-items:center;gap:8px;max-width:640px;margin:0 auto 10px}
+.daynav button{font:inherit;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:36px;padding:0 12px;cursor:pointer;white-space:nowrap}
+.daynav button:disabled{opacity:.4;cursor:default}
+.daynav select{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:36px;padding:0 8px;flex:1;min-width:0}
+/* ─── 확정 카드 디자인 (원본 CSS를 .tcard 범위로만 감쌈) ─── */
+.tcard{
+  --bg: #0c0c0e; --surface: #17171a; --surface-2: #1f1f23; --line: #2a2a2e;
+  --ink: #f5f4f0; --ink-muted: #9b9a94; --gold: #ffc93c; --coral: #ff6b4a; --teal: #5ec8d8;
+  background: var(--bg); color: var(--ink);
+  font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+  padding: 14px 18px 16px; border-radius: 14px; max-width: 640px; margin: 0 auto;
+  -webkit-font-smoothing: antialiased; line-height: normal; font-size: 14px;
+}
+.tcard * { box-sizing: border-box; }
+.tcard .wrap { max-width: 640px; margin-inline: auto; display: flex; flex-direction: column; gap: 12px; }
+.tcard .masthead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; flex-wrap: wrap; }
+.tcard .masthead .brand { font-family: "Black Han Sans", "Noto Sans KR", sans-serif; font-size: 22px; letter-spacing: 0.01em; color: var(--ink); }
+.tcard .masthead .date { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.tcard .headline { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 4px; padding: 10px 14px; }
+.tcard .headline .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; }
+.tcard .headline p { margin: 5px 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-muted); }
+.tcard .headline p b { color: var(--ink); font-weight: 700; }
+.tcard .section-label { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--ink-muted); text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.tcard .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.tcard .list { display: flex; flex-direction: column; gap: 5px; }
+.tcard .row { display: grid; grid-template-columns: 24px 42px 1fr 60px; column-gap: 10px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; min-height: 38px; }
+.tcard .rank { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 16px; color: var(--gold); font-variant-numeric: tabular-nums; }
+.tcard .tag { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; padding: 2px 6px; border-radius: 999px; text-align: center; white-space: nowrap; }
+.tcard .tag.domestic { color: var(--coral); border: 1px solid color-mix(in srgb, var(--coral) 55%, transparent); background: color-mix(in srgb, var(--coral) 12%, transparent); }
+.tcard .tag.global   { color: var(--teal);  border: 1px solid color-mix(in srgb, var(--teal) 55%, transparent);  background: color-mix(in srgb, var(--teal) 12%, transparent); }
+.tcard .topic-line { display: flex; align-items: baseline; gap: 7px; min-width: 0; overflow: hidden; }
+.tcard .topic-line .t { font-weight: 700; font-size: 13.5px; color: var(--ink); white-space: nowrap; flex: 0 0 auto; }
+.tcard .topic-line .n { font-size: 11px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.tcard .cat { font-size: 10.5px; color: var(--ink-muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tcard .directions { display: flex; flex-direction: column; gap: 8px; }
+.tcard .direction { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 8px 2px; border-bottom: 1px solid var(--line); }
+.tcard .direction:last-child { border-bottom: none; }
+.tcard .direction .num { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--gold); font-size: 13px; }
+.tcard .direction p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
+.tcard .footer { background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; }
+.tcard .footer .src { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-muted); line-height: 1.6; }
+.tcard .footer .note { margin-top: 5px; font-size: 11px; color: color-mix(in srgb, var(--ink-muted) 80%, transparent); line-height: 1.6; border-top: 1px solid var(--line); padding-top: 7px; }
+@media (max-width: 380px) { .tcard .row { grid-template-columns: 20px 38px 1fr; } .tcard .cat { display: none; } }
+/* 행을 누르면 비고 전체 문장을 펼쳐 보여줌 (모바일엔 title 툴팁이 없어서) */
+.tcard .row { cursor: pointer; }
+.tcard .row .full { grid-column: 3 / -1; font-size: 11.5px; line-height: 1.5; color: var(--ink-muted); margin-top: 5px; white-space: normal; }
+@media (max-width: 380px) { .tcard .row .full { grid-column: 1 / -1; } }
+/* 반복 등장 토픽 · 지난 카드 */
+.repeat{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.pill .c{font-family:var(--num);font-size:11.5px;color:var(--muted);margin-left:4px}
+.pill.dom{border-color:color-mix(in srgb,#ff6b4a 45%,var(--line))}
+.pill.glo{border-color:color-mix(in srgb,#5ec8d8 55%,var(--line))}
+.archive{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.archive button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:86px 1fr;gap:10px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:13.5px;line-height:1.5}
+.archive button:hover,.archive button[aria-current="true"]{border-color:var(--accent)}
+.archive .d{font-family:var(--num);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.archive .h{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.archive .h b{font-weight:700}
+.note-s{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+footer p{margin:4px 0}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← 트렌드</a>
+  <div class="top">
+    <h1>오늘의 관심사</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+  <p class="lead">국내 화제 키워드 5개와 해외 급상승 토픽 5개를 번갈아 놓은 Top 10 카드를 매일 쌓아요.</p>
+  <div data-purpose></div>
+
+  <div class="daynav">
+    <button type="button" id="prev" aria-label="이전 날짜">← 이전</button>
+    <select id="pick" aria-label="날짜 선택"></select>
+    <button type="button" id="next" aria-label="다음 날짜">다음 →</button>
+  </div>
+  <div class="tcard" id="card" aria-live="polite">불러오는 중…</div>
+
+  <h2>여러 번 등장한 토픽</h2>
+  <div class="repeat" id="repeat"></div>
+  <p class="note-s" id="repeatNote"></p>
+
+  <h2>지난 카드</h2>
+  <ul class="archive" id="archive"></ul>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">국내는 실시간 화제 키워드 집계·주요 언론 랭킹뉴스, 해외는 Exploding Topics 급상승 토픽 기준이에요. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  // 결론 문장은 <b>만 허용
+  var rich = function (s) { return esc(s).replace(/&lt;(\/?)b&gt;/g, "<$1b>"); };
+  var DOW = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  var KDOW = ["일", "월", "화", "수", "목", "금", "토"];
+  function dt(iso) { var p = iso.split("-").map(Number); return new Date(Date.UTC(p[0], p[1] - 1, p[2])); }
+  function stamp(iso) { return iso.replace(/-/g, ".") + " · " + DOW[dt(iso).getUTCDay()]; }
+  function short(iso) { var d = dt(iso); return (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + " (" + KDOW[d.getUTCDay()] + ")"; }
+
+  var days = [], idx = 0;
+
+  function cardHtml(d) {
+    var rows = d.items.map(function (it, i) {
+      var dom = it.scope === "국내";
+      return '<div class="row" role="button" tabindex="0" aria-expanded="false">' +
+        '<div class="rank">' + String(i + 1).padStart(2, "0") + '</div>' +
+        '<div class="tag ' + (dom ? "domestic" : "global") + '">' + (dom ? "국내" : "해외") + '</div>' +
+        '<div class="topic-line" title="' + esc(it.detail || it.note) + '"><span class="t">' + esc(it.topic) + '</span><span class="n">' + esc(it.note) + '</span></div>' +
+        '<div class="cat">' + esc(it.cat) + '</div>' +
+        '<div class="full" hidden>' + esc(it.detail || it.note) + '</div>' +
+      '</div>';
+    }).join("");
+    var dirs = (d.directions || []).map(function (t, i) {
+      return '<div class="direction"><div class="num">' + (i + 1) + '</div><p>' + esc(t) + '</p></div>';
+    }).join("");
+    var s = d.sources || {};
+    return '<div class="wrap">' +
+      '<div class="masthead"><div class="brand">오늘의 관심사</div><div class="date">' + stamp(d.date) + '</div></div>' +
+      '<div class="headline"><div class="eyebrow">오늘의 관심사 방향성</div><p>' + rich(d.headline) + '</p></div>' +
+      '<div><div class="section-label">Top 10 · 관심사순</div><div class="list">' + rows + '</div></div>' +
+      (dirs ? '<div><div class="section-label">방향성</div><div class="directions">' + dirs + '</div></div>' : "") +
+      '<div class="footer">' +
+        (s.domestic ? '<div class="src">국내 · ' + esc(s.domestic) + '</div>' : "") +
+        (s.global ? '<div class="src">해외 · ' + esc(s.global) + '</div>' : "") +
+      '</div>' +
+    '</div>';
+  }
+
+  function show(i, push) {
+    idx = Math.max(0, Math.min(days.length - 1, i));
+    var d = days[idx];
+    $("card").innerHTML = cardHtml(d);
+    $("pick").value = d.date;
+    $("prev").disabled = idx >= days.length - 1;   // days는 최신순
+    $("next").disabled = idx <= 0;
+    document.querySelectorAll("#archive button").forEach(function (b) { b.setAttribute("aria-current", b.dataset.date === d.date ? "true" : "false"); });
+    if (push) { try { history.replaceState(null, "", idx === 0 ? location.pathname : "#" + d.date); } catch (e) {} }
+  }
+
+  function toggle(row) {
+    var f = row.querySelector(".full"); if (!f) return;
+    f.hidden = !f.hidden; row.setAttribute("aria-expanded", String(!f.hidden));
+  }
+  $("card").addEventListener("click", function (e) { var r = e.target.closest(".row"); if (r) toggle(r); });
+  $("card").addEventListener("keydown", function (e) {
+    var r = e.target.closest(".row"); if (r && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggle(r); }
+  });
+  $("prev").addEventListener("click", function () { show(idx + 1, true); });
+  $("next").addEventListener("click", function () { show(idx - 1, true); });
+  $("pick").addEventListener("change", function (e) { show(days.findIndex(function (d) { return d.date === e.target.value; }), true); });
+
+  function renderRepeat() {
+    var m = {};
+    days.forEach(function (d) {
+      d.items.forEach(function (it) {
+        var k = it.topic.replace(/\s+/g, "").toLowerCase();
+        if (!m[k]) m[k] = { topic: it.topic, scope: it.scope, dates: [] };
+        if (m[k].dates.indexOf(d.date) < 0) m[k].dates.push(d.date);
+      });
+    });
+    var rep = Object.keys(m).map(function (k) { return m[k]; }).filter(function (x) { return x.dates.length > 1; })
+      .sort(function (a, b) { return b.dates.length - a.dates.length || b.dates[0].localeCompare(a.dates[0]); });
+    $("repeat").innerHTML = rep.length
+      ? rep.map(function (x) {
+          return '<span class="pill ' + (x.scope === "국내" ? "dom" : "glo") + '" title="' + esc(x.dates.map(short).join(", ")) + '">' + esc(x.topic) + '<span class="c">×' + x.dates.length + '</span></span>';
+        }).join("")
+      : '<span class="meta">아직 두 번 이상 나온 토픽이 없어요.</span>';
+    $("repeatNote").textContent = rep.length ? "토픽 이름이 같은 경우만 묶었어요. 칩에 마우스를 올리면 등장한 날짜가 보여요." : "";
+  }
+
+  function renderArchive() {
+    $("archive").innerHTML = days.map(function (d) {
+      return '<li><button type="button" data-date="' + esc(d.date) + '"><span class="d">' + esc(short(d.date)) + '</span><span class="h">' + rich(d.headline) + '</span></button></li>';
+    }).join("");
+    $("archive").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-date]"); if (!b) return;
+      show(days.findIndex(function (d) { return d.date === b.dataset.date; }), true);
+      $("card").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  fetch("days.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) {
+      days = (data.days || []).slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (!days.length) throw new Error("empty");
+      $("meta").textContent = days.length + "일치 · " + short(days[days.length - 1].date) + " ~ " + short(days[0].date);
+      $("pick").innerHTML = days.map(function (d) { return '<option value="' + esc(d.date) + '">' + esc(stamp(d.date)) + '</option>'; }).join("");
+      renderArchive(); renderRepeat();
+      var want = decodeURIComponent(location.hash.slice(1));
+      var i = days.findIndex(function (d) { return d.date === want; });
+      show(i >= 0 ? i : 0, false);
+    })
+    .catch(function () { $("card").textContent = "카드를 불러오지 못했어요. 잠시 후 새로고침해 주세요."; });
+})();
+</script>
+<script src="../../assets/catalog.js?v=20261114b"></script><script src="../../assets/related.js?v=20261114b"></script><script src="../../assets/purpose.js?v=20261114b"></script>
+</body>
+</html>

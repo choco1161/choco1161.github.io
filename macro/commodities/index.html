@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>원자재 시세 — 유가·천연가스·금·구리·천연고무 · Derek's Platform</title>
+<meta name="description" content="WTI·브렌트 유가, 천연가스, 금, 구리, 천연고무 시세를 원화 환산과 함께 매일 갱신. 1개월~2년 추이와 1년 수익률 비교.">
+<meta name="keywords" content="유가,WTI,브렌트,천연가스,금값,구리,천연고무,원자재">
+<link rel="canonical" href="https://choco1161.github.io/macro/commodities/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="원자재 시세 — 유가·천연가스·금·구리·천연고무">
+<meta property="og:description" content="WTI·브렌트 유가, 천연가스, 금, 구리, 천연고무 시세를 원화 환산과 함께 매일 갱신. 1개월~2년 추이와 1년 수익률 비교.">
+<meta property="og:url" content="https://choco1161.github.io/macro/commodities/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261118">
+<link rel="stylesheet" href="../../macro/fx/page.css?v=20261118">
+<style>
+.pair .rt small.u { font-size: .62rem; font-weight: 600; color: var(--muted); }
+.cmp-note { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9rem; margin: 0 0 10px; }
+.cmp-note i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.pairs { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+@media (max-width: 760px) { .pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 거시경제</a>
+  <h1>원자재 시세</h1>
+  <p class="sub">유가·천연가스·금·구리와 천연고무 값을 원화 환산과 함께 — 평일 하루 여러 번 자동 갱신</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">시세를 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>시세를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden data-ids="WTI,BRENT,NATGAS,GOLD,COPPER,RUBBER" data-krw="1" data-compare="WTI,GOLD,COPPER,NATGAS">
+    <section class="hero panel" aria-live="polite">
+      <div class="hero-main">
+        <div class="hero-label" id="heroLabel"></div>
+        <div class="hero-rate" id="heroRate"></div>
+        <div class="hero-chg" id="heroChg"></div>
+        <div class="hero-time" id="heroTime"></div>
+      </div>
+      <dl class="hero-stats" id="heroStats"></dl>
+    </section>
+
+    <div class="pairs" id="pairs" role="tablist" aria-label="종목 선택"></div>
+
+    <section class="block">
+      <div class="block-head">
+        <h2 id="chartTitle">추이</h2>
+        <div class="seg" id="ranges" role="group" aria-label="기간"></div>
+      </div>
+      <div class="chart"><canvas id="cMain" aria-label="시세 추이 차트"></canvas></div>
+      <div class="period" id="period"></div>
+    </section>
+
+    <section class="block">
+      <h2>최근 1년 수익률 비교</h2>
+      <p class="note">1년 전 값을 0%로 놓고 얼마나 올랐는지 나란히 비교해요.</p>
+      <div class="cmp-note" id="cmpNote"></div>
+      <div class="chart"><canvas id="compare" aria-label="1년 수익률 비교 차트"></canvas></div>
+    </section>
+
+    <section class="block">
+      <h2>읽는 법</h2>
+      <ul class="tips">
+        <li>유가·금·구리·천연가스는 선물시장 <b>근월물</b> 종가예요. 만기가 바뀌는 날엔 값이 튈 수 있어요.</li>
+        <li><b>천연고무</b>는 IMF 국제 고무 가격(월평균)이라 한 달에 한 번 바뀌어요. 타이어·고무제품 원가 흐름을 볼 때 참고하세요.</li>
+        <li><b>원화 환산</b>은 최신 원/달러 환율로 단순 계산한 값이에요. 원유는 리터, 구리·고무는 kg 단위로 바꿔 보여줘요.</li>
+        <li>같은 달러 가격이어도 환율이 오르면 국내 원가는 올라요. 환율은 <a href="../fx/">원화 환율</a>에서 같이 보세요.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>최근 거래일</h2>
+      <p class="note">각 날짜의 종가와 전일 대비 등락률. 거래소마다 휴장일이 달라 빈칸이 있을 수 있어요.</p>
+      <div class="table-wrap"><table class="data" id="recent"></table></div>
+    </section>
+
+    <p class="note src" id="src"></p>
+  </div>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 페이지는 정보 제공용이며 투자 권유가 아닙니다. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="../../assets/board.js?v=20261118"></script>
+<script src="../../assets/catalog.js?v=20261118"></script><script src="../../assets/related.js?v=20261118"></script><script src="../../assets/purpose.js?v=20261118"></script>
+</body>
+</html>
