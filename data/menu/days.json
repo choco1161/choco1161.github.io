@@ -1,6 +1,1282 @@
 {
  "days": [
   {
+   "date": "2026-11-27",
+   "dow": "금",
+   "headline": "구름 조금 6.1~15℃ — 오늘은 <b>굴전</b> 어때요?",
+   "pick": {
+    "id": "guljeon",
+    "name": "굴전",
+    "emoji": "🦪",
+    "cat": "한식",
+    "kind": "전",
+    "score": 6.2,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 1,
+      "text": "굴 맛이 오르는 11월, 이맘때 아니면 아쉬운 굴전",
+      "pts": 2.5
+     },
+     {
+      "type": "rain",
+      "tpl": 0,
+      "text": "비 소식(강수 0mm)이 있는 날, 빗소리에 어울리는 굴전",
+      "pts": 2.5
+     },
+     {
+      "type": "weekday",
+      "tpl": 0,
+      "text": "금요일, 불금엔 둘러앉아 나눠 먹는 메뉴가 제맛",
+      "pts": 1.0
+     },
+     {
+      "type": "fresh",
+      "tpl": 0,
+      "text": "최근 일주일 동안 추천하지 않은 메뉴라 식탁에 변화를 줄 수 있어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "bangeo",
+     "name": "방어회",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 5.6,
+     "reason": {
+      "type": "news",
+      "tpl": 0,
+      "text": "최근 먹거리 뉴스에서 '방어'가 5번 회자됐어요",
+      "pts": 3.0
+     }
+    },
+    {
+     "id": "chueotang",
+     "name": "추어탕",
+     "emoji": "🥣",
+     "cat": "한식",
+     "kind": "국물",
+     "score": 5.0,
+     "reason": {
+      "type": "season",
+      "tpl": 1,
+      "text": "미꾸라지 맛이 오르는 11월, 이맘때 아니면 아쉬운 추어탕",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "godeungeo",
+     "name": "고등어구이",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 4.5,
+     "reason": {
+      "type": "season",
+      "tpl": 1,
+      "text": "고등어 맛이 오르는 11월, 이맘때 아니면 아쉬운 고등어구이",
+      "pts": 4.0
+     }
+    },
+    {
+     "id": "chicken",
+     "name": "치킨",
+     "emoji": "🍗",
+     "cat": "양식",
+     "kind": "고기",
+     "score": 4.5,
+     "reason": {
+      "type": "rain",
+      "tpl": 1,
+      "text": "비 오는 날 검색이 늘어나는 메뉴, 치킨",
+      "pts": 2.5
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 15.0,
+     "tmin": 6.1,
+     "rain": 0,
+     "pop": 77,
+     "snow": 0,
+     "code": 2,
+     "desc": "구름 조금"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "파전",
+      "menu": "해물파전",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "감자탕",
+      "menu": "감자탕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "라면",
+      "menu": "라면",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "김장",
+      "menu": "김장 수육",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "버거",
+      "menu": "수제버거",
+      "src": "news",
+      "count": 6
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "붕어빵",
+      "menu": "붕어빵",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "김치찌개",
+      "menu": "김치찌개",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "칼국수",
+      "menu": "칼국수",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "족발",
+      "menu": "족발",
+      "src": "news",
+      "count": 2
+     }
+    ],
+    "hot": [
+     [
+      "일시적 유행 넘어서야",
+      2
+     ],
+     [
+      "오픈런",
+      2
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 158,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
+   "date": "2026-11-26",
+   "dow": "목",
+   "headline": "흐림 5.4~14.3℃ — 오늘은 <b>버섯전골</b> 어때요?",
+   "pick": {
+    "id": "beoseot-jeongol",
+    "name": "버섯전골",
+    "emoji": "🍄",
+    "cat": "한식",
+    "kind": "국물",
+    "score": 5.2,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 버섯로 만든 버섯전골, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     },
+     {
+      "type": "chilly",
+      "tpl": 2,
+      "text": "겉옷을 여미게 되는 14.3℃ 날씨에 어울리는 버섯전골",
+      "pts": 1.5
+     },
+     {
+      "type": "fresh",
+      "tpl": 0,
+      "text": "최근 일주일 동안 추천하지 않은 메뉴라 식탁에 변화를 줄 수 있어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "kkomak",
+     "name": "꼬막비빔밥",
+     "emoji": "🐚",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 3.6,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 꼬막로 만든 꼬막비빔밥, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "daeha",
+     "name": "대하구이",
+     "emoji": "🦐",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 3.6,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 대하로 만든 대하구이, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "kalguksu",
+     "name": "칼국수",
+     "emoji": "🍜",
+     "cat": "한식",
+     "kind": "면",
+     "score": 3.5,
+     "reason": {
+      "type": "chilly",
+      "tpl": 1,
+      "text": "일교차 큰 날, 속을 데워 주는 칼국수",
+      "pts": 1.5
+     }
+    },
+    {
+     "id": "burger",
+     "name": "수제버거",
+     "emoji": "🍔",
+     "cat": "양식",
+     "kind": "고기",
+     "score": 2.8,
+     "reason": {
+      "type": "news",
+      "tpl": 2,
+      "text": "맛집·외식 뉴스에서 4번 언급된 수제버거, 요즘 사람들 입에 오르내리는 메뉴예요",
+      "pts": 2.8
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 14.3,
+     "tmin": 5.4,
+     "rain": 0,
+     "pop": 2,
+     "snow": 0,
+     "code": 3,
+     "desc": "흐림"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "칼국수",
+      "menu": "칼국수",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "감자탕",
+      "menu": "감자탕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "김치찌개",
+      "menu": "김치찌개",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "버거",
+      "menu": "수제버거",
+      "src": "news",
+      "count": 4
+     },
+     {
+      "word": "초밥",
+      "menu": "초밥",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "굴전",
+      "menu": "굴전",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "훠궈",
+      "menu": "훠궈",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "족발",
+      "menu": "족발",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "수육",
+      "menu": "김장 수육",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "곰탕",
+      "menu": "설렁탕",
+      "src": "news",
+      "count": 1
+     }
+    ],
+    "hot": [
+     [
+      "제철코어",
+      2
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 138,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
+   "date": "2026-11-25",
+   "dow": "수",
+   "headline": "구름 조금 -3.9~5.8℃ — 오늘은 <b>군고구마</b> 어때요?",
+   "pick": {
+    "id": "goguma",
+    "name": "군고구마",
+    "emoji": "🍠",
+    "cat": "간식",
+    "kind": "간식",
+    "score": 6.1,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 3,
+      "text": "11월 장바구니 단골 햇고구마, 오늘은 군고구마로 즐겨 보세요",
+      "pts": 4.0
+     },
+     {
+      "type": "cold",
+      "tpl": 1,
+      "text": "아침 -3.9℃까지 떨어지는 날, 몸을 데워 줄 군고구마",
+      "pts": 2.5
+     },
+     {
+      "type": "fresh",
+      "tpl": 1,
+      "text": "요 며칠 추천과 겹치지 않는 메뉴로 골랐어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "hoguo",
+     "name": "훠궈",
+     "emoji": "🍲",
+     "cat": "중식",
+     "kind": "국물",
+     "score": 5.8,
+     "reason": {
+      "type": "cold",
+      "tpl": 1,
+      "text": "아침 -3.9℃까지 떨어지는 날, 몸을 데워 줄 훠궈",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "bangeo",
+     "name": "방어회",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 4.9,
+     "reason": {
+      "type": "news",
+      "tpl": 0,
+      "text": "최근 먹거리 뉴스에서 '방어'가 5번 회자됐어요",
+      "pts": 3.0
+     }
+    },
+    {
+     "id": "ramen",
+     "name": "라멘",
+     "emoji": "🍜",
+     "cat": "일식",
+     "kind": "면",
+     "score": 4.2,
+     "reason": {
+      "type": "cold",
+      "tpl": 1,
+      "text": "아침 -3.9℃까지 떨어지는 날, 몸을 데워 줄 라멘",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "galchi-jorim",
+     "name": "갈치조림",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 3.6,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 갈치로 만든 갈치조림, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 5.8,
+     "tmin": -3.9,
+     "rain": 0,
+     "pop": 0,
+     "snow": 0,
+     "code": 2,
+     "desc": "구름 조금"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "훠궈",
+      "menu": "훠궈",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "국밥",
+      "menu": "돼지국밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "라멘",
+      "menu": "라멘",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "우동",
+      "menu": "우동",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "대구탕",
+      "menu": "대구탕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "순대국",
+      "menu": "순대국",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "꼬막",
+      "menu": "꼬막비빔밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "김장",
+      "menu": "김장 수육",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "초밥",
+      "menu": "초밥",
+      "src": "news",
+      "count": 2
+     }
+    ],
+    "hot": [
+     [
+      "오픈런",
+      3
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 172,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "dow": "화",
+   "headline": "구름 조금 -2.9~4.8℃ — 오늘은 <b>동태찌개</b> 어때요?",
+   "pick": {
+    "id": "dongtae",
+    "name": "동태찌개",
+    "emoji": "🐟",
+    "cat": "한식",
+    "kind": "국물",
+    "score": 6.5,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 1,
+      "text": "명태 맛이 오르는 11월, 이맘때 아니면 아쉬운 동태찌개",
+      "pts": 2.5
+     },
+     {
+      "type": "cold",
+      "tpl": 2,
+      "text": "찬바람 부는 날엔 김이 모락모락 나는 동태찌개가 정답",
+      "pts": 2.5
+     },
+     {
+      "type": "news",
+      "tpl": 1,
+      "text": "요즘 기사 제목에 자주 등장하는 '동태탕', 화제의 동태찌개",
+      "pts": 0.7
+     },
+     {
+      "type": "fresh",
+      "tpl": 1,
+      "text": "요 며칠 추천과 겹치지 않는 메뉴로 골랐어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "goguma",
+     "name": "군고구마",
+     "emoji": "🍠",
+     "cat": "간식",
+     "kind": "간식",
+     "score": 6.2,
+     "reason": {
+      "type": "season",
+      "tpl": 3,
+      "text": "11월 장바구니 단골 햇고구마, 오늘은 군고구마로 즐겨 보세요",
+      "pts": 4.0
+     }
+    },
+    {
+     "id": "gwamegi",
+     "name": "과메기",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 4.1,
+     "reason": {
+      "type": "season",
+      "tpl": 1,
+      "text": "꽁치·청어 맛이 오르는 11월, 이맘때 아니면 아쉬운 과메기",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "ramen",
+     "name": "라멘",
+     "emoji": "🍜",
+     "cat": "일식",
+     "kind": "면",
+     "score": 4.1,
+     "reason": {
+      "type": "cold",
+      "tpl": 2,
+      "text": "찬바람 부는 날엔 김이 모락모락 나는 라멘이 정답",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "jeonbokjuk",
+     "name": "전복죽",
+     "emoji": "🥣",
+     "cat": "한식",
+     "kind": "죽",
+     "score": 3.7,
+     "reason": {
+      "type": "cold",
+      "tpl": 2,
+      "text": "찬바람 부는 날엔 김이 모락모락 나는 전복죽이 정답",
+      "pts": 2.5
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 4.8,
+     "tmin": -2.9,
+     "rain": 0,
+     "pop": 0,
+     "snow": 0,
+     "code": 2,
+     "desc": "구름 조금"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "동태탕",
+      "menu": "동태찌개",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "훠궈",
+      "menu": "훠궈",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "붕어빵",
+      "menu": "붕어빵",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "대구탕",
+      "menu": "대구탕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "라멘",
+      "menu": "라멘",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "짬뽕",
+      "menu": "짬뽕",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "국밥",
+      "menu": "돼지국밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "꼬막",
+      "menu": "꼬막비빔밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "초밥",
+      "menu": "초밥",
+      "src": "news",
+      "count": 2
+     }
+    ],
+    "hot": [
+     [
+      "예약 오픈런",
+      2
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 143,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "dow": "월",
+   "headline": "비 1.2~12.5℃ — 오늘은 <b>굴보쌈</b> 어때요?",
+   "pick": {
+    "id": "gul-bossam",
+    "name": "굴보쌈",
+    "emoji": "🦪",
+    "cat": "한식",
+    "kind": "고기",
+    "score": 6.9,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 굴·햇배추로 만든 굴보쌈, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 4.0
+     },
+     {
+      "type": "special",
+      "tpl": 0,
+      "text": "김장철, 갓 버무린 김장김치에 수육·굴을 싸 먹는 시기",
+      "pts": 2.5
+     },
+     {
+      "type": "fresh",
+      "tpl": 1,
+      "text": "요 며칠 추천과 겹치지 않는 메뉴로 골랐어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "guljeon",
+     "name": "굴전",
+     "emoji": "🦪",
+     "cat": "한식",
+     "kind": "전",
+     "score": 6.8,
+     "reason": {
+      "type": "season",
+      "tpl": 1,
+      "text": "굴 맛이 오르는 11월, 이맘때 아니면 아쉬운 굴전",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "chueotang",
+     "name": "추어탕",
+     "emoji": "🥣",
+     "cat": "한식",
+     "kind": "국물",
+     "score": 5.3,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 미꾸라지로 만든 추어탕, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "bangeo",
+     "name": "방어회",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "해산물",
+     "score": 4.9,
+     "reason": {
+      "type": "news",
+      "tpl": 1,
+      "text": "요즘 기사 제목에 자주 등장하는 '방어', 화제의 방어회",
+      "pts": 3.0
+     }
+    },
+    {
+     "id": "godeungeo",
+     "name": "고등어구이",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 4.5,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 고등어로 만든 고등어구이, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 4.0
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 12.5,
+     "tmin": 1.2,
+     "rain": 9.0,
+     "pop": 100,
+     "snow": 0,
+     "code": 63,
+     "desc": "비"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "굴전",
+      "menu": "굴전",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 5
+     },
+     {
+      "word": "동태탕",
+      "menu": "동태찌개",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "라면",
+      "menu": "라면",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "칼국수",
+      "menu": "칼국수",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "초밥",
+      "menu": "초밥",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "김밥",
+      "menu": "김밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "비빔밥",
+      "menu": "비빔밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "버거",
+      "menu": "수제버거",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "삼겹살",
+      "menu": "삼겹살",
+      "src": "news",
+      "count": 1
+     }
+    ],
+    "hot": [
+     [
+      "예약 오픈런",
+      2
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 113,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
+   "date": "2026-11-22",
+   "dow": "일",
+   "headline": "맑음 -4.2~4.3℃ — 오늘은 <b>김장 수육</b> 어때요?",
+   "pick": {
+    "id": "suyuk-bossam",
+    "name": "김장 수육",
+    "emoji": "🥬",
+    "cat": "한식",
+    "kind": "고기",
+    "score": 8.5,
+    "reasons": [
+     {
+      "type": "season",
+      "tpl": 0,
+      "text": "11월은 햇배추가 제철, 지금 먹는 김장 수육이 1년 중 가장 맛있어요",
+      "pts": 4.0
+     },
+     {
+      "type": "special",
+      "tpl": 0,
+      "text": "김장철, 갓 버무린 김장김치에 수육·굴을 싸 먹는 시기",
+      "pts": 2.5
+     },
+     {
+      "type": "weekday",
+      "tpl": 1,
+      "text": "오늘은 일요일! 한 주를 준비하는 일요일, 든든하게 챙겨 먹어요",
+      "pts": 1.0
+     },
+     {
+      "type": "fresh",
+      "tpl": 1,
+      "text": "요 며칠 추천과 겹치지 않는 메뉴로 골랐어요",
+      "pts": 0
+     }
+    ]
+   },
+   "alts": [
+    {
+     "id": "goguma",
+     "name": "군고구마",
+     "emoji": "🍠",
+     "cat": "간식",
+     "kind": "간식",
+     "score": 5.9,
+     "reason": {
+      "type": "season",
+      "tpl": 2,
+      "text": "제철 햇고구마로 만든 군고구마, 가격도 맛도 지금이 제일 좋은 때예요",
+      "pts": 4.0
+     }
+    },
+    {
+     "id": "gul-gukbap",
+     "name": "굴국밥",
+     "emoji": "🦪",
+     "cat": "한식",
+     "kind": "국물",
+     "score": 5.8,
+     "reason": {
+      "type": "season",
+      "tpl": 1,
+      "text": "굴 맛이 오르는 11월, 이맘때 아니면 아쉬운 굴국밥",
+      "pts": 2.5
+     }
+    },
+    {
+     "id": "godeungeo",
+     "name": "고등어구이",
+     "emoji": "🐟",
+     "cat": "한식",
+     "kind": "밥",
+     "score": 5.7,
+     "reason": {
+      "type": "season",
+      "tpl": 0,
+      "text": "11월은 고등어가 제철, 지금 먹는 고등어구이가 1년 중 가장 맛있어요",
+      "pts": 4.0
+     }
+    },
+    {
+     "id": "ramen",
+     "name": "라멘",
+     "emoji": "🍜",
+     "cat": "일식",
+     "kind": "면",
+     "score": 5.1,
+     "reason": {
+      "type": "cold",
+      "tpl": 2,
+      "text": "찬바람 부는 날엔 김이 모락모락 나는 라멘이 정답",
+      "pts": 2.5
+     }
+    }
+   ],
+   "signals": {
+    "weather": {
+     "tmax": 4.3,
+     "tmin": -4.2,
+     "rain": 0,
+     "pop": 0,
+     "snow": 0,
+     "code": 1,
+     "desc": "맑음"
+    },
+    "season": [
+     "갈치",
+     "고등어",
+     "굴",
+     "꼬막",
+     "꽁치",
+     "대하",
+     "명태",
+     "미꾸라지",
+     "방어",
+     "버섯",
+     "청어",
+     "햅쌀",
+     "햇고구마",
+     "햇배추"
+    ],
+    "special": [
+     "김장철"
+    ],
+    "buzz": [
+     {
+      "word": "순대국",
+      "menu": "순대국",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "갈치",
+      "menu": "갈치조림",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "방어",
+      "menu": "방어회",
+      "src": "news",
+      "count": 6
+     },
+     {
+      "word": "꼬막",
+      "menu": "꼬막비빔밥",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "팥죽",
+      "menu": "팥죽",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "과메기",
+      "menu": "과메기",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "버거",
+      "menu": "수제버거",
+      "src": "news",
+      "count": 3
+     },
+     {
+      "word": "치킨",
+      "menu": "치킨",
+      "src": "news",
+      "count": 6
+     },
+     {
+      "word": "칼국수",
+      "menu": "칼국수",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "비빔밥",
+      "menu": "비빔밥",
+      "src": "news",
+      "count": 1
+     },
+     {
+      "word": "초밥",
+      "menu": "초밥",
+      "src": "news",
+      "count": 2
+     },
+     {
+      "word": "라면",
+      "menu": "라면",
+      "src": "news",
+      "count": 1
+     }
+    ],
+    "hot": [
+     [
+      "예약 오픈런",
+      2
+     ]
+    ],
+    "trends_food": [],
+    "sources": {
+     "weather": true,
+     "trends": 10,
+     "news": 118,
+     "datalab": 0,
+     "manual": 0
+    }
+   }
+  },
+  {
    "date": "2026-11-21",
    "dow": "토",
    "headline": "맑음 -3.8~1.2℃ — 오늘은 <b>닭한마리</b> 어때요?",
@@ -1672,5 +2948,5 @@
    }
   }
  ],
- "updated": "2026-11-21 11:48"
+ "updated": "2026-11-27 12:46"
 }

@@ -14,8 +14,11 @@
 <meta property="og:title" content="주간 이슈 연표 — 2024~2026">
 <meta property="og:description" content="매주 화제가 된 이슈를 주별로, 연도별 핵심 키워드를 눌러 더 깊이.">
 <meta property="og:url" content="https://choco1161.github.io/trends/weekly-issues/">
-<meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="../../assets/style.css?v=20261122">
+<meta property="og:image" content="https://choco1161.github.io/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../assets/style.css?v=20261127">
 <link rel="stylesheet" href="../../macro/fx/page.css?v=20261122">
 <style>
 .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
@@ -101,7 +104,7 @@
       <div class="panel">
         <h2 style="margin-top:0" id="kwTitle">올해의 키워드</h2>
         <div class="kwcloud" id="cloud"></div>
-        <p class="hint">숫자는 그 키워드가 화제가 된 주 수예요. 많이 등장할수록 크게 보여요.</p>
+        <p class="hint">숫자는 그 키워드가 화제가 된 주 수예요. 자주, 크게 다뤄진 키워드일수록 크게 보여요.</p>
       </div>
       <div class="panel">
         <h2 style="margin-top:0" id="wkTitle">주별 이슈 지도</h2>
@@ -169,7 +172,7 @@
   function init(data) {
     D = data; EV = data.events;
     EV.forEach(function (e, i) {
-      e.i = i; e.w = isoWeek(e.d);
+      e.i = i; e.w8 = e.w || 1; e.w = isoWeek(e.d);
       (BYWEEK[e.w] = BYWEEK[e.w] || []).push(e);
       e.k.forEach(function (k) { (BYKW[k] = BYKW[k] || []).push(e); });
       var y = e.w.slice(0, 4); if (YEARS.indexOf(y) < 0) YEARS.push(y);
@@ -231,11 +234,11 @@
     var m = {};
     EV.filter(inScope).forEach(function (e) {
       e.k.forEach(function (k) {
-        var r = m[k] = m[k] || { k: k, n: 0, weeks: {} };
-        r.n++; r.weeks[e.w] = 1;
+        var r = m[k] = m[k] || { k: k, n: 0, wt: 0, weeks: {} };
+        r.n++; r.weeks[e.w] = 1; r.wt += e.w8 || 1;
       });
     });
-    return Object.keys(m).map(function (k) { var r = m[k]; r.wk = Object.keys(r.weeks).length; r.score = r.wk * 2 + r.n; return r; })
+    return Object.keys(m).map(function (k) { var r = m[k]; r.wk = Object.keys(r.weeks).length; r.score = r.wk + r.wt; return r; })
       .sort(function (a, b) { return b.score - a.score || b.n - a.n || a.k.localeCompare(b.k, "ko"); });
   }
 

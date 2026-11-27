@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://choco1161.github.io/about/</loc></url>
+  <url><loc>https://choco1161.github.io/contact/</loc></url>
   <url><loc>https://choco1161.github.io/edu/economy-toon/</loc></url>
   <url><loc>https://choco1161.github.io/edu/</loc></url>
   <url><loc>https://choco1161.github.io/</loc></url>
@@ -14,6 +16,7 @@
   <url><loc>https://choco1161.github.io/macro/</loc></url>
   <url><loc>https://choco1161.github.io/macro/rates-30y/</loc></url>
   <url><loc>https://choco1161.github.io/macro/weekly/</loc></url>
+  <url><loc>https://choco1161.github.io/privacy/</loc></url>
   <url><loc>https://choco1161.github.io/realestate/bunyang/</loc></url>
   <url><loc>https://choco1161.github.io/realestate/</loc></url>
   <url><loc>https://choco1161.github.io/realestate/policy-timeline/</loc></url>
@@ -27,10 +30,7 @@
   <url><loc>https://choco1161.github.io/trends/daily/</loc></url>
   <url><loc>https://choco1161.github.io/trends/</loc></url>
   <url><loc>https://choco1161.github.io/trends/menu/</loc></url>
+  <url><loc>https://choco1161.github.io/trends/weekly-issues/</loc></url>
   <url><loc>https://choco1161.github.io/useful/</loc></url>
   <url><loc>https://choco1161.github.io/useful/nursing-hospital-map/</loc></url>
-  <url><loc>https://choco1161.github.io/about/</loc></url>
-  <url><loc>https://choco1161.github.io/contact/</loc></url>
-  <url><loc>https://choco1161.github.io/privacy/</loc></url>
-  <url><loc>https://choco1161.github.io/trends/weekly-issues/</loc></url>
 </urlset>
