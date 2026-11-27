@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>러닝 대회 게임 · 10K 챌린지</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+#app{max-width:460px;margin:0 auto;padding:12px 12px 40px}
+h1{font-size:19px;margin:6px 0 2px}
+.sub{font-size:12px;color:#8b949e;margin-bottom:10px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{flex:1;padding:10px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:14px;font-weight:600}
+.tabs button.on{background:#f0b429;color:#1a1300;border-color:#f0b429}
+.card{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:12px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{font-size:11px;color:#8b949e;display:block;margin-bottom:3px}
+input[type=text],input[type=number]{width:100%;padding:10px;border-radius:9px;border:1px solid #30363d;background:#0d1117;color:#e6edf3;font-size:15px}
+.row{display:flex;gap:6px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;padding:10px;border-radius:9px;border:1px solid #30363d;background:#0d1117;color:#8b949e;font-size:14px;font-weight:600}
+.seg button.on.m{background:#1f6feb;color:#fff;border-color:#1f6feb}
+.seg button.on.f{background:#d6336c;color:#fff;border-color:#d6336c}
+.pred{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#8b949e}
+.pred b{font-size:22px;color:#f0b429;font-variant-numeric:tabular-nums}
+.maps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.map{border:2px solid #30363d;border-radius:12px;padding:10px;background:#0d1117;text-align:left;color:#e6edf3}
+.map.on{border-color:#f0b429;background:#241d08}
+.map .e{font-size:22px}.map .n{font-weight:700;font-size:14px;margin:2px 0}.map .d{font-size:11px;color:#8b949e;line-height:1.35}
+.big{width:100%;padding:14px;border-radius:12px;border:0;background:#f0b429;color:#1a1300;font-size:17px;font-weight:800}
+.big.alt{background:#21262d;color:#e6edf3;border:1px solid #30363d}
+.err{color:#ff7b72;font-size:12px;min-height:16px;margin:4px 0}
+.hud{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}
+.hud .t{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;color:#f0b429}
+.hud .s{font-size:12px;color:#8b949e;text-align:right;line-height:1.4}
+.cvwrap{position:relative}
+canvas{width:100%;display:block;border-radius:12px;background:#0b0f14;border:1px solid #30363d}
+#cd{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:900;color:#f0b429;text-shadow:0 2px 12px #000;pointer-events:none}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.bar{height:10px;background:#21262d;border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#f0b429;transition:width .08s}
+.bar.st i{background:#3fb950}
+.bl{font-size:11px;color:#8b949e;margin-bottom:3px;display:flex;justify-content:space-between}
+.hint{font-size:12px;line-height:1.5;background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:8px;margin-bottom:8px;min-height:62px}
+.hint .cur{color:#e6edf3}.hint .nx{color:#8b949e}
+.lanes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px}
+.lanes button{padding:12px 0;border-radius:10px;border:2px solid #30363d;background:#161b22;color:#8b949e;font-size:14px;font-weight:700}
+.lanes button.on{border-color:#58a6ff;color:#58a6ff;background:#0d2238}
+#tap{width:100%;height:112px;border-radius:18px;border:0;background:linear-gradient(#ff6b35,#e8431a);color:#fff;font-size:26px;font-weight:900;touch-action:manipulation;user-select:none;-webkit-user-select:none;box-shadow:0 5px 0 #8f2a0e}
+#tap:active{transform:translateY(4px);box-shadow:0 1px 0 #8f2a0e}
+.res .big-t{font-size:40px;font-weight:900;color:#f0b429;text-align:center;font-variant-numeric:tabular-nums}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #21262d;font-size:14px}
+.kv:last-child{border:0}.kv b{font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chips button{padding:6px 11px;border-radius:99px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:12px;font-weight:600}
+.chips button.on{background:#f0b429;color:#1a1300;border-color:#f0b429}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;color:#8b949e;text-align:left;padding:5px 4px;border-bottom:1px solid #30363d}
+td{padding:8px 4px;border-bottom:1px solid #21262d;font-variant-numeric:tabular-nums}
+tr.me td{background:#241d08}
+.sx{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.note{font-size:11px;color:#8b949e;line-height:1.5;margin-top:6px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>🏃 러닝 대회 게임 · 10K 챌린지</h1>
+  <div class="sub">기세 버튼을 빠르게 눌러 예상기록을 최대 15%까지 앞당기고, 코스 라인으로 거리를 줄여보세요.</div>
+  <div class="tabs">
+    <button data-tab="play" class="on">🏁 도전</button>
+    <button data-tab="rank">🏆 누적 순위</button>
+  </div>
+
+  <section id="play">
+    <!-- SETUP -->
+    <div id="setup">
+      <div class="card">
+        <div class="grid">
+          <div style="grid-column:1/3"><label>이름</label><input type="text" id="f_name" maxlength="12" placeholder="러너 이름"></div>
+          <div style="grid-column:1/3"><label>성별 (순위는 성별로 구분됩니다)</label>
+            <div class="seg" id="sexSeg"><button data-v="M" class="on m">남자</button><button data-v="F">여자</button></div></div>
+          <div><label>VO2max (ml/kg/min)</label><input type="number" id="f_vo2" inputmode="decimal" placeholder="예: 50"></div>
+          <div><label>전월 마일리지 (km)</label><input type="number" id="f_mil" inputmode="decimal" placeholder="예: 120"></div>
+          <div><label>키 (cm)</label><input type="number" id="f_h" inputmode="decimal" placeholder="예: 175"></div>
+          <div><label>몸무게 (kg)</label><input type="number" id="f_w" inputmode="decimal" placeholder="예: 70"></div>
+          <div style="grid-column:1/3"><label>10K 종전기록 (없으면 비워두세요)</label>
+            <div class="row"><input type="number" id="f_prm" inputmode="numeric" placeholder="분"><input type="number" id="f_prs" inputmode="numeric" placeholder="초"></div></div>
+        </div>
+        <div class="pred" style="margin-top:10px"><span>내 10K 예상기록</span><b id="predTxt">--:--</b></div>
+        <div class="note">예상기록 = 종전기록과 VO2max(다니엘스 VDOT) 환산값의 평균 → 마일리지·체형(BMI)으로 보정</div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">맵 선택</div>
+        <div class="maps" id="mapGrid"></div>
+      </div>
+      <div class="err" id="err"></div>
+      <button class="big" id="startBtn">🏁 출발 준비</button>
+    </div>
+
+    <!-- RACE -->
+    <div id="race" hidden>
+      <div class="hud">
+        <div><div style="font-size:11px;color:#8b949e" id="mapName"></div><div class="t" id="clock">0:00:00</div></div>
+        <div class="s"><div id="pct">0.0 / 10.0 km</div><div id="gap">예상 페이스 대비 --</div></div>
+      </div>
+      <div class="cvwrap"><canvas id="cv"></canvas><div id="cd"></div></div>
+      <div class="bars">
+        <div><div class="bl"><span>🔥 기세</span><span id="momTxt">0%</span></div><div class="bar"><i id="momBar"></i></div></div>
+        <div><div class="bl"><span>💚 스태미나</span><span id="stTxt">100%</span></div><div class="bar st"><i id="stBar" style="width:100%"></i></div></div>
+      </div>
+      <div class="hint" id="hint"></div>
+      <div class="lanes" id="lanes">
+        <button data-l="-1">◀ 좌측 라인</button><button data-l="0" class="on">● 중앙</button><button data-l="1">우측 라인 ▶</button>
+      </div>
+      <button id="tap">기세! 🔥 연타</button>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result" hidden>
+      <div class="card res">
+        <div style="text-align:center;font-size:13px;color:#8b949e" id="rMap"></div>
+        <div class="big-t" id="rTime">0:00:00</div>
+        <div style="text-align:center;font-size:15px;margin:2px 0 10px" id="rImp"></div>
+        <div class="kv"><span>예상기록</span><b id="rExp"></b></div>
+        <div class="kv"><span>평균 기세 연타</span><b id="rTaps"></b></div>
+        <div class="kv"><span>라인 선택 효과</span><b id="rLine"></b></div>
+        <div class="kv"><span>탈진 횟수</span><b id="rEx"></b></div>
+        <div class="kv"><span>현재 순위 (같은 맵·같은 성별)</span><b id="rRank">계산 중…</b></div>
+        <div class="note" id="rSave"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="big alt" id="againBtn">다시 도전</button>
+        <button class="big" id="toRankBtn">🏆 순위 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="rank" hidden>
+    <div class="chips" id="mapChips"></div>
+    <div class="chips" id="sexChips"></div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#8b949e;margin-bottom:6px"><span id="rankInfo">불러오는 중…</span><span id="rankMode"></span></div>
+      <table><thead><tr><th>#</th><th>이름</th><th>기록</th><th>개선</th></tr></thead><tbody id="rankBody"></tbody></table>
+    </div>
+    <div class="note">참가자들의 기록은 누적 저장되어 모두에게 공유됩니다. 맵을 고르면 기록 순, '전체 맵'은 예상 대비 개선율 순으로 정렬됩니다.</div>
+  </section>
+</div>
+
+<script>
+/* ============ 맵 정의 ============ */
+const S=(f,o={})=>Object.assign({t:'S',f,a:0,s:0},o);
+const C=(d,f,a,s,o={})=>Object.assign({t:d,f,a,s},o);
+const MAPS={
+ city:{name:'도심 서킷',emoji:'🏙️',desc:'급커브 연속 · 안쪽 라인이 승부 · 인파 구간 회피',
+  segs:[S(.10),C('R',.06,90,2),S(.08,{crowd:0}),C('L',.05,90,2),S(.10,{crowd:1}),C('R',.07,120,3),S(.08),C('L',.07,120,3),S(.09,{crowd:-1}),C('L',.05,60,1),S(.08),C('R',.06,90,2),S(.11)]},
+ coast:{name:'강변 해안로',emoji:'🌊',desc:'완만한 큰 커브 · 구간마다 바뀌는 맞바람, 방풍 라인 찾기',
+  segs:[S(.12,{wind:1}),C('R',.12,60,1),S(.14,{wind:-1}),C('L',.10,70,1),S(.14,{wind:1}),C('R',.10,80,1),S(.12,{wind:-1}),C('L',.08,60,1),S(.08,{wind:1})]},
+ hill:{name:'산악 언덕',emoji:'⛰️',desc:'오르막·내리막 · 헤어핀 코너에서 안쪽 라인 이득 최대',
+  segs:[S(.12,{g:.92}),C('R',.06,150,3,{g:.92}),S(.10,{g:.92}),C('L',.06,150,3,{g:.92}),S(.12,{g:1.07}),C('R',.08,120,2,{g:1.07}),S(.10,{g:.94}),C('L',.07,150,3,{g:.94}),S(.12,{g:1.08}),C('R',.07,90,2,{g:1.05}),S(.10)]},
+ track:{name:'스타디움 트랙',emoji:'🏟️',desc:'25바퀴 · 180° 커브 반복 · 1레인 vs 바깥 레인 격차 극대',
+  segs:[...Array(2)].flatMap(()=>[S(.125),C('L',.125,180,3),S(.125),C('L',.125,180,3)]),laps:25}
+};
+const LN={'-1':'좌','0':'중앙','1':'우'};
+function segText(sg){
+  const p=[];
+  if(sg.t!=='S'){const ins=sg.t==='L'?'좌':'우';const k=(1.3*sg.s).toFixed(1);
+    p.push(`${sg.t==='L'?'↰ 좌':'↱ 우'}회전 ${sg.a}° · <b>${ins}측(안쪽)</b> 거리 -${k}% / 바깥 +${k}%`);}
+  else p.push('직선');
+  if(sg.wind) p.push(`💨 맞바람 · <b>${sg.wind<0?'좌':'우'}측</b>이 방풍(+4%), 반대편 -4%`);
+  if(sg.crowd!==undefined) p.push(`👥 <b>${LN[sg.crowd]}</b> 라인 인파 (-8%)`);
+  if(sg.g&&sg.g<1) p.push('⬆ 오르막'); if(sg.g&&sg.g>1) p.push('⬇ 내리막');
+  return p.join(' · ');
+}
+
+/* ============ 예상기록 ============ */
+function vdot10k(v){let lo=15,hi=150;for(let i=0;i<60;i++){const t=(lo+hi)/2,vel=10000/t;
+  const vo2=-4.6+0.182258*vel+0.000104*vel*vel;
+  const pct=0.8+0.1894393*Math.exp(-0.012778*t)+0.2989558*Math.exp(-0.1932605*t);
+  if(vo2/pct>v)lo=t;else hi=t;}return (lo+hi)/2*60;}
+function predict(p){
+  const hasPR=p.pr>0, hasV=p.vo2>=25&&p.vo2<=90;
+  if(!hasPR&&!hasV)return null;
+  let base=hasPR&&hasV?0.5*p.pr+0.5*vdot10k(p.vo2):hasPR?p.pr:vdot10k(p.vo2);
+  const m=p.mil||0;
+  let f=m>=200?0.99:m>=120?1:m>=60?1.015:1.03;
+  if(p.h>0&&p.w>0){const bmi=p.w/Math.pow(p.h/100,2);
+    if(bmi>25)f+=Math.min(0.04,0.004*(bmi-25)); else if(bmi<18.5)f+=0.01;}
+  return Math.round(base*f);
+}
+const fmt=s=>{s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return `${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}`;};
+const $=s=>document.querySelector(s);
+
+/* ============ 프로필/폼 ============ */
+let sex='M',mapKey='city';
+const ids=['name','vo2','mil','h','w','prm','prs'];
+function profile(){const g=i=>$('#f_'+i).value;
+  return {name:g('name').trim().slice(0,12),sex,vo2:parseFloat(g('vo2')),mil:parseFloat(g('mil')),h:parseFloat(g('h')),w:parseFloat(g('w')),
+    pr:(parseInt(g('prm'))||0)*60+(parseInt(g('prs'))||0)};}
+function saveProf(){try{localStorage.setItem('rg_prof',JSON.stringify({sex,mapKey,v:Object.fromEntries(ids.map(i=>[i,$('#f_'+i).value]))}));}catch(e){}}
+function loadProf(){try{const d=JSON.parse(localStorage.getItem('rg_prof')||'null');if(!d)return;sex=d.sex||'M';mapKey=MAPS[d.mapKey]?d.mapKey:'city';ids.forEach(i=>$('#f_'+i).value=d.v[i]||'');}catch(e){}}
+function updPred(){const e=predict(profile());$('#predTxt').textContent=e?fmt(e):'--:--';saveProf();}
+function paintSex(){document.querySelectorAll('#sexSeg button').forEach(b=>{const on=b.dataset.v===sex;b.className=on?('on '+(sex==='M'?'m':'f')):'';});}
+function paintMaps(){const g=$('#mapGrid');g.innerHTML='';
+  Object.entries(MAPS).forEach(([k,m])=>{const b=document.createElement('button');b.className='map'+(k===mapKey?' on':'');
+    b.innerHTML=`<div class="e">${m.emoji}</div><div class="n">${m.name}</div><div class="d">${m.desc}</div>`;
+    b.onclick=()=>{mapKey=k;paintMaps();saveProf();};g.appendChild(b);});}
+ids.forEach(i=>$('#f_'+i).addEventListener('input',updPred));
+document.querySelectorAll('#sexSeg button').forEach(b=>b.onclick=()=>{sex=b.dataset.v;paintSex();saveProf();});
+
+/* ============ 탭 ============ */
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+function showTab(t){document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.tab===t));
+  $('#play').hidden=t!=='play';$('#rank').hidden=t!=='rank';if(t==='rank')renderRank();}
+
+/* ============ 경로 생성 ============ */
+let G=null;
+function build(map){
+  const T=1000,step=4;let x=0,y=0,h=0;const pts=[{x,y,h,pf:0}];let acc=0;const ranges=[];
+  map.segs.forEach(sg=>{const L=sg.f*T,n=Math.max(3,Math.round(L/step));
+    const dh=sg.t==='S'?0:(sg.t==='L'?-1:1)*sg.a*Math.PI/180;const i0=pts.length-1;
+    for(let k=1;k<=n;k++){h+=dh/n;x+=Math.cos(h)*L/n;y+=Math.sin(h)*L/n;pts.push({x,y,h,pf:acc+sg.f*k/n});}
+    acc+=sg.f;ranges.push([i0,pts.length-1,acc-sg.f,acc]);});
+  return {pts,ranges};
+}
+let cv,ctx,W,H,dpr,P;
+function fit(){
+  cv=$('#cv');dpr=window.devicePixelRatio||1;W=cv.clientWidth;H=Math.round(W*0.92);
+  cv.width=W*dpr;cv.height=H*dpr;ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
+  const pts=G.pts;let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  pts.forEach(p=>{x0=Math.min(x0,p.x);x1=Math.max(x1,p.x);y0=Math.min(y0,p.y);y1=Math.max(y1,p.y);});
+  const pad=34,sc=Math.min((W-2*pad)/Math.max(1,x1-x0),(H-2*pad)/Math.max(1,y1-y0));
+  const ox=(W-(x1-x0)*sc)/2-x0*sc,oy=(H-(y1-y0)*sc)/2-y0*sc;
+  P=pts.map(p=>({x:p.x*sc+ox,y:p.y*sc+oy,h:p.h,pf:p.pf}));
+}
+function posAt(pf,off){
+  let lo=0,hi=P.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(P[m].pf<=pf)lo=m;else hi=m;}
+  const a=P[lo],b=P[hi],t=b.pf>a.pf?(pf-a.pf)/(b.pf-a.pf):0;
+  const x=a.x+(b.x-a.x)*t,y=a.y+(b.y-a.y)*t,h=(a.h+b.h)/2;
+  return {x:x-Math.sin(h)*off,y:y+Math.cos(h)*off};
+}
+const LW=10; // 레인 간격(px)
+function offPath(i0,i1,off){ctx.beginPath();for(let i=i0;i<=i1;i++){const p=P[i];const x=p.x-Math.sin(p.h)*off,y=p.y+Math.cos(p.h)*off;i===i0?ctx.moveTo(x,y):ctx.lineTo(x,y);}}
+function draw(){
+  ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';
+  offPath(0,P.length-1,0);ctx.strokeStyle='#222938';ctx.lineWidth=LW*3+8;ctx.stroke();
+  const cur=R?R.segI:-1,nxt=R?R.segI+1:-1;
+  G.ranges.forEach((r,i)=>{const sg=R.map.segs[i];let col=null;
+    if(sg.t!=='S')col='rgba(240,180,41,.20)';
+    if(sg.g&&sg.g<1)col='rgba(255,90,90,.22)';if(sg.g&&sg.g>1)col='rgba(63,185,80,.22)';
+    if(sg.wind)col='rgba(88,166,255,.18)';if(sg.crowd!==undefined)col='rgba(255,120,60,.14)';
+    if(col){offPath(r[0],r[1],0);ctx.strokeStyle=col;ctx.lineWidth=LW*3+8;ctx.stroke();}
+    if(i===cur||i===nxt){offPath(r[0],r[1],0);ctx.strokeStyle=i===cur?'rgba(255,255,255,.35)':'rgba(240,180,41,.55)';ctx.lineWidth=2;ctx.setLineDash([]);
+      offPath(r[0],r[1],LW*1.5+4);ctx.stroke();offPath(r[0],r[1],-LW*1.5-4);ctx.stroke();}
+  });
+  [-LW/2,LW/2].forEach(o=>{offPath(0,P.length-1,o);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.setLineDash([4,5]);ctx.stroke();});
+  ctx.setLineDash([]);
+  // 아이콘
+  ctx.font='14px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  G.ranges.forEach((r,i)=>{const sg=R.map.segs[i],mid=(r[2]+r[3])/2;
+    if(sg.crowd!==undefined){const q=posAt(mid,sg.crowd*LW);ctx.fillText('👥',q.x,q.y);}
+    if(sg.wind){const q=posAt(mid,sg.wind*(LW*2.3));ctx.fillText('💨',q.x,q.y);}
+  });
+  // 출발/결승
+  const s0=posAt(0.0005,0);ctx.fillStyle='#fff';ctx.fillRect(s0.x-16,s0.y-2,32,4);
+  // 고스트(예상 페이스)
+  const gp=posAt(Math.min(R.pg,1),0),gq=posAt(Math.min(R.pg+0.004,1),0);
+  drawRunner(gp.x,gp.y,gq.x<gp.x?-1:1,'#9aa4b2',false,R.t*9,0.7,0.55);
+  // 러너
+  const pp=Math.min(R.p,1),rp=posAt(pp,R.laneVis*LW),rq=posAt(Math.min(pp+0.004,1),R.laneVis*LW);
+  const dir=Math.abs(rq.x-rp.x)<0.05?(R.lastDir||1):(rq.x<rp.x?-1:1);R.lastDir=dir;
+  const run=R.phase==='run'?R.t*(7+R.mom*9):0;
+  drawRunner(rp.x,rp.y,dir,R.prof.sex==='M'?'#1f6feb':'#d6336c',R.prof.sex==='F',run,1,1,R.prof.name.slice(0,1));
+}
+// 사람 모양 러너 (옆모습, 팔다리 스윙)
+function drawRunner(x,y,dir,col,female,ph,sc,alpha,label){
+  ctx.save();ctx.globalAlpha=alpha;ctx.translate(x,y);ctx.scale(dir*sc,sc);
+  ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.ellipse(0,1,9,3,0,0,7);ctx.fill();
+  const sw=Math.sin(ph),sw2=Math.sin(ph+Math.PI),bob=Math.abs(Math.cos(ph))*1.5;
+  ctx.translate(0,-bob);
+  ctx.lineCap='round';ctx.lineJoin='round';
+  const limb=(x0,y0,a,l1,l2,w,c)=>{ // 2관절 팔다리
+    const kx=x0+Math.sin(a)*l1,ky=y0+Math.cos(a)*l1,a2=a-Math.max(0,-Math.sin(a))*1.1-0.3,ex=kx+Math.sin(a2)*l2,ey=ky+Math.cos(a2)*l2;
+    ctx.strokeStyle=c;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(kx,ky);ctx.lineTo(ex,ey);ctx.stroke();};
+  const skin='#f1c9a5',pants='#1c2230';
+  // 뒤쪽 팔/다리
+  limb(0,-13,sw2*0.9,5,5,3,'#c9a283');
+  limb(0,-12,sw*0.95,6,6,3.4,pants);
+  // 몸통(상의)
+  ctx.strokeStyle=col;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(1.5,-21);ctx.stroke();
+  // 번호표
+  ctx.fillStyle='#fff';ctx.fillRect(-1.5,-19,5,4);
+  if(label){ctx.fillStyle=col;ctx.font='bold 4px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,1,-17);}
+  // 머리
+  ctx.fillStyle=skin;ctx.beginPath();ctx.arc(3,-26,4,0,7);ctx.fill();
+  ctx.fillStyle=female?'#4a2c1a':'#222';
+  ctx.beginPath();ctx.arc(2.6,-27.2,4.2,Math.PI,Math.PI*2);ctx.fill();
+  if(female){ctx.strokeStyle='#4a2c1a';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-1,-27);ctx.quadraticCurveTo(-6,-26+sw*2,-7,-22+sw*3);ctx.stroke();}
+  else{ctx.fillStyle='#fff';ctx.fillRect(-1,-28.5,8,1.6);}
+  // 앞쪽 다리/팔
+  limb(0,-12,sw2*0.95,6,6,3.4,pants);
+  limb(1.5,-20,sw*0.9,5,5,3,skin);
+  ctx.restore();
+}
+
+/* ============ 레이스 ============ */
+const D=45; // 기준 실제 소요(초) = 예상기록에 대응
+let R=null;
+function startRace(){
+  const prof=profile(),err=$('#err');
+  if(!prof.name)return err.textContent='이름을 입력하세요.';
+  if(!(prof.vo2>=25&&prof.vo2<=90)&&!(prof.pr>0))return err.textContent='VO2max(25~90) 또는 10K 종전기록을 입력하세요.';
+  if(!(prof.h>=120&&prof.h<=220))return err.textContent='키를 120~220cm로 입력하세요.';
+  if(!(prof.w>=30&&prof.w<=160))return err.textContent='몸무게를 30~160kg로 입력하세요.';
+  if(!(prof.mil>=0))return err.textContent='전월 마일리지를 입력하세요.';
+  const exp=predict(prof);if(!exp)return err.textContent='예상기록을 계산할 수 없습니다.';
+  err.textContent='';
+  const map=MAPS[mapKey];G=build(map);
+  R={prof,map,mapKey,exp,p:0,pg:0,t:0,lane:0,laneVis:0,pen:0,mom:0,st:1,exh:false,exhN:0,taps:0,tapWin:[],runDist:0,segI:0,phase:'cd',last:0,done:false};
+  $('#setup').hidden=true;$('#result').hidden=true;$('#race').hidden=false;
+  $('#mapName').textContent=`${map.emoji} ${map.name} · ${prof.name} (${prof.sex==='M'?'남':'여'})`;
+  setLane(0);fit();draw();hintUpd();
+  let n=3;$('#cd').textContent=n;
+  const iv=setInterval(()=>{n--;if(n>0)$('#cd').textContent=n;else if(n===0)$('#cd').textContent='출발!';
+    else{clearInterval(iv);$('#cd').textContent='';R.phase='run';R.last=performance.now();requestAnimationFrame(loop);}},800);
+}
+function setLane(l){if(!R)return;if(R.lane!==l&&R.phase==='run')R.pen=0.7;R.lane=l;
+  document.querySelectorAll('#lanes button').forEach(b=>b.classList.toggle('on',+b.dataset.l===l));}
+function tap(){if(!R||R.phase!=='run'||R.exh)return;R.mom=Math.min(1,R.mom+0.11);R.taps++;R.tapWin.push(performance.now());}
+function segAt(p){const s=R.map.segs;let a=0;for(let i=0;i<s.length;i++){a+=s[i].f;if(p<a-1e-9)return i;}return s.length-1;}
+function hintUpd(){
+  const s=R.map.segs,i=R.segI;let h=`<div class="cur"><b>현재</b> ${segText(s[i])}</div>`;
+  if(s[i+1])h+=`<div class="nx"><b>다음</b> ${segText(s[i+1])}</div>`;else h+='<div class="nx">🏁 마지막 구간! 전력 질주</div>';
+  if(R.map.laps)h=`<div class="nx">🏟️ ${Math.min(R.map.laps,Math.floor(R.p*R.map.laps)+1)} / ${R.map.laps} 바퀴</div>`+h;
+  $('#hint').innerHTML=h;
+}
+function loop(now){
+  if(!R||R.phase!=='run')return;
+  const dt=Math.min(0.05,(now-R.last)/1000);R.last=now;R.t+=dt;R.pg=R.t/D;
+  // 기세/스태미나
+  if(R.exh){R.mom=0;R.st+=0.08*dt;if(R.st>=0.3)R.exh=false;}
+  else{R.mom=Math.max(0,R.mom-0.55*dt);
+    R.st-=0.032*R.mom*R.mom*dt;
+    if(R.mom<0.35)R.st+=0.025*(0.35-R.mom)/0.35*dt;
+    R.st=Math.min(1,R.st);
+    if(R.st<=0){R.st=0;R.exh=true;R.exhN++;R.mom=0;}}
+  // 구간 효과
+  const si=segAt(R.p),sg=R.map.segs[si];
+  if(si!==R.segI){R.segI=si;hintUpd();}
+  let lm=1;if(sg.t!=='S'){const ins=sg.t==='L'?-1:1;lm=1-0.013*sg.s*(R.lane*ins);}
+  let terr=sg.g||1;
+  if(sg.wind){terr*=R.lane===0?1:(R.lane===sg.wind?1.04:0.96);}
+  if(sg.crowd!==undefined&&R.lane===sg.crowd)terr*=0.92;
+  R.pen=Math.max(0,R.pen-dt);
+  const boost=1+0.1765*(R.exh?0:R.mom);
+  const spd=boost*terr*(R.pen>0?0.96:1)*(R.exh?0.97:1)/lm;
+  const dp=dt/D*spd;R.p+=dp;R.runDist+=dp*lm*10000;
+  R.laneVis+=(R.lane-R.laneVis)*Math.min(1,dt*12);
+  // 탭 속도 창
+  R.tapWin=R.tapWin.filter(t=>now-t<1000);
+  // HUD
+  const tf=R.p>=1?R.t-dt*(R.p-1)/dp:R.t;
+  R.tf=tf;
+  $('#clock').textContent=fmt(tf*R.exp/D);
+  $('#pct').textContent=`${(Math.min(R.p,1)*10).toFixed(2)} / 10.00 km`;
+  const gap=(R.p-R.pg)*R.exp;
+  $('#gap').textContent=`예상 페이스 대비 ${gap>=0?'▲ '+Math.round(gap)+'초 앞서는 중':'▼ '+Math.round(-gap)+'초 뒤처짐'}`;
+  $('#momBar').style.width=(R.mom*100)+'%';$('#momTxt').textContent=R.exh?'탈진!':Math.round(R.mom*100)+'% · '+R.tapWin.length+'탭/초';
+  $('#stBar').style.width=(R.st*100)+'%';$('#stTxt').textContent=Math.round(R.st*100)+'%';
+  $('#stBar').style.background=R.exh?'#f85149':(R.st<0.3?'#d29922':'#3fb950');
+  if(R.map.laps&&(si%1===0))hintUpd();
+  draw();
+  if(R.p>=1){finish();return;}
+  requestAnimationFrame(loop);
+}
+
+/* ============ 기록 저장/순위 ============ */
+let db=null,allRecs=[],dbOK=false,myId=null,loadedOnce=false;
+function localRecs(){try{return JSON.parse(localStorage.getItem('rg_local')||'[]');}catch(e){return [];}}
+function toArr(snap){const out=[];if(!snap)return out;const docs=snap.docs||snap;
+  if(docs&&docs.forEach)docs.forEach(d=>{const v=(d&&typeof d.data==='function')?d.data():(d&&typeof d.data==='object'&&d.data)?d.data:d;if(v&&typeof v==='object')out.push(v);});return out;}
+async function initDb(){
+  try{
+    if(!window.claude)throw 0;db=await window.claude.use('db');
+    if(!db)throw 0;
+    const timer=setTimeout(()=>{if(!loadedOnce){$('#rankInfo').textContent='공유 DB 응답 지연 — 이 기기 기록만 표시';allRecs=localRecs();renderRank();}},10000);
+    db.collection('records').orderBy('ts','desc').limit(500).onSnapshot(snap=>{
+      clearTimeout(timer);loadedOnce=true;dbOK=true;allRecs=toArr(snap);renderRank();updResultRank();},
+      e=>{clearTimeout(timer);dbOK=false;allRecs=localRecs();renderRank();});
+  }catch(e){db=null;dbOK=false;allRecs=localRecs();}
+}
+async function saveRec(rec){
+  let L=localRecs();L.push(rec);try{localStorage.setItem('rg_local',JSON.stringify(L.slice(-100)));}catch(e){}
+  if(db){try{await db.collection('records').doc(rec.id).set(rec);return true;}catch(e){return false;}}
+  return false;
+}
+function rankOf(rec){
+  const pool=(dbOK?allRecs:localRecs()).filter(r=>r.map===rec.map&&r.sex===rec.sex&&r.id!==rec.id);
+  return pool.filter(r=>r.timeSec<rec.timeSec).length+1+'위 / '+(pool.length+1)+'명';
+}
+let lastRec=null;
+function updResultRank(){if(lastRec&&!$('#result').hidden)$('#rRank').textContent=rankOf(lastRec);}
+async function finish(){
+  R.phase='done';draw();
+  const real=R.tf,sim=real*R.exp/D,imp=(R.exp-sim)/R.exp*100;
+  const taps=R.taps/real;const saved=10000-R.runDist;
+  const rec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:R.prof.name,sex:R.prof.sex,map:R.mapKey,
+    timeSec:Math.round(sim),expectedSec:R.exp,improve:+imp.toFixed(1),vo2:R.prof.vo2||0,ts:Date.now()};
+  lastRec=rec;
+  $('#race').hidden=true;$('#result').hidden=false;
+  $('#rMap').textContent=`${R.map.emoji} ${R.map.name} · ${R.prof.name}`;
+  $('#rTime').textContent=fmt(sim);
+  $('#rImp').innerHTML=imp>=0?`예상 대비 <b style="color:#3fb950">${imp.toFixed(1)}% 단축 🎉</b>`:`예상 대비 <b style="color:#f85149">${(-imp).toFixed(1)}% 느림</b>`;
+  $('#rExp').textContent=fmt(R.exp);
+  $('#rTaps').textContent=taps.toFixed(1)+'회/초';
+  $('#rLine').innerHTML=saved>=0?`<span style="color:#3fb950">${Math.round(saved)}m 단축</span>`:`<span style="color:#f85149">${Math.round(-saved)}m 손해</span>`;
+  $('#rEx').textContent=R.exhN+'회';
+  $('#rRank').textContent='계산 중…';$('#rSave').textContent='기록 저장 중…';
+  const ok=await saveRec(rec);
+  $('#rSave').textContent=ok?'✅ 공유 순위표에 저장되었습니다.':'⚠️ 공유 DB에 연결되지 않아 이 기기에만 저장되었습니다.';
+  $('#rRank').textContent=rankOf(rec);
+}
+
+/* ============ 순위표 ============ */
+let fMap='all',fSex='all';
+function renderRank(){
+  const mc=$('#mapChips'),sc=$('#sexChips');
+  mc.innerHTML='';[['all','전체 맵'],...Object.entries(MAPS).map(([k,m])=>[k,m.emoji+' '+m.name])].forEach(([k,n])=>{
+    const b=document.createElement('button');b.textContent=n;b.className=fMap===k?'on':'';b.onclick=()=>{fMap=k;renderRank();};mc.appendChild(b);});
+  sc.innerHTML='';[['all','전체'],['M','남자'],['F','여자']].forEach(([k,n])=>{
+    const b=document.createElement('button');b.textContent=n;b.className=fSex===k?'on':'';b.onclick=()=>{fSex=k;renderRank();};sc.appendChild(b);});
+  const src=dbOK?allRecs:(allRecs.length?allRecs:localRecs());
+  let list=src.filter(r=>(fMap==='all'||r.map===fMap)&&(fSex==='all'||r.sex===fSex));
+  const byImp=fMap==='all';
+  list=list.slice().sort((a,b)=>byImp?(b.improve-a.improve):(a.timeSec-b.timeSec));
+  $('#rankInfo').textContent=(dbOK?'공유 누적 ':'이 기기 ')+src.length+'회 도전 · '+list.length+'건 표시';
+  $('#rankMode').textContent=byImp?'개선율 순':'기록 순';
+  const body=$('#rankBody');body.innerHTML='';
+  if(!list.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.style.color='#8b949e';td.textContent='아직 기록이 없습니다. 첫 기록의 주인공이 되어보세요!';tr.appendChild(td);body.appendChild(tr);return;}
+  list.slice(0,30).forEach((r,i)=>{
+    const tr=document.createElement('tr');if(lastRec&&r.id===lastRec.id)tr.className='me';
+    const c=[i+1<4?['🥇','🥈','🥉'][i]:String(i+1),null,fmt(r.timeSec),(r.improve>=0?'▲':'▼')+Math.abs(r.improve).toFixed(1)+'%'];
+    c.forEach((v,j)=>{const td=document.createElement('td');
+      if(j===1){const dot=document.createElement('span');dot.className='sx';dot.style.background=r.sex==='M'?'#1f6feb':'#d6336c';td.appendChild(dot);
+        td.appendChild(document.createTextNode(String(r.name||'').slice(0,12)+(fMap==='all'?' · '+(MAPS[r.map]?MAPS[r.map].emoji:''):'')));}
+      else td.textContent=v;
+      if(j===3)td.style.color=r.improve>=0?'#3fb950':'#f85149';tr.appendChild(td);});
+    body.appendChild(tr);});
+}
+
+/* ============ 이벤트 ============ */
+$('#startBtn').onclick=startRace;
+$('#againBtn').onclick=()=>{R=null;$('#result').hidden=true;$('#setup').hidden=false;};
+$('#toRankBtn').onclick=()=>showTab('rank');
+document.querySelectorAll('#lanes button').forEach(b=>b.onclick=()=>setLane(+b.dataset.l));
+const tb=$('#tap');tb.addEventListener('pointerdown',e=>{e.preventDefault();tap();});
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'){e.preventDefault();tap();}
+  else if(e.code==='ArrowLeft')setLane(-1);else if(e.code==='ArrowRight')setLane(1);else if(e.code==='ArrowDown')setLane(0);});
+window.addEventListener('resize',()=>{if(R&&G&&!$('#race').hidden){fit();draw();}});
+loadProf();paintSex();paintMaps();updPred();initDb();
+</script>
+</body>
+</html>
