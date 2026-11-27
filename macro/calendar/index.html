@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>경제 일정 — FOMC·금통위·CPI·고용 발표일 · Derek's Platform</title>
+<meta name="description" content="FOMC 금리 결정, 한국은행 금통위, 미국 CPI·고용보고서, 한국 수출입동향 등 주요 경제 일정을 한국시간으로. 최근 발표 결과와 D-day까지.">
+<meta name="keywords" content="경제일정,경제캘린더,FOMC,금통위,CPI,고용보고서,수출입동향">
+<link rel="canonical" href="https://choco1161.github.io/macro/calendar/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="경제 일정 — FOMC·금통위·CPI·고용 발표일">
+<meta property="og:description" content="주요 경제 일정을 한국시간으로, 최근 발표 결과와 함께.">
+<meta property="og:url" content="https://choco1161.github.io/macro/calendar/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261118">
+<link rel="stylesheet" href="../fx/page.css?v=20261118">
+<style>
+.next { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-bottom: 28px; }
+.next .dd { font-size: clamp(2.2rem, 7vw, 3rem); font-weight: 800; letter-spacing: -.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.next .t { font-size: 1.25rem; font-weight: 750; margin: 2px 0; }
+.next .w { color: var(--muted); font-size: .9rem; }
+.res { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.res .panel { padding: 14px 16px; }
+.res .k { color: var(--muted); font-size: .82rem; font-weight: 600; }
+.res .v { font-size: 1.5rem; font-weight: 750; font-variant-numeric: tabular-nums; margin: 2px 0; }
+.res .s { color: var(--muted); font-size: .82rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.chip { font: inherit; font-size: .85rem; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; min-height: 32px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.month { font-size: .95rem; color: var(--muted); font-weight: 700; margin: 22px 0 8px; }
+.ev { display: grid; grid-template-columns: 74px 1fr auto; gap: 4px 14px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; margin-bottom: 6px; }
+.ev.past { opacity: .55; }
+.ev.soon { border-color: var(--accent); }
+.ev .d { font-variant-numeric: tabular-nums; font-weight: 700; line-height: 1.25; }
+.ev .d small { display: block; font-weight: 500; color: var(--muted); font-size: .78rem; }
+.ev .tt { font-weight: 650; }
+.ev .nt { color: var(--muted); font-size: .84rem; }
+.ev .badge { font-size: .74rem; font-weight: 700; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; white-space: nowrap; color: var(--muted); }
+.ev .dday { font-size: .8rem; font-weight: 700; color: var(--accent); white-space: nowrap; text-align: right; }
+@media (max-width: 520px) { .ev { grid-template-columns: 62px 1fr; } .ev .dday { grid-column: 2; text-align: left; } }
+details.past-box summary { cursor: pointer; color: var(--muted); font-size: .9rem; margin: 18px 0 8px; }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 거시경제</a>
+  <h1>경제 일정</h1>
+  <p class="sub">금리·물가·고용·수출 발표일을 한국시간으로, 최근 발표 결과와 함께 — 매일 아침 자동 갱신</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">일정을 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>일정을 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden>
+    <section class="next panel" id="next" aria-live="polite"></section>
+
+    <section class="block" id="resBlock">
+      <h2>최근 발표 결과</h2>
+      <div class="res" id="res"></div>
+    </section>
+
+    <section class="block">
+      <h2>다가오는 일정</h2>
+      <div class="chips" id="chips" role="group" aria-label="나라 선택"></div>
+      <div id="list"></div>
+      <details class="past-box"><summary id="pastSum">지난 일정</summary><div id="past"></div></details>
+    </section>
+
+    <section class="block">
+      <h2>읽는 법</h2>
+      <ul class="tips">
+        <li>시간은 모두 <b>한국시간</b>이에요. 미국 발표는 서머타임이 끝나면(11월~3월) 한 시간 늦어져요.</li>
+        <li><b>FOMC</b> 결과는 회의 둘째 날 오후 2시(미국 동부) = 한국시간 새벽 3~4시에 나와요. 표시가 있는 회의엔 경제전망(점도표)도 함께 나와요.</li>
+        <li><b>한국 수출입동향</b>은 매월 1일 오전 9시 발표가 관례라 규칙으로 표시했어요. 휴일 등으로 바뀔 수 있어요.</li>
+        <li>한국은행 금통위·미국 CPI·고용보고서처럼 자동으로 읽기 어려운 일정은 확인된 날짜만 따로 넣어요. 목록에 없으면 아직 확인 전이에요.</li>
+        <li>금리의 긴 흐름은 <a href="../rates-30y/">한미 금리 30년</a>, 환율 반응은 <a href="../fx/">원화 환율</a>에서 볼 수 있어요.</li>
+      </ul>
+    </section>
+
+    <p class="note src" id="src"></p>
+  </div>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 페이지는 정보 제공용이며 투자 권유가 아닙니다. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const fmt = (v, d) => v == null ? "–" : Number(v).toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const WD = ["일", "월", "화", "수", "목", "금", "토"];
+const FLAG = { US: "🇺🇸 미국", KR: "🇰🇷 한국", CN: "🇨🇳 중국", EU: "🇪🇺 유로존", JP: "🇯🇵 일본" };
+const KIND = { fomc: "금리", bok: "금리", cpi: "물가", jobs: "고용", export: "수출" };
+const kstToday = () => new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Seoul" }).format(new Date());
+const dayDiff = (a, b) => Math.round((Date.parse(a + "T00:00:00Z") - Date.parse(b + "T00:00:00Z")) / 864e5);
+const dd = n => (n === 0 ? "오늘" : n > 0 ? `D-${n}` : `${-n}일 전`);
+const dlabel = s => { const d = new Date(s.slice(0, 10) + "T00:00:00Z"); return `${d.getUTCMonth() + 1}/${d.getUTCDate()}<small>${WD[d.getUTCDay()]} ${s.slice(11, 16)}</small>`; };
+let D, country = "ALL";
+
+fetch("../../data/calendar/events.json", { cache: "no-cache" })
+  .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then(d => { D = d; $("loading").hidden = true; $("app").hidden = false; render(); })
+  .catch(() => { $("loading").hidden = true; $("failed").hidden = false; });
+
+function evHtml(e, today) {
+  const n = dayDiff(e.date, today);
+  return `<div class="ev${n < 0 ? " past" : n <= 3 ? " soon" : ""}">
+    <div class="d">${dlabel(e.kst)}</div>
+    <div><div class="tt">${esc(e.title)} <span class="badge">${esc(FLAG[e.country] || e.country)}${KIND[e.kind] ? " · " + KIND[e.kind] : ""}</span></div>
+      <div class="nt">${esc(e.note || "")}</div></div>
+    <div class="dday">${dd(n)}</div></div>`;
+}
+
+function render() {
+  const today = kstToday();
+  const all = D.events.slice().sort((a, b) => a.kst.localeCompare(b.kst));
+  const countries = [...new Set(all.map(e => e.country))];
+  $("chips").innerHTML = ["ALL", ...countries].map(c => `<button type="button" class="chip" data-c="${c}" aria-pressed="${c === country}">${c === "ALL" ? "전체" : esc(FLAG[c] || c)}</button>`).join("");
+  $("chips").onclick = e => { const b = e.target.closest("button"); if (b) { country = b.dataset.c; render(); } };
+  const ev = all.filter(e => country === "ALL" || e.country === country);
+  const up = ev.filter(e => e.date >= today), past = ev.filter(e => e.date < today).reverse();
+
+  const nx = all.find(e => e.date >= today);
+  $("next").innerHTML = nx
+    ? `<div><div class="w">다음 일정 · ${esc(FLAG[nx.country] || nx.country)}</div><div class="t">${esc(nx.title)}</div>
+         <div class="w">${nx.kst.slice(5, 7)}월 ${+nx.kst.slice(8, 10)}일(${WD[new Date(nx.date + "T00:00:00Z").getUTCDay()]}) ${nx.kst.slice(11, 16)} 한국시간 · ${esc(nx.note || "")}</div></div>
+       <div class="dd">${dd(dayDiff(nx.date, today))}</div>`
+    : `<div class="w">예정된 일정이 없어요.</div>`;
+
+  let h = "", lastM = "";
+  up.forEach(e => {
+    const m = e.date.slice(0, 7);
+    if (m !== lastM) { h += `<div class="month">${+m.slice(0, 4)}년 ${+m.slice(5)}월</div>`; lastM = m; }
+    h += evHtml(e, today);
+  });
+  $("list").innerHTML = h || `<p class="note">이 나라의 다가오는 일정이 아직 없어요.</p>`;
+  $("pastSum").textContent = `지난 일정 ${past.length}건`;
+  $("past").innerHTML = past.map(e => evHtml(e, today)).join("");
+
+  const L = D.latest || {}, cards = [];
+  if (L.fed) cards.push(["미국 기준금리 (연준 목표 범위)", `${fmt(L.fed.lower, 2)}~${fmt(L.fed.upper, 2)}%`, `${L.fed.asof} 기준`]);
+  if (L.cpi?.yoy != null) cards.push(["미국 소비자물가 (전년 대비)", `${fmt(L.cpi.yoy, 1)}%`, `${L.cpi.ref.replace("-", ".")}월분 · 전월 ${fmt(L.cpi.prev_yoy, 1)}%` + (L.cpi.core_yoy != null ? ` · 근원 ${fmt(L.cpi.core_yoy, 1)}%` : "")]);
+  if (L.jobs?.payrolls_chg != null) cards.push(["미국 비농업 고용 (전월 대비)", `${L.jobs.payrolls_chg > 0 ? "+" : ""}${fmt(L.jobs.payrolls_chg, 0)}천 명`, `${L.jobs.ref.replace("-", ".")}월분 · 전월 ${fmt(L.jobs.prev_chg, 0)}천 명`]);
+  if (L.jobs?.unrate != null) cards.push(["미국 실업률", `${fmt(L.jobs.unrate, 1)}%`, `${(L.jobs.unrate_ref || "").replace("-", ".")}월분`]);
+  $("res").innerHTML = cards.map(([k, v, s]) => `<div class="panel"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join("");
+  $("resBlock").hidden = !cards.length;
+
+  const kstT = new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(D.updated));
+  $("src").textContent = `출처: 연준 FOMC 캘린더, FRED(미국 지표 결과), 수동 확인 일정 · 마지막 수집 ${kstT} (한국시간) · 참고용이며 투자 조언이 아닙니다.`;
+}
+})();
+</script>
+<script src="../../assets/catalog.js?v=20261118"></script><script src="../../assets/related.js?v=20261118"></script><script src="../../assets/purpose.js?v=20261118"></script>
+</body>
+</html>

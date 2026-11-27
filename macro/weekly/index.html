@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>이번 주 시장 요약 — 주가·환율·원자재 주간 등락 · Derek's Platform</title>
+<meta name="description" content="코스피·S&P 500·환율·유가·금 등 이번 주 시장이 얼마나 움직였는지 한 장에. 이번 주 관심사, 소개한 미국주식, 다음 주 경제 일정까지 매주 토요일 자동 정리.">
+<meta name="keywords" content="주간시장,주간요약,코스피주간,환율주간,유가주간,다음주경제일정">
+<link rel="canonical" href="https://choco1161.github.io/macro/weekly/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="이번 주 시장 요약">
+<meta property="og:description" content="주가·환율·원자재 주간 등락과 다음 주 일정을 매주 토요일 정리.">
+<meta property="og:url" content="https://choco1161.github.io/macro/weekly/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261118">
+<link rel="stylesheet" href="../fx/page.css?v=20261118">
+<style>
+.wk-nav { display: flex; gap: 8px; align-items: center; margin: 0 0 14px; }
+.wk-nav button, .wk-nav select { font: inherit; font-size: .9rem; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 8px; min-height: 36px; padding: 0 12px; }
+.wk-nav select { flex: 1; min-width: 0; font-size: 16px; }
+.wk-nav button:disabled { opacity: .4; }
+.headline { font-size: clamp(1.1rem, 3.2vw, 1.35rem); font-weight: 700; line-height: 1.5; margin: 0; word-break: keep-all; }
+.headline + .note { margin-bottom: 0; }
+.grp { margin-bottom: 30px; }
+.grp h2 { font-size: 1.05rem; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.mv { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.mv a { display: block; color: inherit; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.mv a:hover { border-color: var(--accent); }
+.mv .nm { color: var(--muted); font-size: .82rem; font-weight: 600; }
+.mv .v { font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mv .p { font-weight: 700; font-variant-numeric: tabular-nums; }
+.mv .r { color: var(--muted); font-size: .76rem; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; position: relative; overflow: hidden; }
+.bar i { position: absolute; top: 0; bottom: 0; }
+.list2 { list-style: none; margin: 0; padding: 0; }
+.list2 li { display: flex; gap: 12px; justify-content: space-between; padding: 8px 2px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.list2 li span:first-child { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.list2 li b { font-weight: 650; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.news { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.news .panel { padding: 14px 16px; }
+.news h3 { font-size: .98rem; margin: 0 0 6px; }
+.news ul { list-style: none; margin: 0; padding: 0; }
+.news li { padding: 6px 0; border-top: 1px solid var(--line); font-size: .9rem; line-height: 1.45; }
+.news li:first-child { border-top: 0; }
+.news a { color: var(--text); text-decoration: none; }
+.news a:hover { color: var(--accent); text-decoration: underline; }
+.news small { display: block; color: var(--muted); font-size: .76rem; margin-top: 2px; }
+.pill { font-size: .82rem; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 거시경제</a>
+  <h1>이번 주 시장 요약</h1>
+  <p class="sub">주가·환율·원자재가 한 주 동안 얼마나 움직였는지, 다음 주엔 무엇이 있는지 — 매주 토요일 아침 자동 정리</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">요약을 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>요약을 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden>
+    <div class="wk-nav">
+      <button type="button" id="prev" aria-label="이전 주">← 이전</button>
+      <select id="pick" aria-label="주 선택"></select>
+      <button type="button" id="next" aria-label="다음 주">다음 →</button>
+    </div>
+    <section class="panel" style="margin-bottom:30px">
+      <p class="headline" id="headline"></p>
+      <p class="note" id="range"></p>
+    </section>
+    <div id="groups"></div>
+    <section class="grp" id="newsBox"><h2>크게 움직인 것, 무슨 일이 있었나</h2>
+      <p class="note">주간 등락이 큰 항목의 그 주 헤드라인이에요. 구글 뉴스에서 자동으로 모은 제목이라 원인을 단정하지는 않아요.</p>
+      <div class="news" id="news"></div></section>
+    <div class="grid2">
+      <section class="grp" id="nextBox"><h2>다음 주 일정</h2><ul class="list2" id="nextList"></ul></section>
+      <section class="grp" id="trendBox"><h2>이번 주 관심사</h2><ul class="list2" id="trendList"></ul><div class="pills" id="trendPills"></div></section>
+    </div>
+    <section class="grp" id="pickBox"><h2>이번 주 소개한 미국주식</h2><ul class="list2" id="pickList"></ul></section>
+    <p class="note src">주간 등락 = 이번 주 마지막 값 ÷ 지난주 마지막 값. 사이트에 매일 쌓이는 데이터로 계산하며, 그 주 자료가 없는 항목은 빠져요. 참고용이며 투자 조언이 아닙니다.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 페이지는 정보 제공용이며 투자 권유가 아닙니다. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const fmt = (v, d) => v == null ? "–" : Number(v).toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const cls = x => (x > 0 ? "up" : x < 0 ? "down" : "flat");
+const WD = ["일", "월", "화", "수", "목", "금", "토"];
+const md = s => { const d = new Date(s.slice(0, 10) + "T00:00:00Z"); return `${d.getUTCMonth() + 1}/${d.getUTCDate()}(${WD[d.getUTCDay()]})`; };
+let W = [], idx = 0;
+
+fetch("../../data/weekly/weeks.json", { cache: "no-cache" })
+  .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+  .then(d => {
+    W = (d.weeks || []).slice().sort((a, b) => b.end.localeCompare(a.end));
+    if (!W.length) throw new Error("empty");
+    $("pick").innerHTML = W.map(w => `<option value="${w.id}">${w.start.replaceAll("-", ".")} ~ ${w.end.slice(5).replace("-", ".")}</option>`).join("");
+    const want = location.hash.slice(1); const i = W.findIndex(w => w.id === want);
+    $("loading").hidden = true; $("app").hidden = false; show(i >= 0 ? i : 0);
+  })
+  .catch(() => { $("loading").hidden = true; $("failed").hidden = false; });
+
+$("prev").onclick = () => show(idx + 1);
+$("next").onclick = () => show(idx - 1);
+$("pick").onchange = e => show(W.findIndex(w => w.id === e.target.value));
+
+function value(x) {
+  const v = fmt(x.last, x.dp);
+  return x.unit === "원" ? v + "원" : x.unit.startsWith("달러") ? "$" + v : v;
+}
+
+function show(i) {
+  idx = Math.max(0, Math.min(W.length - 1, i));
+  const w = W[idx];
+  $("pick").value = w.id; $("prev").disabled = idx >= W.length - 1; $("next").disabled = idx <= 0;
+  try { history.replaceState(null, "", idx === 0 ? location.pathname : "#" + w.id); } catch (e) {}
+  $("headline").textContent = w.headline || "이번 주 요약";
+  $("range").textContent = `${md(w.start)} ~ ${md(w.end)} · ${w.generated ? "정리 " + w.generated.slice(0, 10) : ""}`;
+
+  const maxAbs = Math.max(1, ...w.groups.flatMap(g => g.items.map(x => Math.abs(x.pct))));
+  $("groups").innerHTML = w.groups.map(g => `<section class="grp"><h2>${esc(g.title)}</h2><div class="mv">${g.items.map(x => {
+    const wdt = Math.abs(x.pct) / maxAbs * 50;
+    return `<a href="../../${esc(x.link)}"><div class="nm">${esc(x.name)}</div>
+      <div class="v">${value(x)}</div>
+      <div class="p ${cls(x.pct)}">${x.pct > 0 ? "▲ +" : x.pct < 0 ? "▼ " : ""}${fmt(x.pct, 2)}%</div>
+      <div class="r">주중 ${fmt(x.lo, x.dp)} ~ ${fmt(x.hi, x.dp)}</div>
+      <div class="bar"><i class="${cls(x.pct)}" style="background:currentColor;${x.pct >= 0 ? "left:50%" : "right:50%"};width:${wdt}%"></i></div></a>`;
+  }).join("")}</div></section>`).join("");
+
+  const nw = w.news || [];
+  $("newsBox").hidden = !nw.length;
+  $("news").innerHTML = nw.map(b => `<div class="panel"><h3>${esc(b.name)} <span class="${cls(b.pct)}">${b.pct > 0 ? "+" : ""}${fmt(b.pct, 1)}%</span></h3><ul>${
+    b.items.map(n => `<li>${n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>` : esc(n.title)}<small>${esc(n.src)} · ${md(n.date)}</small></li>`).join("")}</ul></div>`).join("");
+
+  const nx = w.next || [];
+  $("nextList").innerHTML = nx.map(e => `<li><span>${md(e.kst)} ${e.kst.slice(11, 16)}</span><b>${esc(e.title)}</b></li>`).join("") || `<li><span>등록된 일정 없음</span></li>`;
+  const t = w.trends;
+  $("trendBox").hidden = !t;
+  if (t) {
+    $("trendList").innerHTML = t.top.map(d => `<li><span>${md(d.date)}</span><b>${esc(d.dom || "")}${d.glo ? ` · ${esc(d.glo)}` : ""}</b></li>`).join("");
+    $("trendPills").innerHTML = (t.repeat.length ? `<span class="pill">여러 번 나온 토픽: ${t.repeat.map(esc).join(", ")}</span>` : "") +
+      (t.cats.length ? `<span class="pill">많이 나온 분야: ${t.cats.map(esc).join(", ")}</span>` : "") +
+      `<a class="pill" href="../../trends/daily/">카드 보기 →</a>`;
+  }
+  const pk = w.picks || [];
+  $("pickBox").hidden = !pk.length;
+  $("pickList").innerHTML = pk.map(p => `<li><span>${md(p.date)}</span><b>${esc(p.ticker)} ${esc(p.name)} <small class="flat">${esc(p.sector)}</small></b>${p.pct != null ? `<b class="${cls(p.pct)}">${p.pct > 0 ? "+" : ""}${fmt(p.pct, 1)}%</b>` : ""}</li>`).join("");
+}
+})();
+</script>
+<script src="../../assets/catalog.js?v=20261118"></script><script src="../../assets/related.js?v=20261118"></script><script src="../../assets/purpose.js?v=20261118"></script>
+</body>
+</html>

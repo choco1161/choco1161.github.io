@@ -1,0 +1,4 @@
+{
+  "_설명": "자동으로 읽지 못한 일정이나 추가로 보고 싶은 일정을 여기에 적어요. kind가 fomc/cpi/jobs/bok인 항목은 자동 수집이 실패했을 때만 쓰이고, 그 밖의 kind는 항상 표시돼요. 형식: {date: YYYY-MM-DD, kst: 'YYYY-MM-DD HH:MM', country: KR|US|..., kind, title, note, src}",
+  "events": []
+}
