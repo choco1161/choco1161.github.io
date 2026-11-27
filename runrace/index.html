@@ -376,24 +376,20 @@ function loop(now){
 }
 
 /* ============ 기록 저장/순위 ============ */
-let db=null,allRecs=[],dbOK=false,myId=null,loadedOnce=false;
+const FB='https://runnershigh-bf874-default-rtdb.asia-southeast1.firebasedatabase.app';
+let allRecs=[],dbOK=false,loadedOnce=false;
 function localRecs(){try{return JSON.parse(localStorage.getItem('rg_local')||'[]');}catch(e){return [];}}
-function toArr(snap){const out=[];if(!snap)return out;const docs=snap.docs||snap;
-  if(docs&&docs.forEach)docs.forEach(d=>{const v=(d&&typeof d.data==='function')?d.data():(d&&typeof d.data==='object'&&d.data)?d.data:d;if(v&&typeof v==='object')out.push(v);});return out;}
-async function initDb(){
-  try{
-    if(!window.claude)throw 0;db=await window.claude.use('db');
-    if(!db)throw 0;
-    const timer=setTimeout(()=>{if(!loadedOnce){$('#rankInfo').textContent='공유 DB 응답 지연 — 이 기기 기록만 표시';allRecs=localRecs();renderRank();}},10000);
-    db.collection('records').orderBy('ts','desc').limit(500).onSnapshot(snap=>{
-      clearTimeout(timer);loadedOnce=true;dbOK=true;allRecs=toArr(snap);renderRank();updResultRank();},
-      e=>{clearTimeout(timer);dbOK=false;allRecs=localRecs();renderRank();});
-  }catch(e){db=null;dbOK=false;allRecs=localRecs();}
+async function fetchRecs(){
+  try{const r=await fetch(FB+'/records.json?orderBy="$key"&limitToLast=500');if(!r.ok)throw 0;const j=await r.json();
+    allRecs=j?Object.entries(j).filter(([k,v])=>v&&typeof v==='object').map(([k,v])=>Object.assign({},v,{id:v.id||k})):[];dbOK=true;loadedOnce=true;}
+  catch(e){dbOK=false;allRecs=localRecs();}
+  renderRank();updResultRank();
 }
+function initDb(){fetchRecs();setInterval(fetchRecs,20000);}
 async function saveRec(rec){
   let L=localRecs();L.push(rec);try{localStorage.setItem('rg_local',JSON.stringify(L.slice(-100)));}catch(e){}
-  if(db){try{await db.collection('records').doc(rec.id).set(rec);return true;}catch(e){return false;}}
-  return false;
+  try{const r=await fetch(FB+'/records.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)});
+    if(!r.ok)return false;await fetchRecs();return true;}catch(e){return false;}
 }
 function rankOf(rec){
   const pool=(dbOK?allRecs:localRecs()).filter(r=>r.map===rec.map&&r.sex===rec.sex&&r.id!==rec.id);
@@ -418,7 +414,7 @@ async function finish(){
   $('#rEx').textContent=R.exhN+'회';
   $('#rRank').textContent='계산 중…';$('#rSave').textContent='기록 저장 중…';
   const ok=await saveRec(rec);
-  $('#rSave').textContent=ok?'✅ 공유 순위표에 저장되었습니다.':'⚠️ 공유 DB에 연결되지 않아 이 기기에만 저장되었습니다.';
+  $('#rSave').textContent=ok?'✅ 공유 순위표에 저장되었습니다.':'⚠️ 공유 서버에 연결하지 못해 이 기기에만 저장되었습니다. 잠시 후 다시 시도해 주세요.';
   $('#rRank').textContent=rankOf(rec);
 }
 
