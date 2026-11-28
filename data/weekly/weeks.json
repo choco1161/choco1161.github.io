@@ -1,0 +1,1275 @@
+{
+ "weeks": [
+  {
+   "id": "2026-W48",
+   "start": "2026-11-23",
+   "end": "2026-11-27",
+   "generated": "2026-11-28T07:37:12Z",
+   "groups": [
+    {
+     "title": "주가지수",
+     "items": [
+      {
+       "id": "KOSPI",
+       "name": "코스피",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 4711.21,
+       "prev": 4869.96,
+       "hi": 5006.0298,
+       "lo": 4697.5098,
+       "asof": "2026-11-26",
+       "pct": -3.26
+      },
+      {
+       "id": "KOSDAQ",
+       "name": "코스닥",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 655.71,
+       "prev": 645.68,
+       "hi": 665.88,
+       "lo": 635.45,
+       "asof": "2026-11-26",
+       "pct": 1.55
+      },
+      {
+       "id": "SP500",
+       "name": "S&P 500",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 7282.0898,
+       "prev": 6910.3901,
+       "hi": 7282.0898,
+       "lo": 7182.7798,
+       "asof": "2026-11-27",
+       "pct": 5.38
+      },
+      {
+       "id": "NASDAQ",
+       "name": "나스닥 종합",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 24020.3184,
+       "prev": 22617.7305,
+       "hi": 24089.5605,
+       "lo": 23585.8008,
+       "asof": "2026-11-27",
+       "pct": 6.2
+      }
+     ]
+    },
+    {
+     "title": "환율",
+     "items": [
+      {
+       "id": "USD",
+       "name": "원/달러",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1343.5,
+       "prev": 1334.8,
+       "hi": 1344.3,
+       "lo": 1341.0,
+       "asof": "2026-11-27",
+       "pct": 0.65
+      },
+      {
+       "id": "JPY",
+       "name": "원/100엔",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 833.3,
+       "prev": 835.7,
+       "hi": 845.73,
+       "lo": 833.3,
+       "asof": "2026-11-27",
+       "pct": -0.29
+      },
+      {
+       "id": "EUR",
+       "name": "원/유로",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1457.0,
+       "prev": 1462.4,
+       "hi": 1473.1,
+       "lo": 1457.0,
+       "asof": "2026-11-27",
+       "pct": -0.37
+      },
+      {
+       "id": "CNY",
+       "name": "원/위안",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 201.61,
+       "prev": 200.22,
+       "hi": 201.61,
+       "lo": 201.22,
+       "asof": "2026-11-27",
+       "pct": 0.69
+      }
+     ]
+    },
+    {
+     "title": "원자재",
+     "items": [
+      {
+       "id": "WTI",
+       "name": "WTI 원유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 83.0,
+       "prev": 83.98,
+       "hi": 83.68,
+       "lo": 80.17,
+       "asof": "2026-11-27",
+       "pct": -1.17
+      },
+      {
+       "id": "BRENT",
+       "name": "브렌트유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 90.1,
+       "prev": 92.57,
+       "hi": 94.61,
+       "lo": 89.37,
+       "asof": "2026-11-27",
+       "pct": -2.67
+      },
+      {
+       "id": "NATGAS",
+       "name": "천연가스",
+       "unit": "달러/MMBtu",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 3.506,
+       "prev": 3.411,
+       "hi": 3.506,
+       "lo": 3.184,
+       "asof": "2026-11-27",
+       "pct": 2.79
+      },
+      {
+       "id": "GOLD",
+       "name": "금",
+       "unit": "달러/온스",
+       "dp": 1,
+       "link": "macro/commodities/",
+       "last": 3657.5,
+       "prev": 3515.3999,
+       "hi": 3657.5,
+       "lo": 3535.8,
+       "asof": "2026-11-27",
+       "pct": 4.04
+      },
+      {
+       "id": "COPPER",
+       "name": "구리",
+       "unit": "달러/파운드",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 5.604,
+       "prev": 5.477,
+       "hi": 5.627,
+       "lo": 5.3325,
+       "asof": "2026-11-27",
+       "pct": 2.32
+      }
+     ]
+    },
+    {
+     "title": "관심 종목",
+     "items": [
+      {
+       "id": "NVDA",
+       "name": "엔비디아",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 148.88,
+       "prev": 125.53,
+       "hi": 165.05,
+       "lo": 148.88,
+       "asof": "2026-11-27",
+       "pct": 18.6
+      },
+      {
+       "id": "TSLA",
+       "name": "테슬라",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 399.73,
+       "prev": 345.82,
+       "hi": 399.73,
+       "lo": 380.14,
+       "asof": "2026-11-27",
+       "pct": 15.59
+      },
+      {
+       "id": "AAPL",
+       "name": "애플",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 358.11,
+       "prev": 342.56,
+       "hi": 358.11,
+       "lo": 349.08,
+       "asof": "2026-11-27",
+       "pct": 4.54
+      },
+      {
+       "id": "MSFT",
+       "name": "마이크로소프트",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 491.27,
+       "prev": 484.52,
+       "hi": 496.13,
+       "lo": 489.93,
+       "asof": "2026-11-27",
+       "pct": 1.39
+      },
+      {
+       "id": "SEC",
+       "name": "삼성전자",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 171300.0,
+       "prev": 183100.0,
+       "hi": 189400.0,
+       "lo": 170700.0,
+       "asof": "2026-11-26",
+       "pct": -6.44
+      },
+      {
+       "id": "HYNIX",
+       "name": "SK하이닉스",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 1053000.0,
+       "prev": 1113000.0,
+       "hi": 1158000.0,
+       "lo": 1030000.0,
+       "asof": "2026-11-26",
+       "pct": -5.39
+      }
+     ]
+    }
+   ],
+   "picks": [
+    {
+     "ticker": "PG",
+     "name": "프록터앤갬블",
+     "sector": "필수소비재",
+     "date": "2026-11-23",
+     "pct": 2.1
+    },
+    {
+     "ticker": "DE",
+     "name": "디어",
+     "sector": "산업재",
+     "date": "2026-11-24",
+     "pct": -2.6
+    },
+    {
+     "ticker": "NEM",
+     "name": "뉴몬트",
+     "sector": "소재",
+     "date": "2026-11-25",
+     "pct": -5.5
+    },
+    {
+     "ticker": "DUK",
+     "name": "듀크 에너지",
+     "sector": "유틸리티",
+     "date": "2026-11-26",
+     "pct": 2.1
+    },
+    {
+     "ticker": "WMB",
+     "name": "윌리엄스 컴퍼니스",
+     "sector": "에너지",
+     "date": "2026-11-27",
+     "pct": -6.4
+    }
+   ],
+   "next": [
+    {
+     "kst": "2026-12-01 09:00",
+     "title": "한국 수출입동향",
+     "note": "11월분 · 매월 1일 발표(관례)",
+     "country": "KR"
+    }
+   ],
+   "headline": "코스피 4,711.21(-3.3%), 원/달러 1,343.5원(+0.7%), WTI $83.00(-1.2%) — 가장 크게 움직인 건 엔비디아(+18.6%)",
+   "news": [
+    {
+     "id": "NVDA",
+     "name": "엔비디아",
+     "pct": 18.6,
+     "items": [
+      {
+       "title": "젠슨 황만이 아니었다…엔비디아 임원, ‘대중국 반도체 밀수’ 혐의 기업 임원과 혼인",
+       "src": "한겨레",
+       "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBTRkpWSkpaTmZDM01uckMxSDJSWlhGUjBWVFNQMlJpX1dabFR1RzB4blB6NkdOMlN6VmJMUWllenN5RF9zRXNUUkk1cDhyQk1IX1NwOEJNQ0RLT29PYkZCbXFydGtILWpyYnQ2RkQ4NA?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "‘젠슨 황 불륜 상대’ 연관된 中 데이터센터에서 엔비디아 최첨단 칩 발견",
+       "src": "Chosunbiz",
+       "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNNmpKaDZFQXJDWkoybGtuTkx5bk44M2lTR2FwWUlkRkx0RExIaVBjZGNwNlJZZWtkcDdZMnVUOEhVMUxqeEc4bmFNUHo3WkFoTzlwbFRFYVBYTlpkbnBPcDhOZXRuUGRYdlc3elIwUUFmRTh0OVNpeDBjRFd5d2ZXb19MNm5LU21QYjZUOGJFbUxXR2xwYWRUVkYxRHM2QdIBsgFBVV95cUxNal82RkxnMzFUNTlfZVdDeF9HaXVmOEt0SUoyOVB1UFpEMzhWQjVZNFhuTHpTWGtNR21LQXpVOWJrMmwyUUtvNXFUbFlsd1RDZ2M0Tlp6X1dXSHhkbzhZaWlMWTJwWXJIdWYySzNFa2NzR0hvYUMyeWlhVGNXMmxSUWpHWXN3RzdEM0Z0SmY2VTBOaGdUQTZpdnExZ3BLZjRPV3BWM29FMlA0QmRYbk1XYldn?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "AI 노스트라다무스 \"엔비디아·테슬라 가치 잃을것\"…대체 왜 - 머니투데이",
+       "src": "머니투데이",
+       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9kLTBjZFRSZ1ZMR016VkQ4YXZpeHNrMmYyYVVvVVBqZ1ZMSGptTS1QNmJMSEJGekx2eXpUQ3l5MFJRbHNRY0cyRF84ZklHQUNuZzRjZTdLVTEwLTYwa3ZiUTI1dkwtSUxp0gFuQVVfeXFMT1c0emQtNjdVaVpTMzVYeFN3ZnEwOTBiZ0YxRGJNOC1qN3pRVUFUQVRxNllyYUFqMElTU0xnVFhVbG1Jd1MtaHNHLXlJSnVGTmlBZTA1SzBCR0RtQ1NFem03YkhmdHVpNEtab1BrcVE?oc=5",
+       "date": "2026-11-28"
+      }
+     ]
+    },
+    {
+     "id": "TSLA",
+     "name": "테슬라",
+     "pct": 15.59,
+     "items": [
+      {
+       "title": "테슬라, S&P500 약세장 땐 100달러 밑 추락 전망",
+       "src": "초이스스탁US",
+       "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE95XzZMelR0M3JTUHE5SXNYbEFYMjl3TU5mTk9EU0RUdHktR0VNaUNHMkhFX21KWkJVR1ZRamZHWVAtVGhjZU1kd29lQlo4SW5SMWJMbzRCd3kyN1JSSzVZR3h3?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "AI 노스트라다무스 \"엔비디아·테슬라 가치 잃을것\"…대체 왜 - 머니투데이",
+       "src": "머니투데이",
+       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9kLTBjZFRSZ1ZMR016VkQ4YXZpeHNrMmYyYVVvVVBqZ1ZMSGptTS1QNmJMSEJGekx2eXpUQ3l5MFJRbHNRY0cyRF84ZklHQUNuZzRjZTdLVTEwLTYwa3ZiUTI1dkwtSUxp0gFuQVVfeXFMT1c0emQtNjdVaVpTMzVYeFN3ZnEwOTBiZ0YxRGJNOC1qN3pRVUFUQVRxNllyYUFqMElTU0xnVFhVbG1Jd1MtaHNHLXlJSnVGTmlBZTA1SzBCR0RtQ1NFem03YkhmdHVpNEtab1BrcVE?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "[전문가 기고] 모델3와 Y만 남긴 테슬라의 큰 그림",
+       "src": "서울파이낸스",
+       "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1QQUpqMzZCNzJYRk8zNVFEMmpwU2Nmc2F2d25kYXN0NHNyejd6c2ljSG1NMS1iMmNxR2FHRV9XZURVUVIydnR1T2hyV1E2M2ZLN3hXTmpKVUs5ZTBSRVpuTDl0dURieExMWFE?oc=5",
+       "date": "2026-11-28"
+      }
+     ]
+    },
+    {
+     "id": "SEC",
+     "name": "삼성전자",
+     "pct": -6.44,
+     "items": [
+      {
+       "title": "17만원대 삼성전자 아직 바닥 아니다?…‘4만전자’ 가능성 있다",
+       "src": "주간조선",
+       "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE84YmRGVUkwakExLVh4cmpFa1dPZlFmMVlTNFVoeWx1SkRrek9ldnVfS250eUZYTzg1bEdZcHpUd2s1UW11MzBtMmlkd21OUTJDVHRpWG42REVUd2NyMTh1NkpjVUtlSWk3ZFVr?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "\"삼성전자 4만원까지 떨어질 수도\"…전문가 전망 나왔다",
+       "src": "한국경제",
+       "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBLWWdfQU90OS1hVmlqUllYOVRsb0t6Z0VjbDJueWdsZkNDVlgtNW1abGF6ZFB5MS04bW9hVXo0SlRobVItUC1lSmlXSEhKM0ZkV09JUXpPcFpRZw?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "[인베스팅프로] 배당 12배 뛴 삼성전자, 적정주가는 아직 26% 위에 있다",
+       "src": "Investing.com 한국어",
+       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5IdG9KTWFGVXZ2c0dyOTltb0F5VWh2X3ZaNjIzd1hNRnlwT1lGTU13aGJSMWhFOGhNTERiR1pwNW9ibFVqZWcyaGhUbkZvSG9iQWZ0RWN3cXd0SnpoNGlJZ1FYOWpOOUdQM3hwaUJ0UlI?oc=5",
+       "date": "2026-11-28"
+      }
+     ]
+    },
+    {
+     "id": "NASDAQ",
+     "name": "나스닥 종합",
+     "pct": 6.2,
+     "items": [
+      {
+       "title": "뉴욕증시, AI·기술주 반등에 일제히 상승…나스닥 2.3%↑(종합)",
+       "src": "연합뉴스",
+       "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5mZG1nMXE3bzNwbDBXVjNUUXowZ1hsSTRpeHdaaDk2eVpwSU9sT0JRS0R2VE9GcXB6aDJ5d0dtdEJ1MkV0ZzJsWjFLRmlsSGVPbFZiOEFCeHhFLXPSAWBBVV95cUxPZ2FyY2RlY2pORXd3OWl3V3BHQi04QVFOcXJTOWdPZWNrUG8tLV82TmJXMFZCb0RlRjB2cnZZUnpRb0VNNVVPSnROa3otTDJxZXNoaEQ4RHYyVHVjZTlNbEY?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "뉴욕증시 AI 기술주 강세에 상승 마감...주간 나스닥 4월 이후 최대 상승",
+       "src": "조선일보",
+       "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNMktmekZYMldHX2dqZ2lody0tb2VxVmpna3BLZE14U0lLaE9EMTF4WUh3YmdZejhWcTZnVG50SW81eHNyVnJaV09UYXBzN3ExWVp1empjNkRsOW5QZEFmMHFzZllLajZ6VGtwNlMwcjc2ZGk5a0RMdDFmYl9tTjR6TA?oc=5",
+       "date": "2026-11-28"
+      },
+      {
+       "title": "뉴욕증시, AI 우려 완화에 일제히 상승…나스닥 2.31%↑",
+       "src": "BBS불교방송",
+       "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE0xSHNBMWpPcndyTHhJQzE5UGZ2ZHhnemthSDF0emhUaW5yZlZCUnVhUEtvVlVjYUFVMFl3XzdrV3ZMVEtQcFBRSkt0ZHFRa0s3b0lJdTJsU2RZdm1oWlpsSk1mY0t1RGoyVmQw?oc=5",
+       "date": "2026-11-28"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2026-W47",
+   "start": "2026-11-16",
+   "end": "2026-11-20",
+   "generated": "2026-11-21T06:56:43Z",
+   "groups": [
+    {
+     "title": "주가지수",
+     "items": [
+      {
+       "id": "KOSPI",
+       "name": "코스피",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 4869.96,
+       "prev": 5290.5298,
+       "hi": 5137.8901,
+       "lo": 4869.96,
+       "asof": "2026-11-20",
+       "pct": -7.95
+      },
+      {
+       "id": "KOSDAQ",
+       "name": "코스닥",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 645.68,
+       "prev": 699.66,
+       "hi": 684.81,
+       "lo": 645.68,
+       "asof": "2026-11-20",
+       "pct": -7.72
+      },
+      {
+       "id": "SP500",
+       "name": "S&P 500",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 6910.3901,
+       "prev": 7561.6699,
+       "hi": 7416.5898,
+       "lo": 6910.3901,
+       "asof": "2026-11-20",
+       "pct": -8.61
+      },
+      {
+       "id": "NASDAQ",
+       "name": "나스닥 종합",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 22617.7324,
+       "prev": 25136.2695,
+       "hi": 24509.7598,
+       "lo": 22617.7324,
+       "asof": "2026-11-20",
+       "pct": -10.02
+      }
+     ]
+    },
+    {
+     "title": "환율",
+     "items": [
+      {
+       "id": "USD",
+       "name": "원/달러",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1346.1,
+       "prev": 1333.8,
+       "hi": 1346.1,
+       "lo": 1330.4,
+       "asof": "2026-11-20",
+       "pct": 0.92
+      },
+      {
+       "id": "JPY",
+       "name": "원/100엔",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 846.8,
+       "prev": 834.3,
+       "hi": 846.8,
+       "lo": 834.43,
+       "asof": "2026-11-20",
+       "pct": 1.5
+      },
+      {
+       "id": "EUR",
+       "name": "원/유로",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1475.7,
+       "prev": 1474.0,
+       "hi": 1475.7,
+       "lo": 1459.5,
+       "asof": "2026-11-20",
+       "pct": 0.12
+      },
+      {
+       "id": "CNY",
+       "name": "원/위안",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 201.92,
+       "prev": 199.96,
+       "hi": 201.92,
+       "lo": 199.53,
+       "asof": "2026-11-20",
+       "pct": 0.98
+      }
+     ]
+    },
+    {
+     "title": "원자재",
+     "items": [
+      {
+       "id": "WTI",
+       "name": "WTI 원유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 83.62,
+       "prev": 88.56,
+       "hi": 86.01,
+       "lo": 83.21,
+       "asof": "2026-11-20",
+       "pct": -5.58
+      },
+      {
+       "id": "BRENT",
+       "name": "브렌트유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 89.87,
+       "prev": 95.84,
+       "hi": 93.14,
+       "lo": 89.87,
+       "asof": "2026-11-20",
+       "pct": -6.23
+      },
+      {
+       "id": "NATGAS",
+       "name": "천연가스",
+       "unit": "달러/MMBtu",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 3.791,
+       "prev": 3.23,
+       "hi": 3.791,
+       "lo": 3.122,
+       "asof": "2026-11-20",
+       "pct": 17.37
+      },
+      {
+       "id": "GOLD",
+       "name": "금",
+       "unit": "달러/온스",
+       "dp": 1,
+       "link": "macro/commodities/",
+       "last": 3539.0,
+       "prev": 3886.3,
+       "hi": 3864.2,
+       "lo": 3539.0,
+       "asof": "2026-11-20",
+       "pct": -8.94
+      },
+      {
+       "id": "COPPER",
+       "name": "구리",
+       "unit": "달러/파운드",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 5.465,
+       "prev": 6.0795,
+       "hi": 5.9975,
+       "lo": 5.465,
+       "asof": "2026-11-20",
+       "pct": -10.11
+      }
+     ]
+    },
+    {
+     "title": "관심 종목",
+     "items": [
+      {
+       "id": "NVDA",
+       "name": "엔비디아",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 125.53,
+       "prev": 162.85,
+       "hi": 156.14,
+       "lo": 125.53,
+       "asof": "2026-11-20",
+       "pct": -22.92
+      },
+      {
+       "id": "TSLA",
+       "name": "테슬라",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 345.82,
+       "prev": 390.22,
+       "hi": 383.72,
+       "lo": 345.82,
+       "asof": "2026-11-20",
+       "pct": -11.38
+      },
+      {
+       "id": "AAPL",
+       "name": "애플",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 342.56,
+       "prev": 356.27,
+       "hi": 352.78,
+       "lo": 342.56,
+       "asof": "2026-11-20",
+       "pct": -3.85
+      },
+      {
+       "id": "MSFT",
+       "name": "마이크로소프트",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 484.52,
+       "prev": 523.88,
+       "hi": 517.99,
+       "lo": 484.52,
+       "asof": "2026-11-20",
+       "pct": -7.51
+      },
+      {
+       "id": "SEC",
+       "name": "삼성전자",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 183100.0,
+       "prev": 206000.0,
+       "hi": 196900.0,
+       "lo": 183100.0,
+       "asof": "2026-11-20",
+       "pct": -11.12
+      },
+      {
+       "id": "HYNIX",
+       "name": "SK하이닉스",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 1113000.0,
+       "prev": 1216000.0,
+       "hi": 1183000.0,
+       "lo": 1098000.0,
+       "asof": "2026-11-20",
+       "pct": -8.47
+      }
+     ]
+    }
+   ],
+   "picks": [
+    {
+     "ticker": "NVDA",
+     "name": "엔비디아",
+     "sector": "정보기술",
+     "date": "2026-11-16",
+     "pct": -22.9
+    },
+    {
+     "ticker": "ISRG",
+     "name": "인튜이티브 서지컬",
+     "sector": "헬스케어",
+     "date": "2026-11-17",
+     "pct": -10.0
+    },
+    {
+     "ticker": "ETN",
+     "name": "이튼",
+     "sector": "산업재",
+     "date": "2026-11-18",
+     "pct": -8.9
+    },
+    {
+     "ticker": "BKNG",
+     "name": "부킹 홀딩스",
+     "sector": "경기소비재",
+     "date": "2026-11-19",
+     "pct": -6.2
+    },
+    {
+     "ticker": "BRK.B",
+     "name": "버크셔 해서웨이 B",
+     "sector": "금융",
+     "date": "2026-11-20",
+     "pct": -0.7
+    }
+   ],
+   "headline": "코스피 4,869.96(-8.0%), 원/달러 1,346.1원(+0.9%), WTI $83.62(-5.6%) — 가장 크게 움직인 건 엔비디아(-22.9%)",
+   "news": [
+    {
+     "id": "NVDA",
+     "name": "엔비디아",
+     "pct": -22.92,
+     "items": [
+      {
+       "title": "엔비디아, AI 테마 투매에 '와르르'…알파벳에 밀려 시총 4위로",
+       "src": "연합인포맥스",
+       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBNZWVzWTZpYXRxWElLX2dqR3lGSXlWaGJzRnZzeEcwRkFIdXJZeWFsWkxSUlpKaWxYcmQ5b09vTTFnaTBFcHRveUFjby1DZkpwcGhOMWpwVkNSY3NHcEVlM3F1dGZmdWpmWndGazNtbTE?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "젠슨 황 떠난 엔비디아, AI주 매도세 겹치며 아마존 시총만큼 증발",
+       "src": "조선일보",
+       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOZUlyelBkN0tucVotWUQtNlN1Yml3Z0ZybGZ1SzQ3NUtYdDhwRGNoeWlIYjZDSkh2MU9DVGhXRnREY1VUbHp1T2lsTE9JSHJMNFFxN2FXWW1reFEwQTYwcm16MEFXOFZFZWxudklxbEhZc2ZJZ0VuWGVpZ2wxNmxlMnFoZlppWTdfZWZEV1hR?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "엔비디아, SEC 회계 조사에 주가 14% 폭락…시총 4위 추락",
+       "src": "AI타임스",
+       "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5iT0s1dlpmU1VqMjhsQmlzd25GRW8yME45eElDQWFDS0dpVFhGMHhIQ003dkxETFFkZnBBSC0wZHBmSTZOU3dFZjR5bmczR2FfcVN0dGpsMUQzR292UHpLSmk1MkZ3bi1GYVE?oc=5",
+       "date": "2026-11-21"
+      }
+     ]
+    },
+    {
+     "id": "NATGAS",
+     "name": "천연가스",
+     "pct": 17.37,
+     "items": [
+      {
+       "title": "유럽 가스 가격, 중동 공격에 상승…주간 기준으론 하락 전망",
+       "src": "Investing.com 한국어",
+       "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1OMWw0UEwxNEhtWGlmdUhsRERKWFB4QXNqRDhaTmhsUXpPMEVWVlpiTkM3Tm0wOEdtbVRvQW1uM3RXZXlkYUo2MTRIWURMYi0waDJuUlRla0NoTTVEdkIxeUxMcVhtYldSdVVCelFIVQ?oc=5",
+       "date": "2026-11-20"
+      },
+      {
+       "title": "골드만삭스, 가스 가격 장기 하락 위험으로 Var Energi 하향 조정",
+       "src": "Investing.com 한국어",
+       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE92RWxmUUdsZjNfQU42TS1yOTF2UUtON0pRSzZ6VVhSQUcyS3NSTFdTeE9pWXhnUFBkYklXRUhKeWVVdklwaDdQVzFXR1BZYl95dFFSajRvd1FtcUktdlE1TVNjQ1BFX2M0cWV1S0hRanc?oc=5",
+       "date": "2026-11-20"
+      },
+      {
+       "title": "[기획] LNG 직수입 앞장선 포스코인터, 요금 인상 후폭풍 가져올까",
+       "src": "더리브스",
+       "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1DVGtUREdwUHdxWi1mYVVGTUhqalZlZ0ZSTUI2aUVYRHhadWpFcE1zT09BLVJBX3pJS1AxekdWRm5BU0JTZ1dZRURheXZXVWtWSnJIbGF2MjBWU2J5SVVWOGxMYWpkbks1YXJJ?oc=5",
+       "date": "2026-11-20"
+      }
+     ]
+    },
+    {
+     "id": "TSLA",
+     "name": "테슬라",
+     "pct": -11.38,
+     "items": [
+      {
+       "title": "테슬라 ‘FSD 기술설명서’ 단 2쪽…정부 “검토 어려울 정도로 미흡”",
+       "src": "한겨레",
+       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1Xanh1YnBURkZsdy1LRjJjT0ZxaXFqb3BWeU1mcjlTSElVc0xSaHdvekdKcVJhdVFSZ2hBVFlkQXBZT1NGVGY0dXBSVzBzY240RDNzNVhCTEFJNERoNVo2UkxTNWtTRWFZek9oeFFUaXdHUQ?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "방중 머스크 “난 열렬한 중국 팬…테슬라 중국 생산 늘릴 것”",
+       "src": "한겨레",
+       "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5Tcm9JaS1PZVNIVl9mXzBaOVI2ZTdCdGN6UmFOY2N6ZDFrLVFXUkRPR0VtM2w0SVRRaDMyQ3gtd0RwYzZSbVlpdVFVSHJJbV8yVFgxVUVCVnYwUi1XMTNtUlRPbU1uWGdyeExUbQ?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "차란차, 테슬라 모델 Y 1000만원 할인 구매 기회 제공",
+       "src": "지디넷코리아",
+       "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1INHhWWWRaUXpEMXlMTXNka2J1cVozTTAtcDVIMThxbjFqcmJHYVI5ZG5SbnNzbHdSVFY2YXV0US1MNklNWUtibTY0bXh5UHRvZmlzdUFn?oc=5",
+       "date": "2026-11-21"
+      }
+     ]
+    },
+    {
+     "id": "SEC",
+     "name": "삼성전자",
+     "pct": -11.12,
+     "items": [
+      {
+       "title": "삼전닉스 더 떨어진다? 삼전 7만, 하닉 20만원 전망 전문가 \"폭락, 시작도 안 해\"",
+       "src": "조선일보",
+       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQaC1JZmdSZW5kb2NEQU9UWDNJVlpZMVhNVzFjWlA2OFRENDdRaWVPcjljcDI5R0JUQ2N1a1cwTE44dzU5SHFCU1NxSUVHU0lNRGdJNkhtM1ZOenJXNnY3ek05bEJQUlY2UzBCNWV3UVlWUEdTZUhwa09yV25JamIxNEY4ZThLT3Vh?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "“실적은 1000조 전망인데 주가는 반토막”…삼전닉스 2390조 증발, 개미들 한숨",
+       "src": "데일리25",
+       "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5hOHVEZ3J3U2VJYVZjMTJXYXhlWHVhZkIwSHpiSHlkMDk2WmljRzRkb2dncW9pa0hLOWE4QlR4M3JPX0std0IzOTZGYXFyeno5dVZwQmZYVG5NSF9QVUJONGFzUWZpUVBkWDZlTA?oc=5",
+       "date": "2026-11-21"
+      },
+      {
+       "title": "삼성전자 7% 폭락에 개미 1.5조 쓸어담았다…목표가도 줄하향 [숫자 뒤의 진실]",
+       "src": "세계일보",
+       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9OQWNMdmNQaXZtM0R0VDMxTzBQT3JxRHFERUVsb1U0bnhDVHl1bUl6Q0lyenJzQmRJR0VaMXdIcnQ1My1fLTE5MElNS2dpVFFFdmdYUU1KWGPSAVRBVV95cUxNMURkU0phSnpwcUhwNHZ2QWdfNExIYkpmZ0RoOFo0XzkzRUZ4ODBPUTJwSU9tSHBXNTRfUnFHc1I0MDN3OXZ2T2h4aFc0eWZnQmVXT1Q?oc=5",
+       "date": "2026-11-21"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2026-W46",
+   "start": "2026-11-09",
+   "end": "2026-11-13",
+   "generated": "2026-11-18T13:07:03Z",
+   "groups": [
+    {
+     "title": "주가지수",
+     "items": [
+      {
+       "id": "KOSPI",
+       "name": "코스피",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 5290.5298,
+       "prev": 5059.6899,
+       "hi": 5375.3599,
+       "lo": 5018.8501,
+       "asof": "2026-11-13",
+       "pct": 4.56
+      },
+      {
+       "id": "KOSDAQ",
+       "name": "코스닥",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 699.66,
+       "prev": 644.27,
+       "hi": 705.1,
+       "lo": 638.97,
+       "asof": "2026-11-13",
+       "pct": 8.6
+      },
+      {
+       "id": "SP500",
+       "name": "S&P 500",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 7561.6699,
+       "prev": 7376.8599,
+       "hi": 7619.3799,
+       "lo": 7520.9302,
+       "asof": "2026-11-13",
+       "pct": 2.51
+      },
+      {
+       "id": "NASDAQ",
+       "name": "나스닥 종합",
+       "unit": "pt",
+       "dp": 2,
+       "link": "korea/market/",
+       "last": 25136.2695,
+       "prev": 24579.4297,
+       "hi": 25466.1895,
+       "lo": 25065.8691,
+       "asof": "2026-11-13",
+       "pct": 2.27
+      }
+     ]
+    },
+    {
+     "title": "환율",
+     "items": [
+      {
+       "id": "USD",
+       "name": "원/달러",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1333.8,
+       "prev": 1356.3,
+       "hi": 1362.7,
+       "lo": 1333.8,
+       "asof": "2026-11-13",
+       "pct": -1.66
+      },
+      {
+       "id": "JPY",
+       "name": "원/100엔",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 834.3,
+       "prev": 861.64,
+       "hi": 860.34,
+       "lo": 834.3,
+       "asof": "2026-11-13",
+       "pct": -3.17
+      },
+      {
+       "id": "EUR",
+       "name": "원/유로",
+       "unit": "원",
+       "dp": 1,
+       "link": "macro/fx/",
+       "last": 1474.0,
+       "prev": 1522.7,
+       "hi": 1518.1,
+       "lo": 1474.0,
+       "asof": "2026-11-13",
+       "pct": -3.2
+      },
+      {
+       "id": "CNY",
+       "name": "원/위안",
+       "unit": "원",
+       "dp": 2,
+       "link": "macro/fx/",
+       "last": 199.96,
+       "prev": 202.8,
+       "hi": 204.12,
+       "lo": 199.96,
+       "asof": "2026-11-13",
+       "pct": -1.4
+      }
+     ]
+    },
+    {
+     "title": "원자재",
+     "items": [
+      {
+       "id": "WTI",
+       "name": "WTI 원유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 88.56,
+       "prev": 90.83,
+       "hi": 88.74,
+       "lo": 86.04,
+       "asof": "2026-11-13",
+       "pct": -2.5
+      },
+      {
+       "id": "BRENT",
+       "name": "브렌트유",
+       "unit": "달러/배럴",
+       "dp": 2,
+       "link": "macro/commodities/",
+       "last": 95.84,
+       "prev": 98.32,
+       "hi": 95.84,
+       "lo": 91.49,
+       "asof": "2026-11-13",
+       "pct": -2.52
+      },
+      {
+       "id": "NATGAS",
+       "name": "천연가스",
+       "unit": "달러/MMBtu",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 3.23,
+       "prev": 2.998,
+       "hi": 3.34,
+       "lo": 3.215,
+       "asof": "2026-11-13",
+       "pct": 7.74
+      },
+      {
+       "id": "GOLD",
+       "name": "금",
+       "unit": "달러/온스",
+       "dp": 1,
+       "link": "macro/commodities/",
+       "last": 3886.3,
+       "prev": 4074.8999,
+       "hi": 4114.5,
+       "lo": 3885.3,
+       "asof": "2026-11-13",
+       "pct": -4.63
+      },
+      {
+       "id": "COPPER",
+       "name": "구리",
+       "unit": "달러/파운드",
+       "dp": 3,
+       "link": "macro/commodities/",
+       "last": 6.0795,
+       "prev": 6.218,
+       "hi": 6.3285,
+       "lo": 6.0795,
+       "asof": "2026-11-13",
+       "pct": -2.23
+      }
+     ]
+    },
+    {
+     "title": "관심 종목",
+     "items": [
+      {
+       "id": "NVDA",
+       "name": "엔비디아",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 162.85,
+       "prev": 186.64,
+       "hi": 178.67,
+       "lo": 162.85,
+       "asof": "2026-11-13",
+       "pct": -12.75
+      },
+      {
+       "id": "TSLA",
+       "name": "테슬라",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 390.22,
+       "prev": 358.22,
+       "hi": 397.45,
+       "lo": 378.05,
+       "asof": "2026-11-13",
+       "pct": 8.93
+      },
+      {
+       "id": "AAPL",
+       "name": "애플",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 356.27,
+       "prev": 342.37,
+       "hi": 356.27,
+       "lo": 348.51,
+       "asof": "2026-11-13",
+       "pct": 4.06
+      },
+      {
+       "id": "MSFT",
+       "name": "마이크로소프트",
+       "unit": "달러",
+       "dp": 2,
+       "link": "stocks/nasdaq-floor/",
+       "last": 523.88,
+       "prev": 530.61,
+       "hi": 545.18,
+       "lo": 521.13,
+       "asof": "2026-11-13",
+       "pct": -1.27
+      },
+      {
+       "id": "SEC",
+       "name": "삼성전자",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 206000.0,
+       "prev": 188700.0,
+       "hi": 208000.0,
+       "lo": 189900.0,
+       "asof": "2026-11-13",
+       "pct": 9.17
+      },
+      {
+       "id": "HYNIX",
+       "name": "SK하이닉스",
+       "unit": "원",
+       "dp": 0,
+       "link": "korea/market/",
+       "last": 1216000.0,
+       "prev": 1132000.0,
+       "hi": 1277000.0,
+       "lo": 1136000.0,
+       "asof": "2026-11-13",
+       "pct": 7.42
+      }
+     ]
+    }
+   ],
+   "picks": [
+    {
+     "ticker": "FCX",
+     "name": "프리포트-맥모란",
+     "sector": "소재",
+     "date": "2026-11-09",
+     "pct": -6.9
+    },
+    {
+     "ticker": "COP",
+     "name": "코노코필립스",
+     "sector": "에너지",
+     "date": "2026-11-10",
+     "pct": 2.4
+    },
+    {
+     "ticker": "CEG",
+     "name": "콘스텔레이션 에너지",
+     "sector": "유틸리티",
+     "date": "2026-11-11",
+     "pct": 7.2
+    },
+    {
+     "ticker": "WELL",
+     "name": "웰타워",
+     "sector": "부동산",
+     "date": "2026-11-12",
+     "pct": 0.3
+    },
+    {
+     "ticker": "TMUS",
+     "name": "티모바일 US",
+     "sector": "통신서비스",
+     "date": "2026-11-13",
+     "pct": 3.6
+    }
+   ],
+   "trends": {
+    "days": 1,
+    "top": [
+     {
+      "date": "2026-11-14",
+      "dom": "고경표 음주운전 사고",
+      "glo": "Hypochlorous Acid Spray"
+     }
+    ],
+    "repeat": [],
+    "cats": [
+     "AI",
+     "연예·사회",
+     "뷰티",
+     "경제·기술"
+    ]
+   },
+   "headline": "코스피 5,290.53(+4.6%), 원/달러 1,333.8원(-1.7%), WTI $88.56(-2.5%) — 가장 크게 움직인 건 엔비디아(-12.8%)",
+   "news": [
+    {
+     "id": "NVDA",
+     "name": "엔비디아",
+     "pct": -12.75,
+     "items": [
+      {
+       "title": "\"젠슨 황 복귀시켜라\" 엔비디아 발칵 뒤집혔는데…'대반전'",
+       "src": "한국경제",
+       "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFB0elVsc1M4WUhhQ1dMcE9yTURwbjJtamZSem9zbHBXOEpucEdNdGowNG80aVlfMngwZ0hIeWVDNGl0VjUyTnhDTnVVYXJIclMtSmNYakZhQVBFZw?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "“젠슨 황 안 돌아오면 집단 이직”... 엔비디아 임원 서한은 ‘가짜’였다",
+       "src": "조선일보",
+       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPbEp3dVBUcmRMUEwtTzFENnF4ZWM5OEpZQUhTTEoyN3lNWmZqSnZGXy15eV9sZkJxM2JSeGhrRXFqOFg5SkZRU0o3WHZnSmRuMkdwSVh6N1Q0b0FDX285US1PRS0zMHF0RnNJSW02SklmWTB5VVR6bzNnRFJ0dFpwWXl6Yw?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "\"젠슨황, 엔비디아 임원진에 '앨리스와 적절한 관계' 거짓말\"",
+       "src": "연합뉴스",
+       "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1HOW5CRThNYlZBVTVDb2RqemY0Y0N5ZUZNRXFfbnVwZzR2NGNBQk1zU2N3emk5LVZsRTl6Q1dkbFE2TjRZdzZfY1JFWnM3MHZKNWtTRkNlTTZ1cGfSAWBBVV95cUxPZVo5Y3BfUVhhOU9hOHZuRjJEZVVld2ZZWnpTYXBOa3hUOFJQbndOREZtbjc5NW1DM1NGOVlpYWZaemZDLWdMZlIzMkZuQ0lRcGJMZnI3LUpwWUZ4Q2lWOFI?oc=5",
+       "date": "2026-11-14"
+      }
+     ]
+    },
+    {
+     "id": "SEC",
+     "name": "삼성전자",
+     "pct": 9.17,
+     "items": [
+      {
+       "title": "삼성전자 인수설에 美 모딘 주가 28% 폭등…시총 72억 달러로 급증 By EBN",
+       "src": "Investing.com 한국어",
+       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE93SDVPV0I5UzF3WFNoOEgxQUZNa0NUbFQtTkpTekZXNmRMMWFVV0R3eFJCTFJUUUZsOGV0bTdpWU5WNHZWVmdKSnFfSmdvTEg4dnEtZDhldDBDTjJ2TXpSRkxuTFNYaVdwYmJkQXhBbnE?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "모친 홍라희에 삼전 주식 1115만8000주 받은 이재용, 증여세는 얼마나?",
+       "src": "문화일보",
+       "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE41TlVtN2tXSHJOd2E3bk02UUxrejhaYXVYN2ZGeE03Q1hDNmJlZUlfdFlBVmlaOWtlV29qUEQ0YnZRTmRfM0hVMzdYTURIOW1K?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "이재용, 삼성전자 지분 1.99%…'2% 돌파' 변수는 자사주 소각",
+       "src": "조세일보",
+       "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1KeXd5U09hNHBnRUp1SnhyeGlWazI4Y2g0R2xYUjc2eUs3TC1mUTY5WHMtUm5XbGZUSmFaUmVhSk9jQzJtTXg3X1RUaVg3Zk1DVzhwRmpCXzFTVS1zUVNN?oc=5",
+       "date": "2026-11-14"
+      }
+     ]
+    },
+    {
+     "id": "TSLA",
+     "name": "테슬라",
+     "pct": 8.93,
+     "items": [
+      {
+       "title": "테슬라 사이버캡, 개인 판매 시작 '2만9990달러'…싼듯 비싼듯",
+       "src": "디지털투데이",
+       "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1IZWJCcFFpQmVlVTBiS0JPcXdFU0Q5ZHhsMUluT3RiTlBxZmczaTdHUm1EQ1hHSGVmWGR1OVJnZnFaZ1hqWnFBQ2ZCTGdFX21ya1V0NXdncWNWTlk3eGFJbVlVZW1JaEhZZ3hDTUZiM1EzcjQ?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "테슬라, 운전대 없는 '사이버캡' 개인 판매 시작…가격 3만달러",
+       "src": "www.ebn.co.kr",
+       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1EQWIwdGc1NE1pX05JSDRJSTI5YTA1YjdzSEM2Wmc2UC1rMnk2bWZxbEJYTHhCSndkZXUtcFh2akpROVFxSWZVU0ViWEVxVlZRY2QzTG16WDdLQlhjWElOeTdGQkE2b0Nz?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "33년 AI 황제 날린 '차이나 리스크'…테슬라·애플은 버틸 수 있을까[김인엽의 AI프런티어]",
+       "src": "한국경제",
+       "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBhbFdJZzVXdlJfLWotS1VIVEhVTnY5RFdtVUpSamxZcDFNLS12ck1nWXBrcXdJTjlydGZxVzdaREVtNXdreXRocGd0NjVMaDhmMDBWMUJPRWxfQQ?oc=5",
+       "date": "2026-11-14"
+      }
+     ]
+    },
+    {
+     "id": "KOSDAQ",
+     "name": "코스닥",
+     "pct": 8.6,
+     "items": [
+      {
+       "title": "[IPO챗] 내주 영광와이케이엠씨 등 3개사 코스닥 입성",
+       "src": "매일경제 마켓",
+       "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE0zczdPRXRNTUJyR3dLZDlId1d0VlZ6VVZqckVJQk45aWpyeEFCMHNPbzBxenNPNTdzSXJ6SUxPZ0pyRnRWemxKRWg5eDJ0TEFIU2c?oc=5",
+       "date": "2026-11-14"
+      },
+      {
+       "title": "여의도 찾은 李대통령…의무공개매수·코스닥 재설계 '드라이브'",
+       "src": "연합인포맥스",
+       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40eVhlWUR1cmNJUVNiN2FQMHRLZVdQNlRRejJWenEzYVdKUTd2V3k0ZmxsRUpqTUlwWmcySzJTMXgxdjBHSEhVQjhSbGxUNm1TUFFWSU5paUZXXzV6OU9od0hoR1NKNGlaQTMzYXZ1eGk?oc=5",
+       "date": "2026-11-13"
+      },
+      {
+       "title": "인터넷/SNS상 코스닥 추가대책에 대한 허위정보 관련 투자자 유의사항 - 전체 | 카드/한컷 | 멀티미디어",
+       "src": "대한민국 정책브리핑",
+       "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOUUtHenkwcUJHQmxEbWpscmM4WVVubnRXaDVzX2NKZnRQamEtQ0tpU2Jwd2xBeXJQUEtKM042a1c1ZUhTYnZkMFZ1elMtZXVfSy1BMFBnaHRoUGFCVXhBdkNnSDdvUWVnOUsza3JQTkwwOG1HUi1EUFg2X0V5R2ZJekptNEtxR0ZULWFz?oc=5",
+       "date": "2026-11-13"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "updated": "2026-11-28T07:37:12Z"
+}

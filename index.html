@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>Derek's Platform · 금리·환율·주식·부동산 데이터 한 화면에</title>
+<meta name="description" content="금리, 환율, 미국주식, 부동산 실거래·청약, 여행 환율까지 매일 자동으로 모아 분석하는 통합 경제 데이터 플랫폼">
+<meta name="keywords" content="금리,환율,미국주식,부동산,청약,분양,KB시세,경제지표,재테크">
+<link rel="canonical" href="https://derekhub.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="Derek's Platform">
+<meta property="og:description" content="금리, 환율, 미국주식, 부동산 실거래·청약, 여행 환율까지 매일 자동으로 모아 분석하는 통합 경제 데이터 플랫폼">
+<meta property="og:url" content="https://derekhub.kr/">
+<meta name="twitter:card" content="summary">
+<meta name="naver-site-verification" content="e0933c0db29b936490bc24b0b7e8859e56e6bd83" />
+<link rel="stylesheet" href="assets/style.css?v=20261114b">
+<link rel="stylesheet" href="assets/home.css?v=20261127a">
+<meta name="google-adsense-account" content="ca-pub-3485743771802527">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body class="home">
+<header class="topbar">
+  <a class="brand" href="./">Derek's Platform</a>
+  <nav id="nav" aria-label="산업"></nav>
+</header>
+
+<section class="hero hero-dash">
+  <div class="art" id="hero-art"></div>
+  <div class="shade"></div>
+  <div class="hero-in">
+    <p class="kicker">통합 정보 플랫폼 · <span id="today"></span></p>
+    <h1>시장의 흐름을<br>한 화면에</h1>
+    <p class="lead">금리·환율·주식·부동산 데이터를 매일 모으고 연결해 보여드려요. 궁금한 것을 바로 찾아보세요.</p>
+    <div class="search-box" id="search"></div>
+    <p class="visits" id="visits" hidden></p>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="block">
+    <div class="block-head">
+      <h2>오늘의 지표</h2>
+      <p>매일 자동 갱신 · 카드를 누르면 자세한 분석으로</p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>산업별 허브</h2>
+      <p>산업마다 지표와 페이지를 모아 두었어요</p>
+    </div>
+    <div class="hubs" id="hubs"><a class="hub" href="industry/finance/" style="--h:215"><span class="hub-icon">💹</span><b>금융·투자</b>
+      <span class="hub-desc">금리, 환율, 거시경제와 주식 시장을 한곳에서</span><span class="hub-foot">거시경제 · 한국경제 · 주식 · 경제 교실 · 페이지 9개 →</span></a><a class="hub" href="industry/realestate/" style="--h:28"><span class="hub-icon">🏠</span><b>부동산</b>
+      <span class="hub-desc">매매 심리, 실거래 지수, 청약과 분양을 매일</span><span class="hub-foot">대한민국 부동산 · 페이지 3개 →</span></a><a class="hub" href="industry/life/" style="--h:175"><span class="hub-icon">🧰</span><b>생활·헬스케어</b>
+      <span class="hub-desc">여행, 의료 기관 정보처럼 생활에 바로 쓰는 데이터</span><span class="hub-foot">여행 · 유용한 페이지 · 트렌드 · 탑골게임 · 페이지 9개 →</span></a></div>
+  </section>
+
+  <section class="block" id="pages">
+    <div class="block-head">
+      <h2>모든 페이지</h2>
+      <p id="count"></p>
+    </div>
+    <div class="tiles launcher" id="tiles"><div class="apps">
+  <a class="app" href="games/running-10k/" style="--h:40" title="내 체력이면 10K를 몇 분에 뛸까? 그 기록, 게임에서라도 깰 수 있을까?">
+    <span class="app-ic" aria-hidden="true">🏃</span>
+    <span class="app-t">10K 러닝 대회</span>
+    <span class="app-a">탑골게임</span>
+  </a>
+  <a class="app" href="games/bignose/" style="--h:330" title="피처폰 시절 그 게임 감성, 지금 한 판 해 볼까?">
+    <span class="app-ic" aria-hidden="true">☎️</span>
+    <span class="app-t">달려라 큰코</span>
+    <span class="app-a">탑골게임</span>
+  </a>
+  <a class="app" href="games/mud/" style="--h:130" title="PC통신 시절 머드게임, 지금 다시 하면 어떨까?">
+    <span class="app-ic" aria-hidden="true">⚔️</span>
+    <span class="app-t">강호무림 MUD</span>
+    <span class="app-a">탑골게임</span>
+  </a>
+  <a class="app" href="trends/weekly-issues/" style="--h:5" title="그 주엔 무슨 일이 있었고, 그 이슈는 어떻게 흘러갔을까?">
+    <span class="app-ic" aria-hidden="true">🗓️</span>
+    <span class="app-t">주간 이슈 연표</span>
+    <span class="app-a">트렌드</span>
+  </a>
+  <a class="app" href="trends/bestseller/" style="--h:172" title="요즘 잘 팔리는 책은 어떤 책이고, 지금 내게 맞는 책은 뭘까?">
+    <span class="app-ic" aria-hidden="true">📚</span>
+    <span class="app-t">이번 주 서가 읽기</span>
+    <span class="app-a">트렌드</span>
+  </a>
+  <a class="app" href="macro/weekly/" style="--h:265" title="이번 주 시장은 얼마나 움직였고, 다음 주엔 뭐가 있을까?">
+    <span class="app-ic" aria-hidden="true">🗓️</span>
+    <span class="app-t">이번 주 시장 요약</span>
+    <span class="app-a">거시경제</span>
+  </a>
+  <a class="app" href="macro/calendar/" style="--h:215" title="다음 금리 결정은 언제고, 최근 미국 지표는 어땠을까?">
+    <span class="app-ic" aria-hidden="true">📅</span>
+    <span class="app-t">경제 일정</span>
+    <span class="app-a">거시경제</span>
+  </a>
+  <a class="app" href="korea/market/" style="--h:355" title="코스피·코스닥은 지금 어디쯤이고, 미국 증시보다 잘했을까?">
+    <span class="app-ic" aria-hidden="true">🇰🇷</span>
+    <span class="app-t">코스피·코스닥</span>
+    <span class="app-a">한국경제</span>
+  </a>
+  <a class="app" href="macro/commodities/" style="--h:30" title="유가·금·구리·고무 값은 지금 어디쯤일까?">
+    <span class="app-ic" aria-hidden="true">🛢️</span>
+    <span class="app-t">원자재 시세</span>
+    <span class="app-a">거시경제</span>
+  </a>
+  <a class="app" href="trends/menu/" style="--h:20" title="오늘 뭐 먹지? 왜 하필 그 메뉴일까?">
+    <span class="app-ic" aria-hidden="true">🍲</span>
+    <span class="app-t">오늘의 메뉴</span>
+    <span class="app-a">트렌드</span>
+  </a>
+  <a class="app" href="edu/economy-toon/" style="--h:340" title="아이에게 돈과 경제를 어떻게 쉽게 알려 줄까?">
+    <span class="app-ic" aria-hidden="true">🐷</span>
+    <span class="app-t">동동이 경제툰</span>
+    <span class="app-a">경제 교실</span>
+  </a>
+  <a class="app" href="trends/daily/" style="--h:45" title="요즘 사람들은 무엇에 관심을 가질까?">
+    <span class="app-ic" aria-hidden="true">🗞️</span>
+    <span class="app-t">오늘의 관심사</span>
+    <span class="app-a">트렌드</span>
+  </a>
+  <a class="app" href="travel/fx-compass/" style="--h:195" title="지금 원화로 어디를 여행하면 평소보다 쌀까?">
+    <span class="app-ic" aria-hidden="true">🧭</span>
+    <span class="app-t">환율 여행 나침반</span>
+    <span class="app-a">여행</span>
+  </a>
+  <a class="app" href="macro/fx/" style="--h:195" title="지금 달러·엔·유로·위안이 원화로 얼마일까?">
+    <span class="app-ic" aria-hidden="true">💱</span>
+    <span class="app-t">원화 환율</span>
+    <span class="app-a">거시경제</span>
+  </a>
+  <a class="app" href="realestate/policy-timeline/" style="--h:12" title="정부 부동산 대책은 정말 집값을 바꿨을까?">
+    <span class="app-ic" aria-hidden="true">📜</span>
+    <span class="app-t">부동산 정책 연표</span>
+    <span class="app-a">대한민국 부동산</span>
+  </a>
+  <a class="app" href="stocks/nasdaq-floor/" style="--h:215" title="내 미국주식 평단, 원화로 치면 얼마일까?">
+    <span class="app-ic" aria-hidden="true">🏙️</span>
+    <span class="app-t">나스닥 객장</span>
+    <span class="app-a">주식</span>
+  </a>
+  <a class="app" href="realestate/bunyang/" style="--h:28" title="지금 청약할 만한 분양은? 분양가는 주변보다 비쌀까?">
+    <span class="app-ic" aria-hidden="true">🏗️</span>
+    <span class="app-t">분양</span>
+    <span class="app-a">대한민국 부동산</span>
+  </a>
+  <a class="app" href="realestate/region-index/" style="--h:28" title="우리 권역 집값, 지금은 사는 쪽과 파는 쪽 중 누가 유리할까?">
+    <span class="app-ic" aria-hidden="true">📊</span>
+    <span class="app-t">광역권 지수</span>
+    <span class="app-a">대한민국 부동산</span>
+  </a>
+  <a class="app" href="stocks/daily-pick/" style="--h:150" title="오늘 알아둘 만한 미국주식 한 종목은?">
+    <span class="app-ic" aria-hidden="true">🗽</span>
+    <span class="app-t">오늘의 미국주식</span>
+    <span class="app-a">주식</span>
+  </a>
+  <a class="app" href="macro/rates-30y/" style="--h:265" title="금리가 움직일 때 환율·주가·물가는 어떻게 따라왔을까?">
+    <span class="app-ic" aria-hidden="true">📉</span>
+    <span class="app-t">한미 금리 30년</span>
+    <span class="app-a">거시경제</span>
+  </a>
+  <a class="app" href="useful/nursing-hospital-map/" style="--h:175" title="수도권 요양병원, 어디가 가깝고 규모는 어떨까?">
+    <span class="app-ic" aria-hidden="true">🏥</span>
+    <span class="app-t">요양병원 지도</span>
+    <span class="app-a">유용한 페이지</span>
+  </a></div></div>
+  </section>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <p class="notice">지표는 공개 데이터를 자동으로 모은 것으로, 투자 권유가 아니며 실제 값과 차이가 있을 수 있습니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+
+<script src="assets/catalog.js?v=20261127a"></script>
+<script src="assets/site.js?v=20261127a"></script>
+<script>renderPlatformHome();</script>
+<script src="assets/deck.js?v=20261114b"></script>
+</body>
+</html>

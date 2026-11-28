@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../re.css?v=20261114b">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+<title>광역권 아파트 지수 — KB 매수우위·실거래 · Derek's Platform</title>
+<meta name="description" content="KB 매수우위지수·매매가격지수와 국토부 실거래 ㎡당 중위가로 수도권·광역권 아파트 수급과 가격 흐름을 매일 갱신.">
+<meta name="keywords" content="KB매수우위지수,아파트시세,실거래가,수도권아파트,부동산지수">
+<link rel="canonical" href="https://derekhub.kr/realestate/region-index/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="광역권 아파트 지수 — KB 매수우위·실거래">
+<meta property="og:description" content="KB 매수우위지수·매매가격지수와 국토부 실거래 ㎡당 중위가로 수도권·광역권 아파트 수급과 가격 흐름을 매일 갱신.">
+<meta property="og:url" content="https://derekhub.kr/realestate/region-index/">
+<meta name="twitter:card" content="summary"></head>
+<body>
+<main>
+  <a class="back" href="../">← 대한민국 부동산</a>
+  <h1>광역권 지수</h1>
+  <p class="sub">매일 06:30 자동 갱신 · KB 매수우위·가격지수 · 실거래 ㎡당 중위가 지수(<span id="baseLbl">2025.09</span> = 100) · <a data-carry="../bunyang/" href="../bunyang/">분양 화면 →</a></p>
+  <div data-purpose></div>
+  <div class="status" id="status" aria-live="polite">불러오는 중…</div>
+
+  <div class="bar" role="group" aria-label="광역권 선택">
+    <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    <span class="spacer"></span>
+    <label style="font-size:12.5px;color:var(--muted)">기준월 <select id="month"></select></label>
+  </div>
+
+  <section class="kpis" id="kpis" aria-label="핵심 지표"></section>
+
+  <div class="grid2">
+    <section class="panel">
+      <div class="phead"><h2 id="hKb">KB 매수우위지수</h2><span class="pill" id="kbPill"></span></div>
+      <div class="chart" id="chKb"></div>
+      <p class="note" id="kbRatio"></p>
+      <p class="note">100 초과면 매수자 우위, 미만이면 매도자 우위(KB 설문). 점선은 첫 지역의 12개월 평균이에요.</p>
+    </section>
+    <section class="panel">
+      <div class="phead"><h2 id="hIdx">광역권 매매 지수</h2>
+        <div id="smoothSeg" role="group" aria-label="지수 보기" style="display:flex;gap:4px">
+          <button type="button" class="chip" data-v="1" aria-pressed="true" style="font-size:12px;min-height:28px;padding:3px 10px">월별</button>
+          <button type="button" class="chip" data-v="3" aria-pressed="false" style="font-size:12px;min-height:28px;padding:3px 10px">3개월 평균</button>
+        </div>
+      </div>
+      <div class="chart" id="chIdx"></div>
+      <p class="note"><span id="smoothNote"></span> 점선은 신고기한(30일) 안이라 아직 바뀔 수 있어요.</p>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hBoard">KB 수급 온도계</h2><p class="note">흐름 = 매수우위, 판단 = 매매가격. 행을 누르면 위 KB 차트의 첫 지역이 바뀌어요</p></div>
+    <div class="tw" style="max-height:none"><table id="kbTbl"><thead><tr>
+      <th style="cursor:default">지역</th><th style="cursor:default">매수우위</th><th style="cursor:default">전월</th>
+      <th style="cursor:default">12개월 평균</th><th style="cursor:default">1년 전 대비</th><th style="cursor:default">방향</th>
+      <th style="cursor:default">수준</th><th style="cursor:default">가격 전년비<span class="u">KB 매매지수</span></th><th style="cursor:default">가격 3개월</th>
+    </tr></thead><tbody id="kbBody"></tbody></table></div>
+    <p class="note">방향: 12개월 평균이 1년 전보다 3p 넘게 오르면 개선, 3p 넘게 내리면 악화, 그 사이는 횡보. 수준: 100 이상 매수자 우위 구간, 80 이상 균형에 가까운 구간, 그 미만 매도자 우위 구간. 두 기준 모두 임의로 정한 값이라 조정할 수 있어요. KB 가격지수는 지역마다 기준 시점이 달라 변화율만 비교해요.</p>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><h2 id="hTbl">시군구</h2><p class="note">머리글을 누르면 정렬돼요</p></div>
+    <div class="tw"><table id="tbl"><thead><tr>
+      <th data-k="nm">지역</th>
+      <th data-k="ppm">매매 ㎡당<span class="u">만원·중위</span></th>
+      <th data-k="p84">84㎡ 환산<span class="u">억원</span></th>
+      <th data-k="mom">전월비</th>
+      <th data-k="idx">지수<span class="u" id="thBase">2025.09=100</span></th>
+      <th data-k="n">거래</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+    <p class="note">흐린 행은 그 달 거래가 10건 미만이라 값이 크게 출렁일 수 있어요. 같은 지역의 분양·분양권은 <a data-carry="../bunyang/" href="../bunyang/">분양 화면</a>에서 봐요.</p>
+  </section>
+
+  <style>.guide{max-width:760px;margin:8px 0 48px;padding-top:28px;border-top:1px solid var(--line,rgba(127,127,127,.25));line-height:1.8}.guide h2{font-size:1.2rem;margin:0 0 6px}.guide .lede{color:var(--muted,#8a8a90);margin:0 0 20px}.guide h3{font-size:1.02rem;margin:26px 0 6px}.guide p,.guide li{margin:0 0 10px}.guide ul{padding-left:1.2em;margin:0 0 10px}.guide .by{color:var(--muted,#8a8a90);font-size:.85rem;margin-top:22px}</style>
+  <article class="guide" aria-labelledby="guide-h">
+    <h2 id="guide-h">광역권 지수 해설 — 심리, 거래, 가격 순서로 읽기</h2>
+    <p class="lede">이 화면의 지표들이 각각 무엇을 재는지, 함께 볼 때 어떤 순서로 읽으면 좋은지 정리했어요.</p>
+
+    <h3>KB 매수우위지수: 시장의 '분위기'</h3>
+    <p>KB부동산이 전국 중개업소에 "요즘 사려는 사람과 팔려는 사람 중 어느 쪽이 많은가"를 물어 만든 지수예요. 0에서 200 사이 값으로, <b>100보다 높으면 사려는 사람이 더 많은 매수자 우위</b>, 낮으면 팔려는 사람이 더 많은 매도자 우위예요. 실제 거래보다 먼저 움직이는 경우가 많아 시장 분위기를 미리 읽는 데 쓰여요.</p>
+
+    <h3>KB 가격지수와 실거래 지수의 차이</h3>
+    <p>KB 가격지수는 표본 아파트의 시세를 조사해 만든 지수라 꾸준하고 매끄럽게 움직여요. 반면 이 화면의 실거래 지수는 국토교통부에 신고된 실제 거래의 ㎡당 중위가격으로 만든 값이라 현실을 더 직접 보여 주지만, 그 달에 어떤 단지가 거래됐느냐에 따라 출렁임이 커요. 실거래는 계약 후 30일 안에 신고하면 되기 때문에 <b>가장 최근 한두 달 값은 나중에 바뀔 수 있어요</b>.</p>
+
+    <h3>읽는 순서: 심리 → 거래 → 가격</h3>
+    <p>부동산 시장은 대체로 사람들의 심리가 먼저 바뀌고, 이어서 거래량이 늘거나 줄고, 마지막에 가격이 따라가는 경향이 있어요. 그래서 매수우위지수가 오르기 시작했는데 가격은 아직 그대로라면 흐름이 바뀌는 초입일 수 있고, 가격은 오르는데 매수우위지수가 꺾였다면 열기가 식기 시작했다는 신호로 볼 수 있어요. 수급 온도계는 이 두 가지를 한 줄로 묶어 보여 줘요.</p>
+
+    <h3>볼 때 주의할 점</h3>
+    <p>권역이나 시군구 평균은 내가 관심 있는 단지와 다르게 움직일 수 있어요. 거래가 적은 지역은 한두 건의 거래로 값이 크게 바뀌니 흐린 행은 특히 조심해서 보세요. 금리와 대출 규제도 시장을 크게 흔들어요. 정책이 시장에 준 영향은 <a href="../policy-timeline/">부동산 정책 연표</a>에서, 청약과 분양가는 <a href="../bunyang/">분양</a> 화면에서 함께 볼 수 있어요.</p>
+
+    <p class="by">Derek's Platform 해설 · 지표는 매일 자동으로 갱신되고, 이 해설은 지표를 읽는 일반적인 원리를 정리한 글이에요. 실제 매매 판단은 현장 시세와 여러 자료를 함께 확인하세요.</p>
+  </article>
+
+  <footer>
+    <p id="foot"></p>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+<script>window.RE_VIEW='index'</script>
+<script src="../re.js?v=20261114b"></script>
+<script src="../../assets/catalog.js?v=20261127a"></script><script src="../../assets/related.js?v=20261114b"></script><script src="../../assets/purpose.js?v=20261114b"></script>
+</body>
+</html>

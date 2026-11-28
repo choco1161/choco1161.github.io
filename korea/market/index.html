@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>코스피·코스닥 지수 — 미국 증시와 비교 · Derek's Platform</title>
+<meta name="description" content="코스피·코스닥 지수를 평일 하루 여러 번 갱신. 1개월~2년 추이, 52주 고저, S&P 500·나스닥과 1년 수익률 비교.">
+<meta name="keywords" content="코스피,코스닥,주가지수,S&P500,나스닥,증시">
+<link rel="canonical" href="https://derekhub.kr/korea/market/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="코스피·코스닥 지수 — 미국 증시와 비교">
+<meta property="og:description" content="코스피·코스닥 지수를 평일 하루 여러 번 갱신. 1개월~2년 추이, 52주 고저, S&P 500·나스닥과 1년 수익률 비교.">
+<meta property="og:url" content="https://derekhub.kr/korea/market/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261118">
+<link rel="stylesheet" href="../../macro/fx/page.css?v=20261118">
+<style>
+.pair .rt small.u { font-size: .62rem; font-weight: 600; color: var(--muted); }
+.cmp-note { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9rem; margin: 0 0 10px; }
+.cmp-note i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.pairs { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+@media (max-width: 760px) { .pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 한국경제</a>
+  <h1>코스피·코스닥</h1>
+  <p class="sub">국내 대표 지수의 오늘 값과 흐름, 미국 증시와의 1년 수익률 비교 — 평일 하루 여러 번 자동 갱신</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">시세를 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>시세를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden data-ids="KOSPI,KOSDAQ,SP500,NASDAQ" data-krw="" data-compare="KOSPI,KOSDAQ,SP500,NASDAQ">
+    <section class="hero panel" aria-live="polite">
+      <div class="hero-main">
+        <div class="hero-label" id="heroLabel"></div>
+        <div class="hero-rate" id="heroRate"></div>
+        <div class="hero-chg" id="heroChg"></div>
+        <div class="hero-time" id="heroTime"></div>
+      </div>
+      <dl class="hero-stats" id="heroStats"></dl>
+    </section>
+
+    <div class="pairs" id="pairs" role="tablist" aria-label="종목 선택"></div>
+
+    <section class="block">
+      <div class="block-head">
+        <h2 id="chartTitle">추이</h2>
+        <div class="seg" id="ranges" role="group" aria-label="기간"></div>
+      </div>
+      <div class="chart"><canvas id="cMain" aria-label="시세 추이 차트"></canvas></div>
+      <div class="period" id="period"></div>
+    </section>
+
+    <section class="block">
+      <h2>최근 1년 수익률 비교</h2>
+      <p class="note">1년 전 값을 0%로 놓고 얼마나 올랐는지 나란히 비교해요.</p>
+      <div class="cmp-note" id="cmpNote"></div>
+      <div class="chart"><canvas id="compare" aria-label="1년 수익률 비교 차트"></canvas></div>
+    </section>
+
+    <section class="block">
+      <h2>읽는 법</h2>
+      <ul class="tips">
+        <li>국내 지수는 장중엔 수집 시점 값, 장 마감(15:30) 뒤엔 종가예요. 하루 네 번 갱신해요.</li>
+        <li>미국 지수는 한국시간 아침에 전날 밤 종가로 갱신돼요. 그래서 날짜가 국내보다 하루 늦을 수 있어요.</li>
+        <li>1년 수익률 비교는 지수 자체의 등락이고 배당·환율은 빠져 있어요. 원화 기준 미국 투자 성과는 <a href="../../macro/fx/">원화 환율</a>까지 함께 봐야 해요.</li>
+        <li>종목 단위로는 <a href="../../stocks/daily-pick/">오늘의 미국주식</a>, 원화 평단은 <a href="../../stocks/nasdaq-floor/">나스닥 객장</a>에서 볼 수 있어요.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>최근 거래일</h2>
+      <p class="note">각 날짜의 종가와 전일 대비 등락률. 거래소마다 휴장일이 달라 빈칸이 있을 수 있어요.</p>
+      <div class="table-wrap"><table class="data" id="recent"></table></div>
+    </section>
+
+    <p class="note src" id="src"></p>
+  </div>
+
+  <style>.guide{max-width:760px;margin:8px 0 48px;padding-top:28px;border-top:1px solid var(--line,rgba(127,127,127,.25));line-height:1.8}.guide h2{font-size:1.2rem;margin:0 0 6px}.guide .lede{color:var(--muted,#8a8a90);margin:0 0 20px}.guide h3{font-size:1.02rem;margin:26px 0 6px}.guide p,.guide li{margin:0 0 10px}.guide ul{padding-left:1.2em;margin:0 0 10px}.guide .by{color:var(--muted,#8a8a90);font-size:.85rem;margin-top:22px}</style>
+  <article class="guide" aria-labelledby="guide-h">
+    <h2 id="guide-h">코스피·코스닥 해설 — 지수가 말해 주는 것과 말해 주지 않는 것</h2>
+    <p class="lede">한국 증시의 대표 지수 두 개를 어떻게 읽으면 좋은지 정리했어요.</p>
+
+    <h3>두 지수는 무엇이 다를까</h3>
+    <p><b>코스피</b>는 유가증권시장에 상장된 종목 전체의 시가총액을 1980년 1월 4일을 100으로 놓고 비교한 지수예요. 코스피가 2,500이면 그때보다 시장 전체 몸집이 25배가 됐다는 뜻이에요. 반도체·자동차·금융처럼 덩치 큰 기업이 많아 한국 경제 전체의 체온계 역할을 해요.</p>
+    <p><b>코스닥</b>은 기술·바이오·콘텐츠 같은 성장 기업이 많이 상장된 시장의 지수로, 1996년 7월 1일을 기준으로 해요(2004년에 기준값을 100에서 1,000으로 바꿨어요). 중소형 성장주가 많아 코스피보다 오르내림이 큰 편이에요.</p>
+
+    <h3>지수를 움직이는 것들</h3>
+    <ul>
+      <li><b>대형주의 흐름</b> — 시가총액 가중 방식이라 시가총액이 큰 몇몇 종목, 특히 반도체 대형주의 움직임이 지수를 크게 좌우해요.</li>
+      <li><b>외국인 매매</b> — 외국인 투자자의 비중이 커서, 이들이 사고파는 방향이 지수 방향과 겹치는 날이 많아요.</li>
+      <li><b>환율</b> — 원화가 약해질 때는 환차손을 우려한 외국인 자금이 빠져나가는 경향이 있어요. <a href="../../macro/fx/">원화 환율</a>과 함께 보면 흐름이 더 잘 보여요.</li>
+      <li><b>미국 증시와 금리</b> — 전날 밤 미국 증시와 미국 금리 움직임이 다음 날 아침 국내 증시에 영향을 주는 일이 잦아요.</li>
+    </ul>
+
+    <h3>미국 지수와 나란히 보는 이유</h3>
+    <p>한국 투자자도 이제 국내와 미국 주식을 함께 고르는 경우가 많아요. 같은 1년 동안 코스피와 S&amp;P 500·나스닥이 각각 얼마나 움직였는지 비교하면, 지금 어느 시장이 상대적으로 강한지 감을 잡을 수 있어요. 다만 미국 지수 수익률에는 환율 효과가 빠져 있어서, 원화로 투자한 사람의 실제 성과와는 차이가 날 수 있어요.</p>
+
+    <h3>볼 때 주의할 점</h3>
+    <p>지수가 올랐다고 내 종목이 오른 건 아니에요. 몇몇 대형주가 지수를 끌어올리는 동안 대부분의 종목은 쉬고 있을 수도 있어요. 하루하루의 등락보다는 1년 흐름과 52주 최고·최저 사이 어디쯤에 있는지를 보면, 지금 시장이 뜨거운지 식어 있는지 차분하게 판단하는 데 도움이 돼요.</p>
+
+    <p class="by">Derek's Platform 해설 · 시세는 자동으로 갱신되고, 이 해설은 지수를 읽는 일반적인 원리를 정리한 글이에요. 투자 판단은 본인의 책임 아래 여러 자료를 함께 보고 내려 주세요.</p>
+  </article>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 페이지는 정보 제공용이며 투자 권유가 아닙니다. 이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="../../assets/board.js?v=20261118"></script>
+<script src="../../assets/catalog.js?v=20261127a"></script><script src="../../assets/related.js?v=20261118"></script><script src="../../assets/purpose.js?v=20261118"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+/* 부동산 정책 연표 — 기본 모양은 macro/rates-30y/page.css를 그대로 쓰고 여기서 덧붙임 */
+:root { --pd-tight: var(--s8); --pd-ease: var(--s1); --pd-supply: var(--s3); --pd-event: var(--muted); }
+
+.status { font-size: .82rem; color: var(--muted); margin: -4px 0 18px; }
+.status.err { color: var(--s8); }
+.chart.short { height: 150px; margin-top: 10px; }
+.pick { min-height: 1.4em; font-size: .86rem; color: var(--ink2); margin: 8px 2px 0; }
+.pick b { color: var(--text); }
+
+/* 정책 방향 태그 */
+.t.pd-tight::before { background: var(--pd-tight); } .t.pd-ease::before { background: var(--pd-ease); }
+.t.pd-supply::before { background: var(--pd-supply); } .t.pd-event::before { background: var(--pd-event); }
+
+/* 연도 패널의 정책 목록 */
+.detail .plist { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.detail .plist li { color: var(--ink2); font-size: .86rem; line-height: 1.45; }
+.detail .plist li b { color: var(--text); font-weight: 600; }
+.detail .plist .m { display: inline-block; min-width: 2.6em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.detail .gov-chip { font-size: .78rem; color: var(--muted); margin-left: 6px; font-weight: 500; }
+.detail .none { color: var(--muted); font-size: .86rem; }
+
+/* 연표 */
+.timeline { display: grid; gap: 14px; }
+.tl-year { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: start; }
+.tl-year > .yh { position: sticky; top: 70px; font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.tl-year > .yh small { display: block; font-weight: 500; font-size: .74rem; color: var(--muted); }
+.tl-year > .yh .chg { display: block; font-size: .8rem; font-weight: 600; margin-top: 2px; }
+.tl-cards { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.pc { text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--card); border: 1px solid var(--line);
+  border-left: 4px solid var(--pd-event); border-radius: 10px; padding: 10px 12px; transition: border-color .15s, transform .15s; }
+.pc:hover { transform: translateY(-1px); }
+.pc.tight { border-left-color: var(--pd-tight); } .pc.ease { border-left-color: var(--pd-ease); }
+.pc.supply { border-left-color: var(--pd-supply); }
+.pc.on { box-shadow: inset 0 0 0 1px var(--accent); border-color: var(--accent); }
+.pc .top { display: flex; justify-content: space-between; gap: 8px; font-size: .76rem; color: var(--muted); }
+.pc .tt { font-weight: 650; font-size: .92rem; margin: 2px 0 4px; }
+.pc p { margin: 0; font-size: .82rem; color: var(--ink2); line-height: 1.5; }
+.tl-year.on > .yh { color: var(--accent); }
+@media (max-width: 760px) {
+  .tl-year { grid-template-columns: 1fr; gap: 6px; }
+  .tl-year > .yh { position: static; }
+  .tl-year > .yh small, .tl-year > .yh .chg { display: inline; margin-left: 8px; }
+}
+
+/* 표 */
+.data.eff td.tt, .data.gov td.tt { text-align: left; white-space: normal; min-width: 180px; }
+.data .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+/* 집값은 국내 관례대로 상승 = 빨강, 하락 = 파랑 */
+.rise { color: var(--s8); } .fall { color: var(--s1); }

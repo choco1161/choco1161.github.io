@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>주간 이슈 연표 — 2024~2026 주별 화제와 올해의 키워드 · Derek's Platform</title>
+<meta name="description" content="2024년부터 2026년까지 매주 화제가 된 뉴스와 이슈를 주별로 정리했습니다. 연도별 가장 화제가 된 키워드를 눌러 관련 사건, 이어진 흐름, 함께 나온 키워드까지 차례로 파고들 수 있습니다.">
+<meta name="keywords" content="주간이슈,주간뉴스,올해의키워드,뉴스연표,2024년이슈,2025년이슈,2026년이슈,비상계엄,관세,코스피">
+<link rel="canonical" href="https://derekhub.kr/trends/weekly-issues/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="주간 이슈 연표 — 2024~2026">
+<meta property="og:description" content="매주 화제가 된 이슈를 주별로, 연도별 핵심 키워드를 눌러 더 깊이.">
+<meta property="og:url" content="https://derekhub.kr/trends/weekly-issues/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261122">
+<link rel="stylesheet" href="../../macro/fx/page.css?v=20261122">
+<style>
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
+.tabs button { font: inherit; font-size: .92rem; font-weight: 600; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 999px; min-height: 38px; padding: 0 16px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.kwcloud { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.kw { font: inherit; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; line-height: 1.4; display: inline-flex; align-items: center; gap: 6px; }
+.kw:hover, .kw:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.kw small { color: var(--muted); font-size: .74em; font-variant-numeric: tabular-nums; }
+.kw.l1 { font-size: 1.25rem; font-weight: 750; padding: 6px 16px; }
+.kw.l2 { font-size: 1.08rem; font-weight: 650; }
+.kw.l3 { font-size: .95rem; }
+.kw.l4 { font-size: .85rem; }
+.kw.rank::before { content: attr(data-rank); font-size: .7em; color: var(--accent); font-weight: 700; }
+
+.weeks { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 4px; }
+.wk { position: relative; aspect-ratio: 1; border-radius: 4px; border: 1px solid var(--line); background: var(--card); cursor: pointer; padding: 0; font: inherit; font-size: .62rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wk[data-n="1"] { background: color-mix(in srgb, var(--accent) 25%, var(--card)); }
+.wk[data-n="2"] { background: color-mix(in srgb, var(--accent) 50%, var(--card)); color: var(--text); }
+.wk[data-n="3"] { background: color-mix(in srgb, var(--accent) 75%, var(--card)); color: #fff; }
+.wk.hot { outline: 2px solid var(--accent); outline-offset: 1px; }
+.wk:disabled { opacity: .35; cursor: default; }
+.wk:not(:disabled):hover { border-color: var(--accent); }
+.legend { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: .78rem; margin-top: 8px; flex-wrap: wrap; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line); vertical-align: -2px; margin-right: 3px; }
+
+.crumbs { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; font-size: .85rem; margin: 0 0 12px; color: var(--muted); }
+.crumbs button { font: inherit; color: var(--muted); background: none; border: 0; padding: 2px 4px; cursor: pointer; border-radius: 4px; }
+.crumbs button:hover { color: var(--accent); }
+.crumbs button[aria-current="true"] { color: var(--text); font-weight: 700; }
+.crumbs span { opacity: .6; }
+
+#detail { scroll-margin-top: 12px; }
+.dhead { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.dhead h2 { margin: 0; border: 0; padding: 0; font-size: 1.4rem; }
+.dhead .nav { display: flex; gap: 6px; }
+.dhead .nav button { font: inherit; font-size: .85rem; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 8px; min-height: 34px; padding: 0 12px; cursor: pointer; }
+.dhead .nav button:disabled { opacity: .35; cursor: default; }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: .85rem; margin: 4px 0 14px; }
+.stats b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+.strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; }
+.strip .yr { font-size: .75rem; color: var(--muted); margin-bottom: 3px; }
+.strip .bars { display: grid; grid-template-columns: repeat(53, 1fr); gap: 1px; height: 22px; }
+.strip .bars i { background: var(--line); border-radius: 1px; }
+.strip .bars i.on { background: var(--accent); cursor: pointer; }
+
+.ev { list-style: none; margin: 0; padding: 0; }
+.ev li { padding: 12px 0; border-top: 1px solid var(--line); }
+.ev li:first-child { border-top: 0; }
+.ev .meta { display: flex; gap: 8px; align-items: center; font-size: .78rem; color: var(--muted); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+.ev .meta button { font: inherit; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline dotted; }
+.ev .meta button:hover { color: var(--accent); }
+.cat { display: inline-block; font-size: .72rem; font-weight: 700; padding: 1px 7px; border-radius: 4px; color: #fff; }
+.ev h3 { font-size: 1rem; margin: 0 0 3px; line-height: 1.45; word-break: keep-all; }
+.ev p { margin: 0 0 6px; font-size: .9rem; color: var(--ink2); line-height: 1.55; word-break: keep-all; }
+.ev .kws { display: flex; flex-wrap: wrap; gap: 5px; }
+.ev .kws .kw { font-size: .78rem; padding: 2px 9px; }
+.ev .kws .kw.cur { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.empty { color: var(--muted); font-size: .92rem; padding: 18px 0; }
+.sub2 { font-size: .95rem; margin: 18px 0 8px; font-weight: 700; }
+.hint { color: var(--muted); font-size: .82rem; margin: 6px 0 0; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 720px) {
+  .cols { grid-template-columns: minmax(0, 1fr); }
+  .strip { grid-template-columns: minmax(0, 1fr); }
+  .weeks { gap: 3px; }
+  .wk { font-size: .55rem; }
+}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 트렌드</a>
+  <h1>주간 이슈 연표</h1>
+  <p class="sub">2024년부터 지금까지, 매주 화제가 된 이슈를 주별로. 키워드를 누르면 관련 사건과 이어진 흐름, 함께 나온 키워드까지 계속 파고들 수 있어요.</p>
+
+  <section class="block">
+    <div class="tabs" id="tabs" role="group" aria-label="연도 선택"></div>
+    <div class="cols">
+      <div class="panel">
+        <h2 style="margin-top:0" id="kwTitle">올해의 키워드</h2>
+        <div class="kwcloud" id="cloud"></div>
+        <p class="hint">숫자는 그 키워드가 화제가 된 주 수예요. 많이 등장할수록 크게 보여요.</p>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0" id="wkTitle">주별 이슈 지도</h2>
+        <div class="weeks" id="weeks"></div>
+        <div class="legend"><span><i></i>기록 없음</span><span><i style="background:color-mix(in srgb,var(--accent) 25%,var(--card))"></i>1건</span><span><i style="background:color-mix(in srgb,var(--accent) 50%,var(--card))"></i>2건</span><span><i style="background:color-mix(in srgb,var(--accent) 75%,var(--card))"></i>3건 이상</span></div>
+        <p class="hint">칸 하나가 한 주예요(월~일). 눌러서 그 주의 이슈를 보세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block panel" id="detail" aria-live="polite"></section>
+
+  <section class="block">
+    <h2>이 페이지에 대해</h2>
+    <p class="note" id="srcNote"></p>
+    <p class="note">사건마다 핵심 키워드를 붙여 두었고, 같은 키워드가 여러 주에 걸쳐 나오면 하나의 흐름으로 이어집니다. 예를 들어 '비상계엄'을 누르면 선포 → 탄핵 → 파면 → 1심 선고까지, '코스피'를 누르면 블랙먼데이에서 8,000선까지 한 줄로 볼 수 있어요. 주요 사건 위주로 고른 연표라 모든 뉴스를 담고 있지는 않으며, 기록이 없는 주도 있습니다.</p>
+  </section>
+
+  <style>.guide{max-width:760px;margin:8px 0 48px;padding-top:28px;border-top:1px solid var(--line,rgba(127,127,127,.25));line-height:1.8}.guide h2{font-size:1.2rem;margin:0 0 6px}.guide .lede{color:var(--muted,#8a8a90);margin:0 0 20px}.guide h3{font-size:1.02rem;margin:26px 0 6px}.guide p,.guide li{margin:0 0 10px}.guide ul{padding-left:1.2em;margin:0 0 10px}.guide .by{color:var(--muted,#8a8a90);font-size:.85rem;margin-top:22px}</style>
+  <article class="guide" aria-labelledby="guide-h">
+    <h2 id="guide-h">이슈 연표 해설 — 뉴스를 점이 아니라 선으로 읽기</h2>
+    <p class="lede">매일 쏟아지는 뉴스를 한 줄의 흐름으로 이어 보면 무엇이 달라지는지, 이 연표를 어떻게 쓰면 좋은지 정리했어요.</p>
+
+    <h3>왜 연표로 볼까요</h3>
+    <p>뉴스는 그날 일어난 일을 따로따로 알려 줘요. 하지만 큰 사건은 대부분 몇 주, 몇 달에 걸쳐 원인과 결과가 이어져요. 같은 키워드를 주 단위로 이어 붙이면 "이 일이 왜 일어났고, 그다음에 무엇이 바뀌었는지"가 한눈에 보여요. 지나간 일을 돌아볼 때도, 지금 일어나는 일이 앞으로 어떻게 흘러갈지 가늠할 때도 이런 시간 순서의 감각이 큰 도움이 돼요.</p>
+
+    <h3>키워드로 파고드는 법</h3>
+    <p>사건마다 핵심 키워드가 붙어 있어서, 키워드를 누르면 그 키워드가 등장한 주들이 한 줄로 이어지고 함께 자주 나온 다른 키워드도 보여요. 예를 들어 금리와 관련된 키워드를 따라가면 환율과 주식시장 이슈로 자연스럽게 이어지는 것을 볼 수 있어요. 이렇게 연결을 따라가다 보면 서로 다른 분야의 사건이 어떻게 영향을 주고받는지 알게 돼요.</p>
+
+    <h3>시장 데이터와 함께 보기</h3>
+    <p>이슈가 실제로 시장에 어떤 흔적을 남겼는지는 숫자와 함께 볼 때 분명해져요. 증시 흐름은 <a href="../../korea/market/">코스피·코스닥</a>, 환율 반응은 <a href="../../macro/fx/">원화 환율</a>, 부동산 대책의 효과는 <a href="../../realestate/policy-timeline/">부동산 정책 연표</a>에서 같은 시기를 찾아 비교해 보세요.</p>
+
+    <h3>이 연표의 한계</h3>
+    <p>이 연표는 그 주에 크게 화제가 된 사건 위주로 골라 정리한 것이라, 모든 뉴스를 담고 있지는 않아요. 기록이 없는 주도 있고, 사건의 요약은 이해를 돕기 위한 간단한 정리예요. 중요한 판단을 할 때는 원래 보도와 공식 자료를 함께 확인하세요.</p>
+
+    <p class="by">Derek's Platform 해설 · 이 해설은 연표를 읽고 활용하는 방법을 정리한 글이에요.</p>
+  </article>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var CAT = { "정치": "#c0392b", "경제": "#2a78d6", "증시": "#7b4fd6", "부동산": "#d07a1e", "사회": "#2f8f6a",
+    "사고·재난": "#5c5c5c", "국제": "#0f8aa3", "IT·과학": "#3a5bd9", "문화·연예": "#c2418f", "스포츠": "#3c9a2e" };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+
+  // ISO 주차 (월요일 시작)
+  function isoWeek(ds) {
+    var d = new Date(ds + "T00:00:00Z");
+    var day = (d.getUTCDay() + 6) % 7;
+    d.setUTCDate(d.getUTCDate() - day + 3);
+    var y = d.getUTCFullYear();
+    var jan4 = new Date(Date.UTC(y, 0, 4));
+    var w = 1 + Math.round(((d - jan4) / 864e5 - 3 + ((jan4.getUTCDay() + 6) % 7)) / 7);
+    return y + "-W" + (w < 10 ? "0" : "") + w;
+  }
+  function weekStart(id) {
+    var y = +id.slice(0, 4), w = +id.slice(6);
+    var jan4 = new Date(Date.UTC(y, 0, 4));
+    var mon = new Date(jan4); mon.setUTCDate(jan4.getUTCDate() - ((jan4.getUTCDay() + 6) % 7) + (w - 1) * 7);
+    return mon;
+  }
+  function weeksInYear(y) { return isoWeek(y + "-12-28").slice(6) * 1; }
+  function md(d) { return (d.getUTCMonth() + 1) + "." + d.getUTCDate(); }
+  function weekLabel(id) {
+    var s = weekStart(id), e = new Date(s); e.setUTCDate(s.getUTCDate() + 6);
+    return id.slice(0, 4) + "년 " + (+id.slice(6)) + "주차 (" + md(s) + "~" + md(e) + ")";
+  }
+  function fmtDate(ds) { var p = ds.split("-"); return p[0] + "." + p[1] + "." + p[2]; }
+
+  var D, EV, BYWEEK = {}, BYKW = {}, YEARS = [], TODAYW, state = { y: null, k: null, w: null }, trail = [];
+
+  fetch("../../data/issues/issues.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(init)
+    .catch(function () { $("detail").innerHTML = '<p class="empty">데이터를 불러오지 못했어요. 잠시 후 다시 열어 주세요.</p>'; });
+
+  function init(data) {
+    D = data; EV = data.events;
+    EV.forEach(function (e, i) {
+      e.i = i; e.w = isoWeek(e.d);
+      (BYWEEK[e.w] = BYWEEK[e.w] || []).push(e);
+      e.k.forEach(function (k) { (BYKW[k] = BYKW[k] || []).push(e); });
+      var y = e.w.slice(0, 4); if (YEARS.indexOf(y) < 0) YEARS.push(y);
+    });
+    YEARS.sort();
+    TODAYW = isoWeek(data.updated);
+    $("srcNote").textContent = data.note + " 마지막 정리: " + fmtDate(data.updated) + ".";
+    var tabs = YEARS.map(function (y) { return '<button type="button" data-y="' + y + '">' + y + "년</button>"; }).join("") +
+      '<button type="button" data-y="all">3년 전체</button>';
+    $("tabs").innerHTML = tabs;
+    $("tabs").addEventListener("click", function (ev) {
+      var b = ev.target.closest("button"); if (!b) return;
+      go({ y: b.dataset.y, k: null, w: null }, true);
+    });
+    document.addEventListener("click", onDrill);
+    window.addEventListener("popstate", function () { fromHash(); render(false); });
+    fromHash();
+    if (!state.y) state.y = YEARS[YEARS.length - 1];
+    render(false);
+  }
+
+  function fromHash() {
+    var p = new URLSearchParams(location.hash.slice(1));
+    state.y = p.get("y") || state.y || null;
+    state.k = p.get("k"); state.w = p.get("w");
+    if (state.k && !BYKW[state.k]) state.k = null;
+    if (state.w && !/^\d{4}-W\d{2}$/.test(state.w)) state.w = null;
+    if (state.w && state.y !== "all") state.y = state.w.slice(0, 4);
+    if (state.y && state.y !== "all" && YEARS.indexOf(state.y) < 0) state.y = YEARS[YEARS.length - 1];
+  }
+  function toHash() {
+    var p = new URLSearchParams();
+    if (state.y) p.set("y", state.y);
+    if (state.k) p.set("k", state.k);
+    if (state.w) p.set("w", state.w);
+    return "#" + p.toString();
+  }
+  function go(next, push) {
+    state.y = next.y != null ? next.y : state.y;
+    state.k = next.k || null; state.w = next.w || null;
+    if (state.w && state.y !== "all") state.y = state.w.slice(0, 4);
+    var h = toHash();
+    if (push && h !== location.hash) history.pushState(null, "", h);
+    render(true);
+  }
+
+  function onDrill(ev) {
+    var b = ev.target.closest("[data-k],[data-w],[data-home]");
+    if (!b || b.closest("#tabs")) return;
+    if (b.dataset.crumb != null) { trail = trail.slice(0, +b.dataset.crumb); }
+    if (b.dataset.k) go({ k: b.dataset.k }, true);
+    else if (b.dataset.w) go({ w: b.dataset.w }, true);
+    else go({}, true);
+  }
+
+  function inScope(e) { return state.y === "all" || e.w.slice(0, 4) === state.y; }
+
+  function ranking() {
+    var m = {};
+    EV.filter(inScope).forEach(function (e) {
+      e.k.forEach(function (k) {
+        var r = m[k] = m[k] || { k: k, n: 0, weeks: {} };
+        r.n++; r.weeks[e.w] = 1;
+      });
+    });
+    return Object.keys(m).map(function (k) { var r = m[k]; r.wk = Object.keys(r.weeks).length; r.score = r.wk * 2 + r.n; return r; })
+      .sort(function (a, b) { return b.score - a.score || b.n - a.n || a.k.localeCompare(b.k, "ko"); });
+  }
+
+  function render(scroll) {
+    [].forEach.call($("tabs").children, function (b) { b.setAttribute("aria-pressed", b.dataset.y === state.y ? "true" : "false"); });
+    var yLabel = state.y === "all" ? "3년 전체" : state.y + "년";
+    $("kwTitle").textContent = yLabel + " 화제 키워드";
+    var rk = ranking().slice(0, state.y === "all" ? 24 : 18);
+    var top = rk.length ? rk[0].score : 1;
+    $("cloud").innerHTML = rk.map(function (r, i) {
+      var t = r.score / top, lv = t > .7 ? 1 : t > .45 ? 2 : t > .25 ? 3 : 4;
+      return '<button type="button" class="kw l' + lv + (i < 3 ? " rank" : "") + '" data-rank="' + (i + 1) + '" data-k="' + esc(r.k) + '">' + esc(r.k) + "<small>" + r.wk + "주</small></button>";
+    }).join("") || '<p class="empty">기록이 없어요.</p>';
+    renderWeeks();
+    renderDetail();
+    if (scroll && (state.k || state.w)) $("detail").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+
+  function renderWeeks() {
+    var y = state.y === "all" ? (state.w ? state.w.slice(0, 4) : YEARS[YEARS.length - 1]) : state.y;
+    $("wkTitle").textContent = y + "년 주별 이슈 지도";
+    var n = weeksInYear(+y), html = "";
+    for (var i = 1; i <= n; i++) {
+      var id = y + "-W" + (i < 10 ? "0" : "") + i, c = (BYWEEK[id] || []).length;
+      var future = id > TODAYW;
+      var hot = state.w === id || (state.k && (BYWEEK[id] || []).some(function (e) { return e.k.indexOf(state.k) >= 0; }));
+      var title = weekLabel(id) + (c ? " · " + c + "건: " + BYWEEK[id].map(function (e) { return e.t; }).join(" / ") : " · 기록 없음");
+      html += '<button type="button" class="wk' + (hot ? " hot" : "") + '" data-n="' + Math.min(c, 3) + '"' + (future ? " disabled" : ' data-w="' + id + '"') +
+        ' title="' + esc(title) + '" aria-label="' + esc(title) + '">' + i + "</button>";
+    }
+    $("weeks").innerHTML = html;
+  }
+
+  function evItem(e, curK) {
+    var c = CAT[e.c] || "#777";
+    return '<li><div class="meta"><span class="cat" style="background:' + c + '">' + esc(e.c) + "</span><span>" + fmtDate(e.d) + "</span>" +
+      (state.w === e.w ? "" : '<button type="button" data-w="' + e.w + '">' + (+e.w.slice(6)) + "주차 전체 보기</button>") + "</div>" +
+      "<h3>" + esc(e.t) + "</h3><p>" + esc(e.s) + '</p><div class="kws">' +
+      e.k.map(function (k) { return '<button type="button" class="kw' + (k === curK ? " cur" : "") + '" data-k="' + esc(k) + '">#' + esc(k) + "</button>"; }).join("") +
+      "</div></li>";
+  }
+
+  function crumbs() {
+    var here = state.k ? { k: state.k } : state.w ? { w: state.w } : null;
+    if (!here) { trail = []; return ""; }
+    var last = trail[trail.length - 1];
+    var same = last && last.k === here.k && last.w === here.w;
+    if (!same) {
+      var idx = -1;
+      trail.forEach(function (t, i) { if (t.k === here.k && t.w === here.w) idx = i; });
+      if (idx >= 0) trail = trail.slice(0, idx + 1); else trail.push(here);
+      if (trail.length > 8) trail = trail.slice(trail.length - 8);
+    }
+    var yl = state.y === "all" ? "3년 전체" : state.y + "년";
+    return '<nav class="crumbs" aria-label="탐색 경로"><button type="button" data-crumb="0" data-home="1">' + yl + "</button>" +
+      trail.map(function (t, i) {
+        var cur = i === trail.length - 1;
+        var lab = t.k ? "#" + t.k : (+t.w.slice(6)) + "주차";
+        return "<span>›</span><button type=\"button\" data-crumb=\"" + i + "\" " + (t.k ? 'data-k="' + esc(t.k) + '"' : 'data-w="' + t.w + '"') + (cur ? ' aria-current="true"' : "") + ">" + esc(lab) + "</button>";
+      }).join("") + "</nav>";
+  }
+
+  function renderDetail() {
+    var el = $("detail");
+    var cr = crumbs();
+    if (state.k) return keywordView(el, cr);
+    if (state.w) return weekView(el, cr);
+    // 기본: 선택 연도의 최근 주 / 가장 화제 키워드 안내
+    var yl = state.y === "all" ? "3년" : state.y + "년";
+    var rk = ranking().slice(0, 3);
+    var list = EV.filter(inScope).slice(-6).reverse();
+    el.innerHTML = '<div class="dhead"><h2>' + yl + " 한눈에</h2></div>" +
+      '<p class="stats"><span>정리된 이슈 <b>' + EV.filter(inScope).length + "</b>건</span><span>가장 뜨거웠던 키워드 " +
+      rk.map(function (r) { return '<button type="button" class="kw" data-k="' + esc(r.k) + '">#' + esc(r.k) + "</button>"; }).join(" ") + "</span></p>" +
+      '<p class="sub2">가장 최근 이슈</p><ul class="ev">' + list.map(function (e) { return evItem(e); }).join("") + "</ul>";
+  }
+
+  function keywordView(el, cr) {
+    var k = state.k, evs = BYKW[k].slice();
+    var weeks = {}; evs.forEach(function (e) { weeks[e.w] = 1; });
+    var co = {};
+    evs.forEach(function (e) { e.k.forEach(function (x) { if (x !== k) co[x] = (co[x] || 0) + 1; }); });
+    var coList = Object.keys(co).sort(function (a, b) { return co[b] - co[a] || (BYKW[b].length - BYKW[a].length); }).slice(0, 12);
+    var strip = YEARS.map(function (y) {
+      var n = weeksInYear(+y), bars = "";
+      for (var i = 1; i <= 53; i++) {
+        var id = y + "-W" + (i < 10 ? "0" : "") + i;
+        bars += i > n ? "<i style=\"visibility:hidden\"></i>" : weeks[id] ? '<i class="on" data-w="' + id + '" title="' + esc(weekLabel(id)) + '"></i>' : "<i></i>";
+      }
+      return '<div><div class="yr">' + y + '년</div><div class="bars">' + bars + "</div></div>";
+    }).join("");
+    var desc = D.keywords[k] || "";
+    el.innerHTML = cr + '<div class="dhead"><h2>#' + esc(k) + "</h2></div>" +
+      (desc ? '<p style="margin:0 0 4px">' + esc(desc) + "</p>" : "") +
+      '<p class="stats"><span>관련 이슈 <b>' + evs.length + "</b>건</span><span>화제가 된 주 <b>" + Object.keys(weeks).length + "</b>주</span><span>" +
+      fmtDate(evs[0].d) + " ~ " + fmtDate(evs[evs.length - 1].d) + "</span></p>" +
+      '<div class="strip" aria-label="연도별 등장 주">' + strip + "</div>" +
+      (coList.length ? '<p class="sub2">함께 나온 키워드</p><div class="kwcloud">' + coList.map(function (x) {
+        return '<button type="button" class="kw" data-k="' + esc(x) + '">#' + esc(x) + "<small>" + co[x] + "</small></button>";
+      }).join("") + "</div>" : "") +
+      '<p class="sub2">흐름 따라 읽기</p><ul class="ev">' + evs.map(function (e) { return evItem(e, k); }).join("") + "</ul>";
+  }
+
+  function weekView(el, cr) {
+    var id = state.w, evs = BYWEEK[id] || [];
+    var all = [], y0 = +YEARS[0], y1 = +YEARS[YEARS.length - 1];
+    for (var y = y0; y <= y1; y++) for (var i = 1, n = weeksInYear(y); i <= n; i++) {
+      var wid = y + "-W" + (i < 10 ? "0" : "") + i; if (wid <= TODAYW) all.push(wid);
+    }
+    var at = all.indexOf(id);
+    function near(dir) { for (var j = at + dir; j >= 0 && j < all.length; j += dir) if (BYWEEK[all[j]]) return all[j]; return null; }
+    var prev = at > 0 ? all[at - 1] : null, next = at >= 0 && at < all.length - 1 ? all[at + 1] : null;
+    var pI = near(-1), nI = near(1);
+    var kws = {}; evs.forEach(function (e) { e.k.forEach(function (k) { kws[k] = 1; }); });
+    el.innerHTML = cr + '<div class="dhead"><h2>' + esc(weekLabel(id)) + '</h2><div class="nav">' +
+      '<button type="button"' + (prev ? ' data-w="' + prev + '"' : " disabled") + ">← 지난주</button>" +
+      '<button type="button"' + (next ? ' data-w="' + next + '"' : " disabled") + ">다음 주 →</button></div></div>" +
+      (Object.keys(kws).length ? '<p class="stats"><span>이 주의 키워드</span></p><div class="kwcloud" style="margin-bottom:8px">' +
+        Object.keys(kws).map(function (k) { return '<button type="button" class="kw" data-k="' + esc(k) + '">#' + esc(k) + "<small>" + BYKW[k].length + "</small></button>"; }).join("") + "</div>" : "") +
+      (evs.length ? '<ul class="ev">' + evs.map(function (e) { return evItem(e); }).join("") + "</ul>"
+        : '<p class="empty">이 주에는 연표에 정리된 큰 이슈가 없어요.' +
+          (pI ? ' <button type="button" class="kw" data-w="' + pI + '">이전 기록 ' + (+pI.slice(6)) + "주차</button>" : "") +
+          (nI ? ' <button type="button" class="kw" data-w="' + nI + '">다음 기록 ' + (+nI.slice(6)) + "주차</button>" : "") + "</p>");
+  }
+})();
+</script>
+</body>
+</html>

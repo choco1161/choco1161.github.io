@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, follow, noai, noimageai">
+<title>강호무림 MUD — 텍스트로 즐기는 무협 머드게임 · Derek's Platform</title>
+<meta name="description" content="PC통신 시절 머드게임 감성의 무협 텍스트 RPG. 검객·도객·권사·도사 중 직업을 골라 레벨 20까지, 혈마와 빙궁주를 넘어 천마를 꺾고 무림지존에 오르세요. 버튼과 입력 모두 지원, 진행은 자동 저장.">
+<meta name="keywords" content="머드게임,MUD,텍스트게임,무협게임,레트로게임,탑골게임">
+<link rel="canonical" href="https://derekhub.kr/games/mud/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="강호무림 MUD — 텍스트로 즐기는 무협 머드게임">
+<meta property="og:description" content="PC통신 시절 머드게임 감성의 무협 텍스트 RPG. 검객·도객·권사·도사 중 직업을 골라 레벨 20까지, 혈마와 빙궁주를 넘어 천마를 꺾고 무림지존에 오르세요. 버튼과 입력 모두 지원, 진행은 자동 저장.">
+<meta property="og:url" content="https://derekhub.kr/games/mud/">
+<meta name="twitter:card" content="summary">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+<style>
+#tg-bar{position:fixed;top:0;left:0;right:0;height:28px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 10px;background:#05060a;border-bottom:1px solid #22262e;font:12px/1 system-ui,-apple-system,"Malgun Gothic",sans-serif}
+#tg-bar a{color:#c9ccd3;text-decoration:none}#tg-bar a:hover{color:#ffd24a}
+#tg-bar .tg-r{color:#6c7180}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b08;--panel:#0c130e;--line:#1d2e22;--fg:#b8f0bd;--dim:#5e8865;--gold:#f2c14e;--red:#ff7070;--cyan:#6fe3e0;--blue:#82aaff;--mag:#d58bff;--btn:#13211a}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:'Nanum Gothic Coding','D2Coding',ui-monospace,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
+#app{display:flex;flex-direction:column;height:calc(100vh - 28px);height:calc(100dvh - 28px);margin-top:28px !important;max-width:860px;margin:0 auto;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+#hud{padding:8px 10px 6px;background:var(--panel);border-bottom:1px solid var(--line)}
+.row1{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;margin-bottom:5px}
+#who{color:var(--gold);font-weight:700}
+#silver{color:#e8e8e8}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:4px 6px}
+.bar{position:relative;height:17px;background:#121a14;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:0;transition:width .25s}
+.bar b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:400;color:#fff;text-shadow:0 0 3px #000}
+.bar.hp i{background:#a8323a}.bar.mp i{background:#2f62b8}.bar.xp i{background:#8a7a22}
+.bar.xp{grid-column:1/3;height:13px}.bar.xp b{font-size:10px}
+#enemy{margin-top:5px;display:none}
+#enemy.on{display:block}
+#enemy .bar{height:16px;border-color:#5a2227}
+#enemy .bar i{background:#c0392b}
+#log{flex:1;min-height:0;overflow-y:auto;padding:10px 12px;font-size:14px;line-height:1.6;-webkit-overflow-scrolling:touch}
+.ln{margin:0 0 3px;word-break:keep-all;overflow-wrap:anywhere}
+.dim{color:var(--dim)}.echo{color:#6f9a76}.desc{color:#cfe9d2}
+.rn{color:var(--gold);font-weight:700}.safe{color:var(--cyan);font-size:12px}
+.warn{color:var(--red)}.good{color:var(--gold)}.sys{color:var(--blue)}.mag{color:var(--mag)}
+.shout{color:#ffb86b}.news{color:#ffd24a;font-weight:700}.shout.old,.news.old{opacity:.6;font-weight:400}
+.dmg{color:#7dff8a;font-weight:700}.hurt{color:var(--red);font-weight:700}
+.lnk{cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#3c5c43}
+.lnk.exit{color:var(--cyan)}.lnk.mob{color:#ff9a8a}.lnk.item{color:var(--gold)}.lnk.cmd{color:var(--blue)}
+.lv{font-size:12px}.lv.hard{color:var(--red)}.lv.even{color:var(--gold)}.lv.easy{color:var(--dim)}
+.cur{color:#0b0f0a;background:var(--gold);padding:0 3px;border-radius:2px;font-weight:700}
+.banner{text-align:center;margin:6px 0 10px;padding:12px 6px;border:1px solid #3a4f2a;border-radius:4px;background:linear-gradient(180deg,#121c10,#0a110a)}
+.banner h1{margin:0;font-size:22px;letter-spacing:.35em;color:var(--gold);padding-left:.35em}
+.banner p{margin:4px 0 0;font-size:12px;color:var(--dim)}
+.ending{text-align:center;margin:10px 0;padding:14px 8px;border:2px solid var(--gold);border-radius:4px;color:var(--gold);background:#1a1606}
+table.t{border-collapse:collapse;font-size:13px;margin:2px 0}
+table.t td{padding:1px 10px 1px 0;vertical-align:top}
+#pad{background:var(--panel);border-top:1px solid var(--line);padding:6px 8px 4px}
+#dirs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px}
+.scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+#skills{margin-top:2px}
+#pad button{font:inherit;font-size:13px;color:var(--fg);background:var(--btn);border:1px solid #2a4232;border-radius:5px;padding:0 11px;min-height:38px;white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pad button:active{background:#1f3a2a}
+#dirs button{font-size:15px;font-weight:700;color:var(--cyan)}
+#dirs button.off{color:#3d5a45;border-color:#1c2b21;font-weight:400}
+#skills button{color:#ffcf8a;border-color:#4a3b22}
+#skills button small{color:#7e92c8;margin-left:5px}
+#f{display:flex;gap:6px;padding:4px 8px 8px;background:var(--panel)}
+#in{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--fg);background:#050805;border:1px solid #2a4232;border-radius:5px;padding:9px 10px;outline:none}
+#in:focus{border-color:#4d8a5c}
+#f button{font:inherit;font-size:14px;color:#0b0f0a;background:var(--gold);border:0;border-radius:5px;padding:0 16px;font-weight:700;cursor:pointer}
+@media (min-width:600px){#log{font-size:15px}}
+#zz{position:fixed;inset:0;z-index:200;overflow:hidden;background:#090409;opacity:0;transition:opacity 1.2s;font-family:"Nanum Myeongjo","Batang",serif;color:#f6e7b0}
+#zz.on{opacity:1}
+#zz svg{position:absolute;top:0;left:0;width:100%;height:64%}
+.zz-rays{transform-origin:400px 330px;animation:zzspin 70s linear infinite}
+.zz-aura{transform-origin:400px 300px;animation:zzpulse 4s ease-in-out infinite}
+.zz-cape{transform-origin:393px 292px;animation:zzcape 2.6s ease-in-out infinite}
+.zz-blade{filter:drop-shadow(0 0 6px #fff3b0)}
+@keyframes zzspin{to{transform:rotate(360deg)}}
+@keyframes zzpulse{50%{transform:scale(1.08);opacity:.85}}
+@keyframes zzcape{50%{transform:skewY(-6deg) scaleX(1.08)}}
+.zz-e{position:absolute;bottom:-8px;width:4px;height:4px;border-radius:50%;background:#ffd27a;box-shadow:0 0 8px #ff9a2e;opacity:.9;animation:zzup linear infinite}
+@keyframes zzup{to{transform:translate(var(--dx),-105vh);opacity:0}}
+.zz-top{position:absolute;top:5vh;left:0;right:0;text-align:center}
+.zz-top h2{margin:0;font-size:clamp(44px,12vw,96px);letter-spacing:.18em;padding-left:.18em;color:#ffe08a;text-shadow:0 0 18px #ff9d2e,0 0 46px #b2342a}
+.zz-sub{font-size:clamp(14px,3.6vw,20px);letter-spacing:.6em;padding-left:.6em;color:#f3cf8a;margin-top:4px}
+.zz-bot{position:absolute;left:0;right:0;top:64%;bottom:0;overflow-y:auto;text-align:center;padding:4px 16px 12px;font-size:clamp(13px,3.6vw,17px);line-height:1.7}
+.zz-bot p{margin:6px 0;text-shadow:0 1px 4px #000}
+.zz-name b{display:block;font-size:clamp(24px,7vw,38px);color:#ffe08a;letter-spacing:.12em;text-shadow:0 0 14px #ff9d2e}
+.zz-name span{font-size:13px;color:#c9b48a;font-family:inherit}
+#zz-x{font:inherit;font-size:15px;color:#1a0d06;background:linear-gradient(#ffe08a,#e0a23a);border:0;border-radius:4px;padding:9px 22px;margin-top:6px;cursor:pointer;font-weight:700}
+.zz-l{opacity:0;animation:zzin 1.6s ease forwards}
+@keyframes zzin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.zz-rays,.zz-aura,.zz-cape,.zz-e{animation:none}}
+</style>
+</head>
+<body>
+<nav id="tg-bar" aria-label="사이트"><a href="../">← 🕹️ 탑골게임</a><a class="tg-r" href="../../">Derek's Platform</a></nav>
+<div id="app">
+  <div id="hud">
+    <div data-purpose="compact" data-purpose-theme="dark" style="margin:0 0 6px"></div>
+    <div class="row1"><span id="who">강호무림</span><span id="silver"></span></div>
+    <div class="bars">
+      <div class="bar hp"><i id="hpf"></i><b id="hpt"></b></div>
+      <div class="bar mp"><i id="mpf"></i><b id="mpt"></b></div>
+      <div class="bar xp"><i id="xpf"></i><b id="xpt"></b></div>
+    </div>
+    <div id="enemy"><div class="bar"><i id="enf"></i><b id="ent"></b></div></div>
+  </div>
+  <div id="log" aria-live="polite"></div>
+  <div id="pad">
+    <div id="dirs">
+      <button data-cmd="북" data-dir="북">북</button>
+      <button data-cmd="남" data-dir="남">남</button>
+      <button data-cmd="동" data-dir="동">동</button>
+      <button data-cmd="서" data-dir="서">서</button>
+    </div>
+    <div class="scroll" id="acts">
+      <button data-cmd="보기">보기</button>
+      <button data-cmd="공격">공격</button>
+      <button data-cmd="도망">도망</button>
+      <button data-cmd="운기">운기</button>
+      <button data-cmd="사용 금창약">금창약</button>
+      <button data-cmd="가방">가방</button>
+      <button data-cmd="장비">장비</button>
+      <button data-cmd="상점">상점</button>
+      <button data-cmd="줍기">줍기</button>
+      <button data-cmd="상태">상태</button>
+      <button data-cmd="외침">📢 외침</button>
+      <button data-cmd="지도">지도</button>
+      <button data-cmd="도움">도움</button>
+    </div>
+    <div class="scroll" id="skills"></div>
+  </div>
+  <form id="f" autocomplete="off">
+    <input id="in" type="text" enterkeyhint="send" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="명령 입력 (예: 북, 공격 들개, 도움)">
+    <button type="submit">입력</button>
+  </form>
+</div>
+<noscript>이 게임은 자바스크립트가 필요합니다.</noscript>
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s);};
+var log=$('#log');
+var KEY='wuxia_mud_v1';
+var MAXLV=20;
+
+/* ---------- 유틸 ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function p(html,cls){
+  var d=document.createElement('div');d.className='ln'+(cls?' '+cls:'');d.innerHTML=html;log.appendChild(d);
+  while(log.childNodes.length>500)log.removeChild(log.firstChild);
+  log.scrollTop=log.scrollHeight;
+}
+function batchim(w){var c=w.charCodeAt(w.length-1);if(c<0xAC00||c>0xD7A3)return false;return (c-0xAC00)%28!==0;}
+function iga(w){return w+(batchim(w)?'이':'가');}
+function eun(w){return w+(batchim(w)?'은':'는');}
+function eul(w){return w+(batchim(w)?'을':'를');}
+function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function cmdLink(label,cmd,cls){return '<span class="lnk '+(cls||'cmd')+'" data-cmd="'+esc(cmd)+'">'+label+'</span>';}
+
+/* ---------- 데이터 ---------- */
+var TITLES=['무명소졸','삼류무사','삼류고수','이류무사','이류고수','일류무사','일류고수','절정고수','초절정고수','화경의 고수','화경 대성','현경의 문턱','현경의 고수','현경 대성','생사경','생사경 대성','자연경','탈각의 경지','천인합일','반선의 경지'];
+function need(l){return Math.round(15*Math.pow(l,1.7));}
+
+/* 직업: kind 가 같은 무기를 들면 무기 공격력 ×1.3 */
+var JOBS={
+ '검객':{kind:'sword',atk:1.1,def:1,hp:1,mp:1,crit:.22,dodge:.08,sk:1,start:'wood_sword',desc:'쾌검과 급소 찌르기의 달인. 치명타가 잦다.',perk:'공격 +10% · 치명타 22%'},
+ '도객':{kind:'saber',atk:1.15,def:1,hp:1.15,mp:.85,crit:.12,dodge:.05,sk:1,start:'wood_saber',desc:'묵직한 도로 정면을 부수는 강골. 공격력과 기력이 높다.',perk:'공격 +15% · 기력 +15%'},
+ '권사':{kind:'fist',atk:1,def:1.3,hp:1.25,mp:.9,crit:.1,dodge:.15,sk:1,start:'wrap',desc:'맨손으로 바위를 깨는 외공의 고수. 단단하고 잘 피한다.',perk:'방어 +30% · 기력 +25% · 회피 15%'},
+ '도사':{kind:'fan',atk:.95,def:.95,hp:.9,mp:1.5,crit:.1,dodge:.08,sk:1.2,start:'bamboo_fan',desc:'내공과 술법으로 싸우는 현문의 수행자. 초식 위력이 강하다.',perk:'내공 +50% · 초식 위력 +20%'}
+};
+var JOB_ORDER=['검객','도객','권사','도사'];
+var NOJOB={kind:'sword',atk:1,def:1,hp:1,mp:1,crit:.12,dodge:.06,sk:1};
+var KN={sword:'검',saber:'도',fist:'권갑',fan:'부채'};
+
+var SKLV=[1,3,5,7,9,12,15,18],SKMP=[5,10,18,28,45,60,80,110],SKMULT=[1.7,2.3,3.2,4.2,6,7.2,8.6,10.5];
+var SKNAMES={
+ '검객':[['연환검','검끝이 세 갈래로 갈라지며 잇달아 몰아친다'],['유성쾌검','유성처럼 빠른 찌르기가 빗발친다'],['검기상인','푸른 검기가 허공을 가르며 뻗어 나간다'],['천뢰검','하늘의 벼락이 검끝에 내리꽂힌다'],['무극일섬','천지가 멎은 듯한 일섬이 허공을 가른다'],['만검귀종','수백 자루의 검영이 한 점으로 모여든다'],['천외비선','하늘 밖에서 날아온 듯한 일검이 번뜩인다'],['신검합일','몸과 검이 하나 되어 한 줄기 빛으로 꿰뚫는다']],
+ '도객':[['일도양단','머리 위에서 곧장 내리그어 둘로 가른다'],['광풍도','미친 바람처럼 도를 휘몰아친다'],['혈랑참','굶주린 늑대처럼 붉은 도광이 물어뜯는다'],['오호단문도','다섯 마리 범이 문을 부수듯 연달아 내리찍는다'],['파천도','하늘을 쪼개는 도기가 수직으로 떨어진다'],['태산압정','태산이 정수리를 누르듯 짓눌러 벤다'],['혈해광도','피의 바다가 일렁이듯 도광이 사방을 덮는다'],['패왕일도','천하를 굽어보는 패왕의 일도가 모든 것을 가른다']],
+ '권사':[['연환권','좌우 주먹이 쉴 새 없이 꽂힌다'],['철산고','산을 밀어내듯 어깨로 묵직하게 부딪친다'],['나한권','나한의 위엄을 실은 정권이 내리꽂힌다'],['금강장','금강불괴의 손바닥이 가슴팍을 후려친다'],['항룡장','용의 울음과 함께 장력이 폭발한다'],['백보신권','백 걸음 밖에서도 권풍이 상대를 꿰뚫는다'],['여래신장','하늘에서 거대한 불수(佛手)가 내리누른다'],['천붕지열권','하늘이 무너지고 땅이 갈라지는 일권을 내지른다']],
+ '도사':[['장풍','소맷자락을 떨치자 매서운 장풍이 몰아친다'],['태극수','부드러운 원을 그리며 상대의 힘을 되돌려 친다'],['뇌전부','부적이 불타오르며 번개가 내리친다'],['삼매진화','단전의 삼매진화가 푸른 불길로 뿜어진다'],['오뢰정법','다섯 줄기 천뢰가 일제히 떨어진다'],['태극혜검','부채 끝에서 태극의 검기가 원을 그리며 뻗는다'],['천강북두진','북두칠성의 기운이 일곱 갈래 빛으로 꽂힌다'],['구천현뢰','구천(九天)의 현뢰가 천지를 하얗게 물들인다']]
+};
+var SKILLSETS={};
+Object.keys(SKNAMES).forEach(function(j){
+  SKILLSETS[j]=SKNAMES[j].map(function(n,i){return {id:i+1,name:n[0],lv:SKLV[i],mp:SKMP[i],mult:SKMULT[i],msg:n[0]+'! '+n[1]};});
+});
+
+var ITEMS={
+ herb:{name:'약초',type:'use',hp:30,value:6,desc:'쓴 향이 나는 야생 약초. 기력을 30 회복한다.'},
+ potion:{name:'금창약',type:'use',hp:60,price:15,value:7,desc:'상처에 바르고 삼키는 상비약. 기력을 60 회복한다.'},
+ elixir:{name:'대환단',type:'use',hp:180,price:90,value:40,desc:'소림의 비전 영약을 본뜬 환단. 기력을 180 회복한다.'},
+ qi:{name:'내공단',type:'use',mp:45,price:40,value:18,desc:'단전을 데워 주는 환. 내공을 45 회복한다.'},
+ taiqing:{name:'태청단',type:'use',hp:300,mp:120,price:220,value:90,desc:'도가의 비방으로 빚은 선단. 기력 300, 내공 120을 회복한다.'},
+ ginseng:{name:'만년설삼',type:'use',permHp:30,permMp:15,value:0,nosell:true,desc:'천년의 눈 속에서 자란 영물. 먹으면 최대 기력 +30, 최대 내공 +15가 영구히 늘어난다.'},
+ snow_lotus:{name:'천년설련',type:'use',permHp:40,permMp:25,value:0,nosell:true,desc:'빙혈 깊은 곳에 피는 설련화. 최대 기력 +40, 최대 내공 +25가 영구히 늘어난다.'},
+ cloth:{name:'천 옷',type:'armor',def:1,value:1,desc:'평범한 무명옷. (방어력 +1)'},
+ leather:{name:'가죽 갑옷',type:'armor',def:4,price:70,value:28,desc:'질긴 소가죽으로 만든 갑옷. (방어력 +4)'},
+ scale:{name:'철편 갑옷',type:'armor',def:9,price:260,value:104,desc:'철 조각을 이어 붙인 갑옷. (방어력 +9)'},
+ dark_armor:{name:'흑강 갑주',type:'armor',def:15,value:700,desc:'사교도의 정예가 입던 검은 갑주. (방어력 +15)'},
+ dragon_armor:{name:'용린갑',type:'armor',def:19,price:1300,value:520,desc:'용의 비늘처럼 겹겹이 엮은 낙양 명장의 갑옷. (방어력 +19)'},
+ snow_armor:{name:'설인 가죽갑',type:'armor',def:22,value:800,desc:'설인의 가죽으로 지은 갑옷. 칼날도 미끄러진다. (방어력 +22)'},
+ tianmo_armor:{name:'천마갑',type:'armor',def:30,value:2500,desc:'천마신교 장로들만 입는 흑금빛 갑주. (방어력 +30)'},
+ ward:{name:'호신부',type:'charm',def:3,price:120,value:48,desc:'액운을 막아 주는 부적. (방어력 +3)'},
+ bandit_seal:{name:'산적 마패',type:'charm',atk:3,def:1,value:150,desc:'산채의 두목만 지니는 마패. (공격력 +3, 방어력 +1)'},
+ blood_jade:{name:'혈옥패',type:'charm',atk:6,def:4,value:1200,desc:'핏빛 옥패. 마기가 서려 있다. (공격력 +6, 방어력 +4)'},
+ azure_jade:{name:'청룡옥패',type:'charm',atk:5,def:5,price:1600,value:640,desc:'청룡이 새겨진 푸른 옥패. (공격력 +5, 방어력 +5)'},
+ ice_pendant:{name:'빙정 목걸이',type:'charm',atk:7,def:8,value:1500,desc:'만년한빙의 정수를 깎아 만든 목걸이. (공격력 +7, 방어력 +8)'},
+ zhizun_seal:{name:'지존령',type:'charm',atk:12,def:12,value:0,nosell:true,desc:'천하의 무인이 고개를 숙이는 무림지존의 영패. (공격력 +12, 방어력 +12)'},
+ blade_frag:{name:'부러진 칼날',type:'junk',value:12,desc:'산적이 쓰던 부러진 칼날. 대장간에 팔 수 있다.'},
+ wolf_pelt:{name:'늑대 가죽',type:'junk',value:25,desc:'질 좋은 늑대 가죽.'},
+ feather:{name:'매의 깃털',type:'junk',value:30,desc:'절벽 매의 단단한 깃털.'},
+ monk_beads:{name:'낡은 염주',type:'junk',value:45,desc:'타락한 승려가 쥐고 있던 염주.'},
+ spider_sac:{name:'독낭',type:'junk',value:38,desc:'독거미의 독이 든 주머니.'},
+ cult_token:{name:'사교 영패',type:'junk',value:60,desc:'마교 하수인의 신분 영패.'},
+ bandit_knife:{name:'마적 곡도',type:'junk',value:40,desc:'흑풍 마적이 쓰던 휘어진 칼.'},
+ iron_scrap:{name:'부서진 철갑',type:'junk',value:45,desc:'철갑 무사의 갑옷 조각.'},
+ snow_pelt:{name:'설랑 가죽',type:'junk',value:55,desc:'눈처럼 흰 늑대 가죽. 낙양 상인들이 비싸게 쳐 준다.'},
+ silver_ingot:{name:'은괴',type:'junk',value:90,desc:'도적이 숨겨 두었던 작은 은괴.'},
+ ice_shard:{name:'빙정 조각',type:'junk',value:70,desc:'녹지 않는 얼음 조각.'},
+ yeti_fur:{name:'설인의 털',type:'junk',value:80,desc:'길고 억센 설인의 털 뭉치.'},
+ patrol_badge:{name:'순찰 영패',type:'junk',value:90,desc:'천마신교 순찰대의 영패.'},
+ talisman:{name:'강시 부적',type:'junk',value:75,desc:'혈강시의 이마에서 떼어 낸 부적.'},
+ dark_token:{name:'흑의령',type:'junk',value:110,desc:'흑의 호법의 신분을 나타내는 검은 영패.'}
+};
+/* 무기: 직업별 7단계 (0 시작 · 1~2 대장간 · 3 폐사 · 4 낙양 · 5 빙궁주 · 6 장로/천마) */
+function W(id,name,kind,atk,price,value,desc){ITEMS[id]={name:name,type:'weapon',kind:kind,atk:atk,price:price,value:value,desc:desc+' ('+KN[kind]+' · 공격력 +'+atk+')'};}
+W('wood_sword','낡은 목검','sword',2,0,1,'수련용 목검. 없는 것보단 낫다.');
+W('iron_sword','철검','sword',6,90,36,'평범한 대장장이가 벼린 철검.');
+W('steel_sword','청강검','sword',13,320,128,'푸른 빛이 도는 명검.');
+W('black_sword','현철검','sword',25,0,900,'현철로 벼린 보검. 검신이 검게 빛난다.');
+W('dragon_sword','용천검','sword',33,1500,600,'낙양 명장이 용천의 물로 담금질한 검.');
+W('ice_sword','빙백신검','sword',47,0,1800,'빙궁에 전해지는 신검. 휘두를 때마다 서리가 흩날린다.');
+W('tian_sword','천외천검','sword',60,0,3000,'하늘 밖의 하늘이라 불리는 전설의 검.');
+W('wood_saber','목도','saber',2,0,1,'나무를 깎아 만든 수련용 도.');
+W('broad_saber','박도','saber',6,90,36,'등이 두껍고 날이 넓은 평범한 도.');
+W('ghost_saber','귀두도','saber',13,330,130,'칼등에 귀신 머리가 새겨진 도.');
+W('blood_saber','철혈도','saber',18,0,300,'산적 두목 마강이 쓰던 무거운 칼.');
+W('tiger_saber','호두도','saber',25,0,900,'범의 머리를 새긴 육중한 보도.');
+W('demon_saber','혈마도','saber',36,0,2000,'혈마의 피를 머금은 마도. 붉은 안개가 감돈다.');
+W('nine_ring','구환도','saber',33,1500,600,'아홉 개의 고리가 달린 대도. 휘두르면 고리가 울린다.');
+W('ice_saber','빙혼도','saber',47,0,1800,'빙궁의 한기가 깃든 도. 베인 자리가 얼어붙는다.');
+W('overlord_saber','패왕도','saber',60,0,3000,'천하를 굽어본 패왕이 썼다는 전설의 도.');
+W('wrap','수련 붕대','fist',2,0,1,'주먹에 감는 무명 붕대.');
+W('leather_fist','가죽 권갑','fist',6,90,36,'손등에 가죽을 덧댄 권갑.');
+W('iron_fist','철권갑','fist',13,320,128,'쇠로 손등을 감싼 권갑.');
+W('diamond_fist','금강수투','fist',25,0,900,'금강석 가루를 먹인 장갑.');
+W('black_fist','묵철권갑','fist',33,1500,600,'묵철로 만든 권갑. 바위도 가루로 만든다.');
+W('ice_fist','빙잠수투','fist',47,0,1800,'빙잠의 실로 짠 장갑. 칼날을 맨손으로 잡는다.');
+W('heaven_fist','천붕권갑','fist',60,0,3000,'하늘을 무너뜨린다는 전설의 권갑.');
+W('bamboo_fan','대나무 부채','fan',2,0,1,'대살에 한지를 바른 부채.');
+W('iron_fan','철선','fan',6,90,36,'쇠살로 만든 부채. 펼치면 칼날이 된다.');
+W('crane_fan','백학선','fan',13,320,128,'백학의 깃으로 만든 부채.');
+W('xuanwu_fan','현무선','fan',25,0,900,'현무의 등껍질을 깎아 만든 부채.');
+W('star_fan','칠성선','fan',33,1500,600,'북두칠성이 새겨진 도가의 법보.');
+W('ice_fan','빙화선','fan',47,0,1800,'펼치면 얼음꽃이 피어나는 빙궁의 부채.');
+W('taiji_fan','태극선','fan',60,0,3000,'음양의 이치를 담은 전설의 부채.');
+var JW={
+ sword:['wood_sword','iron_sword','steel_sword','black_sword','dragon_sword','ice_sword','tian_sword'],
+ saber:['wood_saber','broad_saber','ghost_saber','tiger_saber','nine_ring','ice_saber','overlord_saber'],
+ fist:['wrap','leather_fist','iron_fist','diamond_fist','black_fist','ice_fist','heaven_fist'],
+ fan:['bamboo_fan','iron_fan','crane_fan','xuanwu_fan','star_fan','ice_fan','taiji_fan']
+};
+
+var MOBS={
+ dog:{name:'들개',lvl:1,hp:22,atk:6,def:0,exp:6,silver:[2,5],resp:15,drops:[],msgs:['이빨을 드러내며 물어뜯는다','으르렁거리며 덤벼든다'],desc:'굶주린 들개가 갈비뼈를 드러낸 채 이쪽을 노려본다.'},
+ snake:{name:'독사',lvl:2,hp:28,atk:9,def:0,exp:9,silver:[3,6],resp:20,drops:[],msgs:['번개같이 튀어 올라 송곳니를 박는다','꼬리를 휘감으며 독니를 드러낸다'],desc:'붉은 무늬가 선명한 독사가 혀를 날름거린다.'},
+ rookie:{name:'산적졸개',lvl:2,hp:42,atk:10,def:2,exp:11,silver:[6,12],resp:20,drops:[{id:'blade_frag',c:.35}],msgs:['녹슨 칼을 휘두른다','욕설을 내뱉으며 칼을 내리친다'],desc:'허름한 차림의 산적 졸개. 손이 떨리지만 눈빛은 탐욕스럽다.'},
+ bandit:{name:'산적',lvl:3,hp:68,atk:15,def:4,exp:18,silver:[10,20],resp:25,drops:[{id:'blade_frag',c:.35},{id:'potion',c:.12}],msgs:['큰 칼로 어깨를 노려 내리친다','발길질로 중심을 흔들고 칼을 찌른다'],desc:'덥수룩한 수염의 산적. 사람 베는 데 익숙한 눈이다.'},
+ guard:{name:'산채 파수꾼',lvl:4,hp:115,atk:20,def:7,exp:30,silver:[18,30],resp:30,drops:[{id:'potion',c:.25},{id:'blade_frag',c:.3}],msgs:['창을 길게 뻗어 찌른다','방패로 밀치며 도끼를 휘두른다'],desc:'산채의 문을 지키는 우락부락한 파수꾼. 걸음마다 땅이 울린다.'},
+ boss1:{name:'철혈도 마강',lvl:5,hp:330,atk:27,def:9,exp:150,silver:[200,300],resp:120,boss:true,drops:[{id:'blood_saber',c:1},{id:'bandit_seal',c:1}],msgs:['철혈도를 휘둘러 바위도 쪼갤 기세로 내리친다','핏빛 도기를 날리며 쇄도한다','묵직한 일도로 땅을 가르며 베어 온다'],desc:'청운산을 장악한 산채의 두목. 한 자루 철혈도로 수십 명의 무인을 베었다고 한다.'},
+ wolf:{name:'늑대',lvl:5,hp:95,atk:24,def:6,exp:26,silver:[4,10],resp:25,drops:[{id:'wolf_pelt',c:.5}],msgs:['목덜미를 노리고 뛰어든다','날카로운 발톱으로 할퀴어 온다'],desc:'회색 털이 곤두선 산짐승. 무리에서 떨어진 놈이라 더 사납다.'},
+ outlaw:{name:'산길 도적',lvl:5,hp:120,atk:26,def:8,exp:32,silver:[14,26],resp:30,drops:[{id:'blade_frag',c:.3},{id:'potion',c:.2}],msgs:['암기를 던지며 칼을 휘두른다','모래를 뿌리고 뒤를 노린다'],desc:'산길목을 지키며 행인을 터는 도적. 칼솜씨가 제법이다.'},
+ ronin:{name:'낭인검객',lvl:6,hp:175,atk:35,def:12,exp:48,silver:[24,42],resp:35,drops:[{id:'potion',c:.25},{id:'elixir',c:.06}],msgs:['쾌검으로 세 번 연달아 베어 온다','검집째 휘둘러 중심을 무너뜨리고 벤다'],desc:'떠돌다 절벽에 눌러앉은 낭인. 검집에 손을 올린 채 미동도 없다.'},
+ hawk:{name:'절벽 매',lvl:6,hp:105,atk:36,def:6,exp:36,silver:[0,5],resp:30,drops:[{id:'feather',c:.5}],msgs:['하늘에서 내리꽂히며 발톱으로 낚아챈다','날개를 펴 돌풍을 일으키며 부리로 쫀다'],desc:'절벽 둥지를 지키는 거대한 매. 날개폭이 사람 키를 넘는다.'},
+ monk:{name:'타락한 승려',lvl:7,hp:240,atk:43,def:16,exp:70,silver:[32,56],resp:40,drops:[{id:'monk_beads',c:.5},{jw:3,c:.1},{id:'elixir',c:.12}],msgs:['눈에 핏발을 세운 채 금강장을 내지른다','염불 대신 저주를 읊으며 철봉을 휘두른다'],desc:'마기에 물든 폐사의 승려. 한때는 자비로웠을 얼굴이 일그러져 있다.'},
+ spider:{name:'독거미',lvl:7,hp:195,atk:45,def:10,exp:62,silver:[10,24],resp:35,drops:[{id:'spider_sac',c:.5}],msgs:['독액을 뿜으며 다리를 휘두른다','거미줄로 휘감고 독니를 박는다'],desc:'바위틈에서 기어 나온 사람만 한 독거미. 여덟 눈이 번들거린다.'},
+ cultist:{name:'사교도',lvl:8,hp:300,atk:52,def:20,exp:100,silver:[40,80],resp:45,drops:[{id:'cult_token',c:.5},{id:'qi',c:.2},{id:'dark_armor',c:.07}],msgs:['검붉은 마기를 뿜으며 장력을 날린다','기괴한 주문과 함께 마검을 휘두른다'],desc:'검은 도포를 두른 마교 하수인. 입술이 붉게 물들어 있다.'},
+ boss2:{name:'혈마',lvl:10,hp:920,atk:70,def:24,exp:600,silver:[500,700],resp:300,boss:true,final:true,drops:[{id:'demon_saber',c:1},{id:'blood_jade',c:1}],msgs:['혈마도가 붉은 궤적을 그리며 하늘을 가른다','마기를 응축한 혈장을 내지른다','핏빛 기운이 폭발하며 사방을 휩쓴다'],desc:'수백 년 만에 깨어난 마교의 마두. 숨결마저 핏빛으로 일렁인다.'},
+ mazeok:{name:'흑풍 마적',lvl:10,hp:380,atk:60,def:26,exp:120,silver:[50,90],resp:40,drops:[{id:'bandit_knife',c:.4},{id:'potion',c:.2}],msgs:['말 위에서 곡도를 휘둘러 내리긋는다','올가미를 던져 끌어당기며 베어 온다'],desc:'관도를 휩쓰는 흑풍채의 마적. 검은 두건 아래 눈빛이 사납다.'},
+ iron_guard:{name:'철갑 무사',lvl:11,hp:440,atk:66,def:28,exp:140,silver:[60,100],resp:45,drops:[{id:'iron_scrap',c:.4},{id:'elixir',c:.08}],msgs:['철퇴를 휘둘러 방패째 짓누른다','온몸의 철갑으로 들이받는다'],desc:'낙양 표국에서 쫓겨난 무사. 온몸을 두른 철갑이 햇빛에 번쩍인다.'},
+ snowwolf:{name:'설랑',lvl:12,hp:400,atk:72,def:24,exp:150,silver:[10,30],resp:40,drops:[{id:'snow_pelt',c:.5}],msgs:['눈보라 속에서 튀어나와 목덜미를 문다','얼음 같은 발톱으로 할퀸다'],desc:'눈처럼 흰 털을 지닌 북해의 늑대. 무리 지어 사냥한다.'},
+ snowbandit:{name:'빙설 도적',lvl:12,hp:460,atk:70,def:30,exp:165,silver:[70,120],resp:45,drops:[{id:'silver_ingot',c:.35},{id:'qi',c:.15}],msgs:['얼어붙은 쇠사슬을 휘두른다','눈을 걷어차 시야를 가리고 찌른다'],desc:'설원의 상단을 터는 도적. 털가죽 두건 아래로 하얀 입김이 새어 나온다.'},
+ icesword:{name:'빙궁 검수',lvl:13,hp:520,atk:78,def:33,exp:190,silver:[60,110],resp:45,drops:[{id:'ice_shard',c:.5},{id:'qi',c:.2}],msgs:['한기가 서린 검으로 세 번 찌른다','얼음꽃 같은 검초를 펼친다'],desc:'빙궁을 지키는 여검수. 검이 지나간 자리에 서리가 앉는다.'},
+ yeti:{name:'설인',lvl:14,hp:640,atk:84,def:30,exp:220,silver:[20,50],resp:50,drops:[{id:'yeti_fur',c:.5},{id:'snow_armor',c:.1},{id:'elixir',c:.15}],msgs:['거대한 팔로 내리쳐 눈더미에 처박는다','포효와 함께 얼음덩이를 집어 던진다'],desc:'빙혈 깊은 곳에 사는 거구의 설인. 숨소리만으로 고드름이 떨어진다.'},
+ boss3:{name:'빙궁주 설무향',lvl:15,hp:2600,atk:115,def:40,exp:1200,silver:[800,1100],resp:300,boss:true,drops:[{jw:5,c:1},{id:'ice_pendant',c:1}],msgs:['빙백신장이 공기를 얼리며 날아든다','만년한빙의 검기가 사방을 얼린다','서리꽃이 흩날리며 수십 개의 빙침이 쏟아진다'],desc:'북해 빙궁의 주인. 백 년을 얼음 속에서 수련해 늙지 않는다고 한다. 그의 병기는 쓰러뜨린 자의 무공에 맞춰 모습을 바꾼다는 전설이 있다.'},
+ patrol:{name:'마교 순찰대',lvl:16,hp:600,atk:92,def:40,exp:260,silver:[80,130],resp:45,drops:[{id:'patrol_badge',c:.5},{id:'elixir',c:.15}],msgs:['합격진을 펼치며 창을 찔러 온다','마기를 실은 장력을 날린다'],desc:'천산 기슭을 순찰하는 천마신교의 무사들. 셋이 한 몸처럼 움직인다.'},
+ jiangshi:{name:'혈강시',lvl:17,hp:760,atk:98,def:44,exp:300,silver:[30,70],resp:50,drops:[{id:'talisman',c:.5},{id:'qi',c:.2}],msgs:['뻣뻣한 팔로 할퀴며 시독을 뿜는다','펄쩍 뛰어올라 짓누른다'],desc:'마교의 사술로 되살린 강시. 이마에 붙은 부적이 붉게 번뜩인다.'},
+ guardian:{name:'흑의 호법',lvl:18,hp:820,atk:104,def:46,exp:340,silver:[100,160],resp:50,drops:[{id:'dark_token',c:.5},{id:'qi',c:.25},{id:'elixir',c:.15}],msgs:['검은 소매에서 독침이 쏟아진다','천마군림보로 다가와 장을 내지른다'],desc:'천마를 곁에서 지키는 검은 옷의 호법. 숨소리조차 들리지 않는다.'},
+ elder:{name:'마교 장로',lvl:19,hp:960,atk:112,def:50,exp:400,silver:[150,240],resp:60,drops:[{jw:6,c:.12},{id:'tianmo_armor',c:.08},{id:'elixir',c:.2}],msgs:['혈마공을 끌어올려 핏빛 장력을 날린다','흡성대법으로 기력을 빨아들인다','마검이 일곱 갈래로 갈라져 베어 온다'],desc:'천마신교의 원로. 백발이 성성하지만 눈빛은 칼날처럼 날카롭다.'},
+ boss4:{name:'천마',lvl:20,hp:5200,atk:155,def:55,exp:3000,silver:[2000,3000],resp:600,boss:true,ultimate:true,drops:[{jw:6,c:1},{id:'zhizun_seal',c:1}],msgs:['천마신공이 천지를 뒤덮는다','천마군림보 한 걸음에 대지가 갈라진다','천마해체대법! 검은 기운이 폭풍처럼 몰아친다','손짓 하나에 수십 줄기 마기가 꿰뚫어 온다'],desc:'천마신교의 교주, 천마. 정사(正邪) 백 년의 역사에서 단 한 번도 패한 적이 없다. 그를 꺾는 자가 곧 무림지존이다.'}
+};
+
+var ROOMS={
+ square:{name:'청운촌 광장',safe:true,desc:'청운산 자락의 작은 마을, 청운촌의 광장이다. 낡은 우물 곁에서 장사꾼들이 목청을 높이고, 허리에 칼을 찬 무림인들이 오가며 서로를 살핀다. 북쪽으로 청운산 산길이, 남쪽으로 대나무숲이 이어진다.',exits:{북:'path',남:'bamboo',동:'inn',서:'smith'}},
+ inn:{name:'청운객잔',safe:true,shop:'inn',rest:5,desc:'붉은 등롱이 정겨운 객잔이다. 점소이가 분주히 오가고, 구석 탁자에서는 낭인들이 술잔을 기울이며 강호의 소문을 주고받는다. 약재를 파는 <span class="lnk cmd" data-cmd="상점">상점</span>, 하룻밤 쉬는 <span class="lnk cmd" data-cmd="휴식">휴식</span>(5은자), 귀동냥 <span class="lnk cmd" data-cmd="소문">소문</span>을 이용할 수 있다.',exits:{서:'square'}},
+ smith:{name:'화로 대장간',safe:true,shop:'smith',desc:'시뻘건 화로 앞에서 대장장이가 쉼 없이 망치를 내리친다. 벽에는 갓 벼린 병기와 갑옷이 빼곡하다. 잡다한 전리품도 이곳에서 사 준다. <span class="lnk cmd" data-cmd="상점">상점</span>',exits:{동:'square'}},
+ bamboo:{name:'대나무숲',desc:'빽빽한 대나무가 바람에 서걱거리는 숲길이다. 풀숲 사이로 짐승의 기척이 느껴진다. 동쪽에 약초가 자라는 공터가 있고, 남쪽 깊은 곳에서는 산적들의 고함이 들려온다.',exits:{북:'square',남:'forest',동:'herb'},spawns:['dog','dog','dog']},
+ herb:{name:'약초밭',desc:'대숲 사이 햇살이 드는 공터에 약초가 소담하게 자라 있다. 풀 사이에서 무언가 꿈틀거린다.',exits:{서:'bamboo'},spawns:['snake','snake'],items:[{id:'herb',n:3,resp:90}]},
+ forest:{name:'숲 깊은 곳',desc:'햇빛이 닿지 않는 어두운 숲이다. 나무에 산적 표식이 새겨져 있고, 바닥에는 무수한 발자국이 남아 있다.',exits:{북:'bamboo',남:'gate'},spawns:['rookie','rookie','rookie']},
+ gate:{name:'산채 입구',desc:'통나무 목책과 해골 깃발이 걸린 산채의 정문이다. 망루 위에서 산적들이 번들거리는 눈으로 내려다본다.',exits:{북:'forest',남:'hall'},spawns:['bandit','bandit','guard']},
+ hall:{name:'산채 본채',desc:'거대한 호피 의자가 놓인 산채의 본당이다. 벽에는 약탈한 병장기가 걸려 있고, 바닥에는 말라붙은 핏자국이 선명하다.',exits:{북:'gate'},spawns:['bandit','boss1'],items:[{id:'potion',n:2,resp:150}]},
+ path:{name:'청운산 산길',desc:'청운산으로 오르는 가파른 산길이다. 안개가 자욱하고, 길목마다 짐승과 도적의 기척이 도사린다. 서쪽으로는 낙양으로 가는 관도가 갈라진다.',exits:{남:'square',북:'cliff',서:'road'},spawns:['wolf','wolf','outlaw']},
+ cliff:{name:'절벽 길',desc:'발밑이 아득한 절벽을 따라 난 좁은 길이다. 거센 바람이 옷자락을 찢을 듯 몰아치고, 바위 위에 검 한 자루를 안은 낭인이 앉아 있다.',exits:{남:'path',북:'temple'},spawns:['ronin','hawk','hawk'],items:[{id:'ginseng',n:1,resp:99999,once:'ginseng'}]},
+ temple:{name:'폐사',desc:'오래전 불타 버린 산사의 터다. 부서진 불상이 쓰러져 있고, 이 빠진 목탁 소리가 어디선가 은은히 들린다. 절 뒤편 동쪽에 지하로 내려가는 석문이 열려 있다.',exits:{남:'cliff',동:'cave'},spawns:['monk','monk']},
+ cave:{name:'지하 동굴',desc:'습하고 싸늘한 지하 동굴이다. 벽에 박힌 횃불이 검붉은 빛을 뿌리고, 곳곳에 기괴한 문양이 새겨져 있다. 동쪽 깊은 곳에서 불길한 기운이 흘러나온다.',exits:{서:'temple',동:'secret'},spawns:['spider','cultist','cultist']},
+ secret:{name:'마교 밀실',desc:'핏빛 제단이 놓인 거대한 밀실이다. 천장에서 떨어지는 붉은 액체가 바닥에 고여 있고, 제단 위에는 한 사내가 눈을 감고 앉아 있다. 그의 숨결에 맞춰 방 전체가 맥동한다.',exits:{서:'cave'},spawns:['boss2']},
+ road:{name:'낙양 관도',desc:'청운산에서 낙양으로 이어지는 넓은 관도다. 말발굽 자국이 어지럽고, 길가의 표석마다 흑풍채의 검은 깃발이 꽂혀 있다.',exits:{동:'path',서:'luoyang'},spawns:['mazeok','mazeok','iron_guard']},
+ luoyang:{name:'낙양성',safe:true,shop:'luoyang',rest:20,desc:'천하의 상인과 무림인이 모여드는 고도(古都) 낙양이다. 성문 앞 거리에는 명장의 병기점과 영약을 파는 약방이 늘어서 있다. <span class="lnk cmd" data-cmd="상점">상점</span> · <span class="lnk cmd" data-cmd="휴식">휴식</span>(20은자) · <span class="lnk cmd" data-cmd="소문">소문</span>. 북쪽으로 북해 설원, 서쪽으로 천산이 보인다.',exits:{동:'road',북:'snow',서:'tianshan'}},
+ snow:{name:'북해 설원',home:'luoyang',desc:'끝없이 펼쳐진 흰 눈벌판이다. 칼날 같은 눈보라가 몰아치고, 멀리서 늑대 울음이 들린다. 북쪽 빙벽에 거대한 동굴 입구가 입을 벌리고 있다.',exits:{남:'luoyang',북:'icecave'},spawns:['snowwolf','snowwolf','snowbandit']},
+ icecave:{name:'빙혈',home:'luoyang',desc:'푸른 얼음으로 둘러싸인 동굴이다. 천장에 매달린 고드름이 횃불빛을 받아 보석처럼 반짝인다. 얼음 틈 사이에 하얀 꽃 한 송이가 피어 있다.',exits:{남:'snow',북:'icepalace'},spawns:['icesword','icesword','yeti'],items:[{id:'snow_lotus',n:1,resp:99999,once:'snow_lotus'}]},
+ icepalace:{name:'빙궁 대전',home:'luoyang',desc:'얼음으로 지은 궁전의 대전이다. 옥좌 위에 흰 옷을 입은 이가 눈을 감은 채 앉아 있고, 숨을 쉴 때마다 대전 안의 공기가 얼어붙는다.',exits:{남:'icecave'},spawns:['icesword','boss3']},
+ tianshan:{name:'천산 기슭',home:'luoyang',desc:'만년설을 인 천산의 기슭이다. 바위마다 천마신교의 붉은 문양이 새겨져 있고, 순찰대의 발소리가 규칙적으로 울린다.',exits:{동:'luoyang',서:'sectgate'},spawns:['patrol','patrol','jiangshi']},
+ sectgate:{name:'천마신교 산문',home:'luoyang',desc:'하늘을 찌를 듯한 흑석 산문이다. "천마군림(天魔君臨)" 네 글자가 핏빛으로 새겨져 있고, 문 너머에서 숨 막히는 기운이 흘러나온다.',exits:{동:'tianshan',서:'throne'},spawns:['guardian','guardian','elder']},
+ throne:{name:'천마전',home:'luoyang',desc:'천마신교 총단의 정전이다. 검은 불꽃이 타오르는 옥좌 위에서 한 사내가 턱을 괸 채 그대를 내려다본다. "백 년 만에 이곳까지 온 자로군."',exits:{동:'sectgate'},spawns:['guardian','boss4']}
+};
+var SHOPS={inn:['potion','elixir','qi'],smith:['@1','@2','leather','scale','ward'],luoyang:['@4','dragon_armor','azure_jade','elixir','qi','taiqing']};
+function shopList(sid){return SHOPS[sid].map(function(x){return x.charAt(0)==='@'?JW[J().kind][+x.slice(1)]:x;});}
+var RUMORS=[
+ '"남쪽 대숲 너머 산채에 철혈도 마강이라는 놈이 산다더군. 레벨 5는 돼야 상대가 될 걸세."',
+ '"산길 위 절벽에 만년설삼이 자란다는 소문이 있소. 한 뿌리만 먹어도 몸이 달라진다지."',
+ '"폐사 뒤편 석문 아래가 마교의 소굴이라고들 하오. 갔다 온 사람이 없으니 모를 일이지."',
+ '"대장간에서 자기 무공에 맞는 병기부터 맞추시오. 검객은 검, 도객은 도, 권사는 권갑, 도사는 부채라오."',
+ '"기력이 달리면 운기조식을 하게. 내공이 차야 초식을 쓰지, 허허."',
+ '"전리품은 대장간에서 값을 쳐 준다오. 쓸모없어 보여도 모아 두시오."',
+ '"청운산 산길에서 서쪽 관도를 따라가면 낙양성이오. 혈마를 꺾을 실력이라면 가 볼 만하지."',
+ '"북해 빙궁의 빙궁주를 꺾으면 그 병기가 주인의 무공에 맞춰 모습을 바꾼다더군."',
+ '"빙혈 얼음 틈에 천년설련이 핀다오. 만년설삼보다 귀한 영물이지."',
+ '"천산 너머 천마신교… 천마를 꺾는 자가 곧 무림지존이라 했소. 레벨 20은 돼야 숨이라도 쉴 걸세."'
+];
+var DIRNAMES={'북':'북','북쪽':'북','n':'북','north':'북','남':'남','남쪽':'남','s':'남','south':'남','동':'동','동쪽':'동','e':'동','east':'동','서':'서','서쪽':'서','w':'서','west':'서'};
+
+/* ---------- 상태 ---------- */
+var S=null, RT={}, F=null, fightTimer=null, awaitName=false, awaitJob=false, medTok=0, lastSkKey='';
+var hist=[], hpos=0;
+
+function newState(name){return {name:name,job:null,lvl:1,exp:0,hp:80,mp:30,silver:30,room:'square',inv:{potion:3},equip:{weapon:'wood_sword',armor:'cloth',charm:null},bonusHp:0,bonusMp:0,kills:0,flags:{}};}
+function J(){return (S&&JOBS[S.job])||NOJOB;}
+function skills(){return SKILLSETS[S&&S.job]||SKILLSETS['검객'];}
+function title(){return S.flags.zhizun?'무림지존':TITLES[S.lvl-1];}
+function maxHp(){return Math.round((80+(S.lvl-1)*18+Math.max(0,S.lvl-10)*12)*J().hp)+S.bonusHp;}
+function maxMp(){return Math.round((30+(S.lvl-1)*8+Math.max(0,S.lvl-10)*4)*J().mp)+S.bonusMp;}
+function eq(slot){var id=S.equip[slot];return id?ITEMS[id]:null;}
+function wAtk(w){return w?Math.round((w.atk||0)*(w.kind===J().kind?1.3:1)):0;}
+function calcAtk(){var w=eq('weapon'),c=eq('charm');return Math.round((6+S.lvl*3+wAtk(w)+(c?c.atk||0:0))*J().atk);}
+function calcDef(){var a=eq('armor'),c=eq('charm');return Math.round((S.lvl+(a?a.def||0:0)+(c?c.def||0:0))*J().def);}
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){
+  try{var t=localStorage.getItem(KEY);if(t){var o=JSON.parse(t);if(o&&o.name&&o.lvl){var s=newState(o.name);for(var k in o)s[k]=o[k];if(!s.flags)s.flags={};return s;}}}catch(e){}
+  return null;
+}
+function initRT(){
+  RT={};
+  Object.keys(ROOMS).forEach(function(id){
+    var r=ROOMS[id];
+    RT[id]={
+      mobs:(r.spawns||[]).map(function(k){return {k:k,hp:MOBS[k].hp,dead:0};}),
+      ground:(r.items||[]).map(function(it){return {id:it.id,n:it.n,resp:it.resp,once:it.once||null,cur:(it.once&&S.flags[it.once])?0:it.n,taken:0};})
+    };
+  });
+}
+function refresh(id){
+  var rt=RT[id],now=Date.now();
+  rt.mobs.forEach(function(m){if(m.hp<=0&&now-m.dead>=MOBS[m.k].resp*1000)m.hp=MOBS[m.k].hp;});
+  rt.ground.forEach(function(g){if(g.cur<=0&&!(g.once&&S.flags[g.once])&&now-g.taken>=g.resp*1000)g.cur=g.n;});
+}
+function aliveMobs(){refresh(S.room);return RT[S.room].mobs.filter(function(m){return m.hp>0;});}
+
+/* ---------- HUD ---------- */
+function setBar(id,v,m,txt){
+  var pct=m>0?Math.max(0,Math.min(100,v/m*100)):0;
+  $('#'+id+'f').style.width=pct+'%';$('#'+id+'t').textContent=txt;
+}
+function buildSkills(){
+  var box=$('#skills');
+  box.innerHTML=S.job?skills().filter(function(s){return s.lv<=S.lvl;}).map(function(s){return '<button data-cmd="초식 '+s.id+'">'+s.name+'<small>내공'+s.mp+'</small></button>';}).join(''):'';
+  lastSkKey=S.lvl+'|'+S.job;
+}
+function hud(){
+  if(!S)return;
+  var mh=maxHp(),mm=maxMp();
+  $('#who').textContent=S.name+(S.job?' ['+S.job+']':'')+'  Lv.'+S.lvl+' '+title();
+  $('#silver').textContent='은자 '+S.silver;
+  setBar('hp',S.hp,mh,'기력 '+S.hp+'/'+mh);
+  setBar('mp',S.mp,mm,'내공 '+S.mp+'/'+mm);
+  if(S.lvl>=MAXLV)setBar('xp',1,1,'경험 MAX');else setBar('xp',S.exp,need(S.lvl),'경험 '+S.exp+'/'+need(S.lvl));
+  var en=$('#enemy');
+  if(F){var d=MOBS[F.inst.k];en.className='on';setBar('en',F.inst.hp,d.hp,d.name+' Lv.'+d.lvl+'  '+Math.max(0,F.inst.hp)+'/'+d.hp);}
+  else en.className='';
+  var ex=ROOMS[S.room].exits;
+  document.querySelectorAll('#dirs button').forEach(function(b){b.className=ex[b.dataset.dir]?'':'off';});
+  if(!awaitJob&&lastSkKey!==S.lvl+'|'+S.job)buildSkills();
+}
+
+/* ---------- 방 출력 ---------- */
+function lvCls(l){return l>=S.lvl+3?'hard':(l>=S.lvl-1?'even':'easy');}
+function hpDesc(m){var d=MOBS[m.k],r=m.hp/d.hp;return r>.75?'멀쩡함':r>.4?'부상':r>.15?'중상':'빈사';}
+function printRoom(){
+  var r=ROOMS[S.room];refresh(S.room);
+  p('<span class="rn">【 '+r.name+' 】</span>'+(r.safe?' <span class="safe">안전지대</span>':''));
+  p(r.desc,'desc');
+  p('<span class="dim">출구</span> '+Object.keys(r.exits).map(function(d){return cmdLink(d+'('+ROOMS[r.exits[d]].name+')',d,'exit');}).join(' · '));
+  var g=RT[S.room].ground.filter(function(x){return x.cur>0;});
+  if(g.length)p('<span class="dim">바닥</span> '+g.map(function(x){return cmdLink(ITEMS[x.id].name+(x.cur>1?' ×'+x.cur:''),'줍기 '+ITEMS[x.id].name,'item');}).join(', '));
+  var ms=aliveMobs();
+  if(ms.length)p('<span class="dim">적</span> '+ms.map(function(m){var d=MOBS[m.k];return cmdLink(d.name,'공격 '+d.name,'mob')+' <span class="lv '+lvCls(d.lvl)+'">Lv.'+d.lvl+'</span> <span class="dim">('+hpDesc(m)+')</span>';}).join(' · '));
+}
+function danger(){
+  var ms=aliveMobs();if(!ms.length)return;
+  var mx=Math.max.apply(null,ms.map(function(m){return MOBS[m.k].lvl;}));
+  if(mx>=S.lvl+3)p('⚠ 살기가 짙다. 아직 이곳은 그대에게 이른 듯하다…','warn');
+}
+
+/* ---------- 이동 ---------- */
+function enter(to,quiet){
+  cancelMed();S.room=to;refresh(to);
+  if(!quiet)p('');
+  printRoom();danger();hud();save();
+}
+function move(dir){
+  if(F){p('교전 중에는 움직일 수 없다! '+cmdLink('도망','도망'),'warn');return;}
+  var to=ROOMS[S.room].exits[dir];
+  if(!to){p('그쪽으로는 길이 없다.','dim');return;}
+  p('<span class="dim">'+dir+'쪽으로 걸음을 옮긴다…</span>');
+  enter(to,true);
+}
+
+/* ---------- 전투 ---------- */
+function startFight(inst){
+  F={inst:inst};
+  var d=MOBS[inst.k];
+  p('<span class="warn">⚔ 그대는 '+eul(d.name)+' 향해 달려든다!</span>');
+  if(fightTimer)clearInterval(fightTimer);
+  fightTimer=setInterval(function(){if(F)combatAction(null);else{clearInterval(fightTimer);fightTimer=null;}},1800);
+  cancelMed();hud();
+}
+function endFight(resetMob){
+  if(F&&resetMob)F.inst.hp=MOBS[F.inst.k].hp;
+  F=null;if(fightTimer){clearInterval(fightTimer);fightTimer=null;}
+  hud();
+}
+function combatAction(skill){
+  if(!F)return;
+  var m=F.inst,d=MOBS[m.k];
+  var mult=1;
+  if(skill){S.mp-=skill.mp;mult=skill.mult*J().sk;}
+  var crit=!skill&&Math.random()<J().crit;
+  var raw=calcAtk()*mult*(0.85+Math.random()*0.3)*(crit?1.6:1);
+  var dmg=Math.max(1,Math.round(raw-d.def));
+  m.hp=Math.max(0,m.hp-dmg);
+  if(skill)p('▶ <span class="mag">'+skill.msg+'</span> — '+eul(d.name)+' 가격해 <span class="dmg">'+dmg+'</span>의 피해!');
+  else p('▶ '+(crit?'<b>급소를 노려</b> ':pick(HITS[J().kind]))+eul(d.name)+' 가격! <span class="dmg">'+dmg+'</span>의 피해'+(crit?'! 치명타!':'.'));
+  if(m.hp<=0){killMob();return;}
+  mobHit();
+  hud();
+}
+function mobHit(){
+  var m=F.inst,d=MOBS[m.k];
+  if(Math.random()<J().dodge){p('◀ '+iga(d.name)+' 덤벼들었으나 몸을 틀어 피했다!','dim');return;}
+  var heavy=d.boss&&Math.random()<0.2;
+  var dmg=Math.max(1,Math.round(d.atk*(heavy?1.5:1)*(0.8+Math.random()*0.4)-calcDef()));
+  S.hp-=dmg;
+  p('◀ '+(heavy?'<span class="warn">✸ 필살!</span> ':'')+eun(d.name)+' '+pick(d.msgs)+'! <span class="hurt">-'+dmg+'</span>');
+  if(S.hp<=0)die();
+}
+function killMob(){
+  var m=F.inst,d=MOBS[m.k];
+  m.hp=0;m.dead=Date.now();endFight(false);
+  S.kills++;
+  var sv=rnd(d.silver[0],d.silver[1]);S.silver+=sv;
+  var xp=d.exp;
+  p('<span class="good">☠ '+iga(d.name)+' 쓰러졌다! 경험 +'+xp+', 은자 +'+sv+'</span>');
+  d.drops.forEach(function(dr){if(Math.random()<dr.c){var id=dr.jw!=null?JW[J().kind][dr.jw]:dr.id;addItem(id,1);p('   획득: '+cmdLink(ITEMS[id].name,'보기 '+ITEMS[id].name,'item')+(dr.jw!=null&&S.job?' <span class="dim">('+S.job+'의 병기로 모습을 바꾸었다)</span>':''),'good');}});
+  if(NEWS[m.k]&&!S.flags['news_'+m.k]){S.flags['news_'+m.k]=true;news(NEWS[m.k]);}
+  if(S.lvl<MAXLV){S.exp+=xp;levelCheck();}
+  if(d.final&&!S.flags.ending){S.flags.ending=true;ending();}
+  hud();save();
+  if(d.ultimate){var first=!S.flags.zhizun;S.flags.zhizun=true;save();hud();zhizun(first);}
+}
+function levelCheck(){
+  while(S.lvl<MAXLV&&S.exp>=need(S.lvl)){
+    S.exp-=need(S.lvl);S.lvl++;
+    S.hp=maxHp();S.mp=maxMp();
+    p('<span class="good">✦ 경지가 올랐다! Lv.'+S.lvl+' ['+TITLES[S.lvl-1]+'] — 기력과 내공이 모두 차오른다.</span>');
+    skills().forEach(function(s){if(s.lv===S.lvl)p('<span class="mag">✦ 새로운 초식을 깨우쳤다: '+s.name+' (내공 '+s.mp+')</span>');});
+  }
+  if(S.lvl>=MAXLV)S.exp=0;
+}
+function ending(){
+  p('<div class="ending"><b style="font-size:18px">★ 제1부 완결 · 혈마 토벌 ★</b><br><br>마교의 마두 혈마가 쓰러졌다.<br>핏빛 안개가 걷히고, 석문 너머로 새벽빛이 스민다.<br><br>그러나 혈마는 숨이 끊어지기 전 웃으며 말했다.<br>"천산의 그분께서… 곧 강호를 덮으시리라…"<br><br><span class="dim">— 청운산 산길 서쪽 관도를 따라 낙양으로. 천마신교의 천마를 꺾고 무림지존에 오르라 —</span></div>');
+}
+function die(){
+  endFight(true);
+  var loss=Math.floor(S.silver*0.15);S.silver-=loss;
+  var home=ROOMS[S.room].home||'inn';
+  p('<span class="hurt">✖ 그대는 힘없이 쓰러졌다…</span>');
+  p('<span class="dim">눈을 떠 보니 '+(home==='inn'?'청운객잔':ROOMS[home].name+' 객방')+'의 침상 위다. 지나가던 행인이 그대를 업어 온 모양이다. (은자 -'+loss+')</span>');
+  S.hp=Math.ceil(maxHp()*0.4);S.mp=Math.ceil(maxMp()*0.3);
+  enter(home);
+}
+var HITS={sword:['검을 휘둘러 ','매섭게 베어 ','날카롭게 찔러 ','정면으로 내리쳐 '],saber:['도를 크게 휘둘러 ','어깨째 내리찍어 ','비스듬히 베어 올려 ','묵직하게 후려쳐 '],fist:['정권을 꽂아 ','팔꿈치로 찍어 ','돌려차기로 ','장을 밀어 넣어 '],fan:['부채를 펼쳐 ','부챗살로 찔러 ','장풍을 실어 ','부채 끝으로 그어 ']};
+function targetMob(arg){
+  var list=aliveMobs();if(!list.length)return null;
+  if(!arg)return list[0];
+  if(/^\d+$/.test(arg))return list[parseInt(arg,10)-1]||null;
+  for(var i=0;i<list.length;i++){if(MOBS[list[i].k].name.indexOf(arg)>=0)return list[i];}
+  return null;
+}
+function attack(arg){
+  if(F){p('이미 교전 중이다!','dim');return;}
+  if(ROOMS[S.room].safe){p('이곳은 안전지대다. 싸울 상대가 없다.','dim');return;}
+  var m=targetMob(arg);
+  if(!m){p(arg?'그런 상대는 여기에 없다.':'공격할 상대가 없다.','dim');return;}
+  startFight(m);combatAction(null);
+}
+function useSkill(spec,targetArg){
+  if(!spec){skillList();return;}
+  var sk=null;
+  skills().forEach(function(s){if(String(s.id)===spec||s.name===spec||s.name.indexOf(spec)===0)sk=s;});
+  if(!sk){p('그런 초식은 모른다. '+cmdLink('초식','초식'),'dim');return;}
+  if(sk.lv>S.lvl){p('아직 그 초식을 익히지 못했다. (Lv.'+sk.lv+' 필요)','warn');return;}
+  if(S.mp<sk.mp){p('내공이 부족하다! (필요 '+sk.mp+', 현재 '+S.mp+')','warn');return;}
+  if(!F){
+    if(ROOMS[S.room].safe){p('이곳은 안전지대다.','dim');return;}
+    var m=targetMob(targetArg);
+    if(!m){p('초식을 펼칠 상대가 없다.','dim');return;}
+    startFight(m);
+  }
+  combatAction(sk);
+}
+function skillList(){
+  var sk=skills();
+  p('<b>【 '+(S.job||'')+' 초식 】</b>');
+  p('<table class="t">'+sk.map(function(s){
+    var ok=s.lv<=S.lvl;
+    return '<tr><td>'+(ok?cmdLink(s.id+'. '+s.name,'초식 '+s.id,'cmd'):'<span class="dim">'+s.id+'. ???</span>')+'</td><td>'+(ok?'내공 '+s.mp+' · 위력 ×'+(Math.round(s.mult*J().sk*10)/10):'<span class="dim">Lv.'+s.lv+'에 습득</span>')+'</td></tr>';
+  }).join('')+'</table>');
+  p('<span class="dim">사용: 초식 1  /  '+sk[0].name+' 들개  (전투 중이면 현재 상대에게 사용)</span>');
+}
+function flee(){
+  if(!F){p('도망칠 필요가 없다.','dim');return;}
+  var d=MOBS[F.inst.k];
+  if(Math.random()<(d.boss?0.4:0.65)){
+    var ex=ROOMS[S.room].exits,keys=Object.keys(ex),to=ex[pick(keys)];
+    p('<span class="warn">허둥지둥 몸을 빼 도망쳤다!</span>');
+    endFight(true);enter(to,true);
+  }else{
+    p('<span class="warn">도망치려 했으나 길이 막혔다!</span>');
+    mobHit();hud();
+  }
+}
+
+/* ---------- 인벤토리 ---------- */
+function addItem(id,n){S.inv[id]=(S.inv[id]||0)+(n||1);}
+function delItem(id,n){S.inv[id]-=(n||1);if(S.inv[id]<=0)delete S.inv[id];}
+function findInv(arg,filter){
+  var ids=Object.keys(S.inv).filter(function(id){return S.inv[id]>0&&(!filter||filter(ITEMS[id]));});
+  if(!arg)return ids[0]||null;
+  for(var i=0;i<ids.length;i++){if(ITEMS[ids[i]].name.indexOf(arg)>=0)return ids[i];}
+  return null;
+}
+function inventory(){
+  var ids=Object.keys(S.inv).filter(function(i){return S.inv[i]>0;});
+  p('<b>【 소지품 】</b> <span class="dim">은자 '+S.silver+'</span>');
+  if(!ids.length){p('비어 있다.','dim');return;}
+  p('<table class="t">'+ids.map(function(id){
+    var it=ITEMS[id],act='';
+    if(it.type==='use')act=cmdLink('사용','사용 '+it.name);
+    else if(it.type==='weapon'||it.type==='armor'||it.type==='charm')act=cmdLink('착용','착용 '+it.name);
+    return '<tr><td>'+cmdLink(it.name,'보기 '+it.name,'item')+' ×'+S.inv[id]+'</td><td>'+act+'</td></tr>';
+  }).join('')+'</table>');
+}
+function equipment(){
+  var lab={weapon:'무기',armor:'방어구',charm:'부적'};
+  p('<b>【 장비 】</b> 공격력 '+calcAtk()+' · 방어력 '+calcDef());
+  p('<table class="t">'+['weapon','armor','charm'].map(function(sl){
+    var it=eq(sl);
+    var tag=(sl==='weapon'&&it&&S.job)?(it.kind===J().kind?' <span class="good">숙련 ×1.3</span>':' <span class="dim">('+KN[it.kind]+' · 숙련 아님)</span>'):'';
+    return '<tr><td class="dim">'+lab[sl]+'</td><td>'+(it?esc(it.name)+tag+' '+cmdLink('해제','해제 '+lab[sl]):'<span class="dim">없음</span>')+'</td></tr>';
+  }).join('')+'</table>');
+  if(S.job)p('<span class="dim">'+eun(S.job)+' '+KN[J().kind]+' 계열 무기를 들면 무기 공격력이 1.3배가 된다.</span>');
+}
+function wear(arg){
+  var id=findInv(arg,function(it){return it.type==='weapon'||it.type==='armor'||it.type==='charm';});
+  if(!id){p(arg?'그런 장비는 갖고 있지 않다.':'착용할 장비가 없다.','dim');return;}
+  var it=ITEMS[id],slot=it.type;
+  var old=S.equip[slot];
+  delItem(id,1);if(old)addItem(old,1);
+  S.equip[slot]=id;
+  p('<span class="good">'+eul(it.name)+' 착용했다.</span> <span class="dim">(공격력 '+calcAtk()+' · 방어력 '+calcDef()+')</span>');
+  save();hud();
+}
+function unwear(arg){
+  var map={'무기':'weapon','방어구':'armor','갑옷':'armor','부적':'charm','weapon':'weapon','armor':'armor','charm':'charm'};
+  var slot=map[arg];
+  if(!slot){['weapon','armor','charm'].forEach(function(sl){var it=eq(sl);if(it&&arg&&it.name.indexOf(arg)>=0)slot=sl;});}
+  if(!slot||!S.equip[slot]){p('해제할 장비를 지정하라. (예: 해제 무기)','dim');return;}
+  var id=S.equip[slot];S.equip[slot]=null;addItem(id,1);
+  p(eul(ITEMS[id].name)+' 벗었다.');save();hud();
+}
+function useItem(arg){
+  var id=findInv(arg,function(it){return it.type==='use';});
+  if(!id){p(arg?'그런 물건은 쓸 수 없다.':'사용할 물건이 없다.','dim');return;}
+  var it=ITEMS[id],msg=[];
+  if(it.hp){var h=Math.min(it.hp,maxHp()-S.hp);S.hp+=h;msg.push('기력 +'+h);}
+  if(it.mp){var m=Math.min(it.mp,maxMp()-S.mp);S.mp+=m;msg.push('내공 +'+m);}
+  if(it.permHp){S.bonusHp+=it.permHp;S.bonusMp+=it.permMp;S.hp+=it.permHp;S.mp+=it.permMp;msg.push('최대 기력 +'+it.permHp+', 최대 내공 +'+it.permMp+' (영구)');}
+  delItem(id,1);
+  p('<span class="good">'+eul(it.name)+' 사용했다. '+msg.join(', ')+'</span>');
+  if(F){mobHit();}
+  hud();save();
+}
+function pickup(arg){
+  if(F){p('교전 중에는 주울 수 없다!','warn');return;}
+  refresh(S.room);
+  var g=RT[S.room].ground.filter(function(x){return x.cur>0&&(!arg||ITEMS[x.id].name.indexOf(arg)>=0);});
+  if(!g.length){p('주울 것이 없다.','dim');return;}
+  g.forEach(function(x){
+    addItem(x.id,x.cur);
+    p('<span class="good">'+eul(ITEMS[x.id].name)+(x.cur>1?' '+x.cur+'개 ':' ')+'주웠다.</span>');
+    x.cur=0;x.taken=Date.now();
+    if(x.once)S.flags[x.once]=true;
+  });
+  save();
+}
+
+/* ---------- 상점 ---------- */
+function shop(){
+  var r=ROOMS[S.room];
+  if(!r.shop){p('이곳에는 상점이 없다. (객잔·대장간·낙양성에서 이용 가능)','dim');return;}
+  p('<b>【 '+r.name+' 】</b> <span class="dim">은자 '+S.silver+'</span>');
+  p('<table class="t">'+shopList(r.shop).map(function(id){var it=ITEMS[id],m=it.desc.match(/\(([^)]*)\)\s*$/);return '<tr><td>'+cmdLink(it.name,'구매 '+it.name,'item')+'</td><td>'+it.price+'은자</td><td class="dim">'+(m?esc(m[1]):esc(it.desc))+'</td></tr>';}).join('')+'</table>');
+  if(r.shop!=='inn')p('<span class="dim">병기는 '+(S.job?S.job+'의 숙련 무기('+KN[J().kind]+')':'검')+' 위주로 들여놓았다.</span>');
+  if(r.shop==='smith'||r.shop==='luoyang')p('<span class="dim">판매: 판매 &lt;물건&gt;  /  '+'</span>'+cmdLink('판매 잡템','판매 잡템')+'<span class="dim"> (전리품 일괄)</span>');
+  else p('<span class="dim">판매: 판매 &lt;물건&gt;</span>');
+}
+function buy(arg){
+  var r=ROOMS[S.room];if(!r.shop){p('이곳에서는 살 수 없다.','dim');return;}
+  var parts=arg.split(/\s+/),qty=1;
+  if(parts.length>1&&/^\d+$/.test(parts[parts.length-1])){qty=Math.min(99,parseInt(parts.pop(),10));}
+  var name=parts.join(' ');
+  var id=null;shopList(r.shop).forEach(function(i){if(name&&ITEMS[i].name.indexOf(name)>=0)id=i;});
+  if(!id){p('그런 물건은 팔지 않는다. '+cmdLink('상점','상점'),'dim');return;}
+  var cost=ITEMS[id].price*qty;
+  if(S.silver<cost){p('은자가 부족하다. (필요 '+cost+', 보유 '+S.silver+')','warn');return;}
+  S.silver-=cost;addItem(id,qty);
+  p('<span class="good">'+eul(ITEMS[id].name)+(qty>1?' '+qty+'개 ':' ')+'샀다. (-'+cost+'은자)</span>');
+  save();hud();
+}
+function sell(arg){
+  var r=ROOMS[S.room];if(!r.shop){p('이곳에서는 팔 수 없다.','dim');return;}
+  if(arg==='잡템'||arg==='전리품'){
+    var tot=0,cnt=0;
+    Object.keys(S.inv).forEach(function(id){if(ITEMS[id].type==='junk'){tot+=ITEMS[id].value*S.inv[id];cnt+=S.inv[id];delete S.inv[id];}});
+    if(!cnt){p('팔 전리품이 없다.','dim');return;}
+    S.silver+=tot;p('<span class="good">전리품 '+cnt+'개를 팔아 '+tot+'은자를 받았다.</span>');save();hud();return;
+  }
+  var id=findInv(arg);
+  if(!id){p('그런 물건은 갖고 있지 않다.','dim');return;}
+  var it=ITEMS[id];
+  if(it.nosell){p('이건 팔 수 없다.','dim');return;}
+  delItem(id,1);S.silver+=it.value;
+  p('<span class="good">'+eul(it.name)+' 팔아 '+it.value+'은자를 받았다.</span>');save();hud();
+}
+function rest(){
+  var c=ROOMS[S.room].rest;
+  if(!c){p('객잔(청운객잔·낙양성)에서만 쉴 수 있다.','dim');return;}
+  if(S.silver<c){p('은자가 부족하다. ('+c+'은자)','warn');return;}
+  S.silver-=c;S.hp=maxHp();S.mp=maxMp();
+  p('<span class="good">푹 자고 일어나니 몸이 가볍다. 기력과 내공이 모두 회복되었다. (-'+c+'은자)</span>');save();hud();
+}
+function rumor(){
+  if(!ROOMS[S.room].rest){p('객잔에서 귀동냥할 수 있다.','dim');return;}
+  p('점소이가 목소리를 낮춘다. '+pick(RUMORS),'mag');
+}
+
+/* ---------- 기타 ---------- */
+function meditate(){
+  if(F){p('싸우는 중에는 운기할 수 없다!','warn');return;}
+  var tok=++medTok;
+  p('가부좌를 틀고 숨을 고른다… 단전에 기운이 모이기 시작한다.','dim');
+  setTimeout(function(){
+    if(tok!==medTok||F||!S)return;
+    S.mp=Math.min(maxMp(),S.mp+Math.ceil(maxMp()*0.4));
+    S.hp=Math.min(maxHp(),S.hp+Math.ceil(maxHp()*0.2));
+    p('<span class="good">운기조식을 마쳤다. 내공 40%, 기력 20%가 회복되었다.</span>');hud();save();
+  },3000);
+}
+function cancelMed(){medTok++;}
+function lookTarget(arg){
+  var ms=aliveMobs();
+  for(var i=0;i<ms.length;i++){var d=MOBS[ms[i].k];if(d.name.indexOf(arg)>=0){p('<b>'+d.name+'</b> <span class="lv '+lvCls(d.lvl)+'">Lv.'+d.lvl+'</span> <span class="dim">기력 '+d.hp+' · 공격 '+d.atk+' · 방어 '+d.def+'</span>');p(d.desc,'desc');return;}}
+  var id=findInv(arg);
+  if(!id){RT[S.room].ground.forEach(function(g){if(g.cur>0&&ITEMS[g.id].name.indexOf(arg)>=0)id=g.id;});}
+  if(!id){Object.keys(S.equip).forEach(function(sl){var it=S.equip[sl];if(it&&ITEMS[it].name.indexOf(arg)>=0)id=it;});}
+  if(id){p('<b>'+ITEMS[id].name+'</b> <span class="dim">(판매가 '+ITEMS[id].value+')</span>');p(ITEMS[id].desc,'desc');return;}
+  p('그런 것은 보이지 않는다.','dim');
+}
+function status(){
+  p('<b>【 '+esc(S.name)+' 】</b> '+(S.job?'['+S.job+'] ':'')+'Lv.'+S.lvl+' '+title()+(S.job?' <span class="dim">· '+JOBS[S.job].perk+'</span>':''));
+  p('<table class="t"><tr><td class="dim">기력</td><td>'+S.hp+' / '+maxHp()+'</td><td class="dim">내공</td><td>'+S.mp+' / '+maxMp()+'</td></tr>'
+   +'<tr><td class="dim">공격력</td><td>'+calcAtk()+'</td><td class="dim">방어력</td><td>'+calcDef()+'</td></tr>'
+   +'<tr><td class="dim">경험</td><td>'+(S.lvl>=MAXLV?'MAX':S.exp+' / '+need(S.lvl))+'</td><td class="dim">은자</td><td>'+S.silver+'</td></tr>'
+   +'<tr><td class="dim">처치</td><td>'+S.kills+'</td><td class="dim">진행</td><td>'+(S.flags.zhizun?'무림지존 '+cmdLink('엔딩 다시 보기','엔딩'):S.flags.ending?'1부 완결 · 천마 도전 중':'1부 진행 중')+'</td></tr></table>');
+}
+function worldMap(){
+  function c(id){var n=ROOMS[id].name;return S.room===id?'<span class="cur">'+n+'</span>':n;}
+  function chain(ids,dirs){var s=c(ids[0]);for(var i=1;i<ids.length;i++)s+=' <span class="dim">─'+dirs[i-1]+'→</span> '+c(ids[i]);return s;}
+  p('<b>【 강호 지도 】</b> <span class="dim">(현재 위치 표시)</span>');
+  p('<span class="dim">남쪽 길 · 권장 Lv.1~5</span><br>'+chain(['square','bamboo','forest','gate','hall'],['남','남','남','남']));
+  p('<span class="dim">북쪽 길 · 권장 Lv.5~10</span><br>'+chain(['square','path','cliff','temple','cave','secret'],['북','북','북','동','동']));
+  p('<span class="dim">곁가지</span><br>'+chain(['square','inn'],['동'])+' &nbsp;|&nbsp; '+chain(['square','smith'],['서'])+' &nbsp;|&nbsp; '+chain(['bamboo','herb'],['동']));
+  p('<span class="dim">낙양·북해 · 권장 Lv.10~15</span><br>'+chain(['path','road','luoyang','snow','icecave','icepalace'],['서','서','북','북','북']));
+  p('<span class="dim">천산 · 권장 Lv.16~20</span><br>'+chain(['luoyang','tianshan','sectgate','throne'],['서','서','서']));
+}
+function help(){
+  p('<b>【 도움말 】</b> 버튼을 눌러도 되고, 직접 입력해도 됩니다.');
+  p('<table class="t">'
+   +'<tr><td>북 남 동 서</td><td class="dim">이동</td></tr>'
+   +'<tr><td>보기 [대상]</td><td class="dim">주변·대상 살피기</td></tr>'
+   +'<tr><td>공격 [이름]</td><td class="dim">전투 시작 (자동으로 진행)</td></tr>'
+   +'<tr><td>초식 [번호] [대상]</td><td class="dim">무공 사용 (내공 소모)</td></tr>'
+   +'<tr><td>도망</td><td class="dim">전투 이탈</td></tr>'
+   +'<tr><td>운기</td><td class="dim">내공·기력 회복 (전투 중 불가)</td></tr>'
+   +'<tr><td>가방 / 장비 / 상태</td><td class="dim">내 정보</td></tr>'
+   +'<tr><td>착용 · 해제 · 사용</td><td class="dim">장비·소모품 관리</td></tr>'
+   +'<tr><td>줍기</td><td class="dim">바닥의 물건 줍기</td></tr>'
+   +'<tr><td>상점 · 구매 · 판매</td><td class="dim">객잔·대장간·낙양성에서</td></tr>'
+   +'<tr><td>휴식 · 소문</td><td class="dim">청운객잔·낙양성에서</td></tr>'
+   +'<tr><td>지도</td><td class="dim">월드 지도</td></tr>'
+   +'<tr><td>외침 [할 말]</td><td class="dim">접속한 모두에게 말하기 (80자, 3초에 한 번)</td></tr>'
+   +'<tr><td>초기화</td><td class="dim">처음부터 다시</td></tr></table>');
+  p('<span class="dim">직업: 검객·도객·권사·도사. 직업마다 초식 8종이 다르고, 숙련 무기(검·도·권갑·부채)를 들면 무기 공격력이 1.3배가 됩니다.</span>');
+  p('<span class="dim">목표: 1부 — 산채 두목 철혈도 마강과 마교 밀실의 혈마(Lv.10) 처치. 2부 — 낙양을 거쳐 북해 빙궁주(Lv.15)와 천산의 천마(Lv.20)를 꺾고 무림지존에 오르라!</span>');
+}
+function banner(){
+  p('<div class="banner"><h1>강호무림</h1><p>텍스트 MUD — 무협 편</p></div>');
+}
+function intro(first){
+  if(first){
+    p('난세의 강호. 청운산 아래 작은 마을 청운촌에, 보잘것없는 병기 한 자루를 쥔 무명소졸이 첫발을 내딛는다.','desc');
+    p('<span class="dim">산을 장악한 산채의 두목 <b>철혈도 마강</b>, 폐사 아래 숨은 마교의 <b>혈마</b>, 그리고 천산 너머 천마신교의 <b>천마</b>… 싸우고, 얻고, 강해져 무림지존에 오르라.</span>');
+    p('<span class="sys">처음이라면 '+cmdLink('도움','도움')+'을 눌러 보세요. 남쪽 대나무숲의 들개부터 시작하길 권합니다.</span>');
+  }
+}
+
+/* ---------- 외침 (Firebase 모듈이 window.MUDNET 을 만든다) ---------- */
+var BADWORDS=/씨\s*발|시\s*발|ㅅ\s*ㅂ|ㅆ\s*ㅂ|병\s*신|ㅂ\s*ㅅ|개\s*새|좆|지\s*랄|썅|니\s*애미|느\s*금|fuck|shit/gi;
+function clean(s){return String(s).replace(/[\u0000-\u001f]/g,'').replace(BADWORDS,function(w){return new Array(w.length+1).join('*');}).trim().slice(0,80);}
+var lastShout=0;
+function shout(arg){
+  if(!arg){$('#in').value='외침 ';$('#in').focus();p('<span class="dim">외침 뒤에 할 말을 적어 보내라. (예: 외침 같이 천마 잡으실 분) · 80자까지, 3초에 한 번</span>');return;}
+  var net=window.MUDNET;
+  if(!net||!net.ready){p('전서구가 아직 날아오지 않았다. (연결 중이거나 연결할 수 없습니다'+(net&&net.error?' · '+esc(net.error):'')+')','dim');return;}
+  if(Date.now()-lastShout<3000){p('숨을 고르고 다시 외쳐라. (3초에 한 번)','dim');return;}
+  var msg=clean(arg);if(!msg){p('외칠 말이 없다.','dim');return;}
+  lastShout=Date.now();
+  net.send(msg,S.name,S.job,'shout').catch(function(e){p('외침이 닿지 않았다. '+(/PERMISSION/i.test(String(e&&e.code||e))?'(너무 빨리 외쳤거나 금지된 내용)':'(연결 오류)'),'warn');});
+}
+function news(text){var net=window.MUDNET;if(net&&net.ready)net.send(text,S.name,S.job,'news').catch(function(){});}
+window.MUD_onShout=function(v,old){
+  var who=(v.job?'['+esc(v.job)+'] ':'')+esc(v.name||'무명');
+  var tm=new Date(v.t||Date.now()),hh=('0'+tm.getHours()).slice(-2)+':'+('0'+tm.getMinutes()).slice(-2);
+  if(v.k==='news')p('<span class="news'+(old?' old':'')+'">📯 강호 소식 · '+who+' 대협이 '+esc(clean(v.msg))+'</span>'+(old?' <span class="dim">'+hh+'</span>':''));
+  else p('<span class="shout'+(old?' old':'')+'">📢 '+who+': '+esc(clean(v.msg))+'</span>'+(old?' <span class="dim">'+hh+'</span>':''));
+};
+var NEWS={boss1:'산채의 두목 철혈도 마강을 베었다!',boss2:'마교의 마두 혈마를 쓰러뜨렸다!',boss3:'북해 빙궁주 설무향을 꺾었다!',boss4:'천마를 꺾고 무림지존에 올랐다!'};
+
+/* ---------- 직업 ---------- */
+function askJob(){
+  awaitJob=true;
+  $('#in').placeholder='직업을 고르세요 (1~4 또는 이름)';
+  p('<b>【 어떤 무공의 길을 걷겠습니까? 】</b> <span class="dim">한 번 고르면 바꿀 수 없습니다.</span>');
+  p('<table class="t">'+JOB_ORDER.map(function(j,i){var o=JOBS[j];
+    return '<tr><td>'+cmdLink((i+1)+'. '+j,'직업 '+j,'cmd')+'</td><td>'+o.desc+'<br><span class="dim">'+o.perk+' · 숙련 무기 '+KN[o.kind]+' · 첫 초식 '+SKILLSETS[j][0].name+'</span></td></tr>';
+  }).join('')+'</table>');
+  $('#skills').innerHTML='';
+  var b=JOB_ORDER.map(function(j){return '<button data-cmd="직업 '+j+'">'+j+'</button>';}).join('');
+  $('#skills').innerHTML=b;lastSkKey='job';
+}
+function chooseJob(j){
+  awaitJob=false;var o=JOBS[j],fresh=S.lvl===1&&S.kills===0;
+  S.job=j;
+  if(S.equip.weapon==='wood_sword'&&o.start!=='wood_sword')S.equip.weapon=o.start;
+  else if(!S.equip.weapon)S.equip.weapon=o.start;
+  S.hp=maxHp();S.mp=maxMp();
+  $('#in').placeholder='명령 입력 (예: 북, 공격 들개, 도움)';
+  p('<span class="good">✦ 그대는 <b>'+j+'</b>의 길을 걷기로 했다. '+o.perk+'.</span>');
+  var learned=skills().filter(function(s){return s.lv<=S.lvl;}).map(function(s){return s.name;});
+  p('<span class="mag">✦ 익힌 초식: '+learned.join(', ')+'</span>');
+  if(fresh)intro(true);
+  p('');printRoom();hud();save();
+}
+
+/* ---------- 무림지존 엔딩 ---------- */
+function zhizun(first){
+  var old=document.getElementById('zz');if(old)old.remove();
+  var rays='';for(var i=0;i<18;i++)rays+='<polygon points="400,330 388,-420 412,-420" transform="rotate('+(i*20)+' 400 330)"/>';
+  var stars='';for(var s=0;s<40;s++)stars+='<circle cx="'+rnd(0,800)+'" cy="'+rnd(0,260)+'" r="'+(Math.random()*1.3+.3).toFixed(1)+'" opacity="'+(Math.random()*.6+.3).toFixed(2)+'"/>';
+  var crowd='';
+  [[60,520],[110,505],[160,492],[205,478],[245,466],[285,452],[320,440],[480,440],[515,452],[555,466],[595,478],[640,492],[690,505],[740,520],[130,545],[210,525],[290,500],[510,500],[590,525],[670,545],[350,470],[450,470]].forEach(function(c){
+    var x=c[0],y=c[1],f=x<400?1:-1;
+    crowd+='<g transform="translate('+x+' '+y+') scale('+f+' 1)"><circle cx="5" cy="-15" r="4"/><path d="M-6 0 Q-6 -12 4 -11 L8 -6 L6 0Z"/></g>';
+  });
+  var embers='';for(var e=0;e<26;e++)embers+='<i class="zz-e" style="left:'+rnd(2,98)+'%;--dx:'+rnd(-60,60)+'px;animation-duration:'+rnd(6,13)+'s;animation-delay:'+(Math.random()*8).toFixed(1)+'s"></i>';
+  var d=document.createElement('div');d.id='zz';
+  d.innerHTML='<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'
+   +'<defs><linearGradient id="zsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07061a"/><stop offset=".5" stop-color="#341033"/><stop offset=".8" stop-color="#9b3a2a"/><stop offset="1" stop-color="#e0893a"/></linearGradient>'
+   +'<radialGradient id="zglow"><stop offset="0" stop-color="#fff6cf"/><stop offset=".3" stop-color="#ffd36b" stop-opacity=".75"/><stop offset="1" stop-color="#ff7a2e" stop-opacity="0"/></radialGradient>'
+   +'<linearGradient id="zblade" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff2b0"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>'
+   +'<rect width="800" height="600" fill="url(#zsky)"/>'
+   +'<g fill="#fff">'+stars+'</g>'
+   +'<g class="zz-rays" fill="#ffd77a" opacity=".16">'+rays+'</g>'
+   +'<circle class="zz-aura" cx="400" cy="300" r="190" fill="url(#zglow)"/>'
+   +'<path d="M0 430 L70 380 L140 410 L230 340 L300 390 L360 350 L440 360 L520 320 L600 385 L680 350 L800 400 L800 600 L0 600Z" fill="#3a1428" opacity=".9"/>'
+   +'<path d="M0 470 L90 430 L180 455 L260 410 L340 440 L460 430 L560 405 L650 445 L730 425 L800 450 L800 600 L0 600Z" fill="#1c0b1a"/>'
+   +'<path d="M0 600 L0 535 L120 505 L220 470 L300 440 L355 362 L378 342 L422 342 L445 362 L500 440 L580 470 L680 505 L800 535 L800 600Z" fill="#090409"/>'
+   +'<g fill="#090409"><rect x="318" y="372" width="3" height="70"/><path d="M321 374 Q340 380 352 372 Q340 388 321 392Z" fill="#7a1420"/><rect x="479" y="372" width="3" height="70"/><path d="M479 374 Q460 380 448 372 Q460 388 479 392Z" fill="#7a1420"/></g>'
+   +'<g fill="#090409">'+crowd+'</g>'
+   +'<g class="zz-hero" fill="#090409"><path class="zz-cape" d="M393 292 Q366 306 344 338 Q368 330 392 322Z"/><circle cx="400" cy="281" r="7.5"/><path d="M391 291 L409 291 L413 318 L408 342 L402 342 L400 322 L398 342 L392 342 L387 318Z"/><path d="M407 294 L421 268 L425 271 L412 298Z"/>'
+   +'<rect class="zz-blade" x="421" y="206" width="3.2" height="64" rx="1" fill="url(#zblade)" transform="rotate(8 423 270)"/></g>'
+   +'</svg>'+embers
+   +'<div class="zz-top"><div class="zz-l" style="animation-delay:.4s"><h2>武林至尊</h2></div><div class="zz-l zz-sub" style="animation-delay:1.4s">무 림 지 존</div></div>'
+   +'<div class="zz-bot">'
+   +'<p class="zz-l" style="animation-delay:2.6s">천마가 쓰러지고, 천산 너머로 새벽이 밝았다.</p>'
+   +'<p class="zz-l" style="animation-delay:4s">구파일방과 오대세가, 정파와 사파의 무인들이 산 아래 무릎을 꿇는다.</p>'
+   +'<p class="zz-l zz-name" style="animation-delay:5.6s"><b>'+esc(S.name)+'</b><span>'+(S.job||'')+' · Lv.'+S.lvl+' · 처치 '+S.kills+'</span></p>'
+   +'<p class="zz-l" style="animation-delay:7s">오늘부터 강호는 그대를 <b>무림지존</b>이라 부르리라.</p>'
+   +'<p class="zz-l" style="animation-delay:8.2s"><button type="button" id="zz-x">강호로 돌아가기</button></p>'
+   +'</div>';
+  document.body.appendChild(d);
+  requestAnimationFrame(function(){d.className='on';});
+  d.querySelector('#zz-x').addEventListener('click',function(ev){ev.stopPropagation();d.className='';setTimeout(function(){d.remove();},900);});
+  if(first)p('<div class="ending"><b style="font-size:18px">★ 무림지존 ★</b><br><br>천마를 꺾고 강호의 정점에 섰다.<br><b>'+esc(S.name)+'</b> — 이제 그대의 칭호는 <b>무림지존</b>이다.<br><span class="dim">— 최종 엔딩 달성. '+cmdLink('엔딩','엔딩')+' 으로 다시 볼 수 있습니다 —</span></div>');
+}
+
+/* ---------- 명령 처리 ---------- */
+function exec(line){
+  line=line.trim();
+  if(!line&&!awaitName)return;
+  if(awaitName){
+    var nm=line.replace(/[<>&"]/g,'').slice(0,8)||'무명';
+    S=newState(nm);initRT();awaitName=false;
+    $('#in').placeholder='명령 입력 (예: 북, 공격 들개, 도움)';
+    p('<span class="good">'+esc(nm)+' 대협, 강호에 오신 것을 환영합니다.</span>');
+    save();askJob();return;
+  }
+  if(awaitJob){
+    var jn=line.replace(/^직업\s*/,''),pick2=null;
+    if(/^[1-4]$/.test(jn))pick2=JOB_ORDER[+jn-1];
+    JOB_ORDER.forEach(function(j){if(jn===j||(jn&&j.indexOf(jn)===0))pick2=j;});
+    if(!pick2){p('검객 · 도객 · 권사 · 도사 중에서 골라 주십시오.','warn');return;}
+    chooseJob(pick2);return;
+  }
+  if(confirmReset){confirmReset=false;if(line==='확인'||line==='예'||line.toLowerCase()==='y'){doReset();return;}p('초기화를 취소했다.','dim');return;}
+  var parts=line.split(/\s+/),v=parts[0],arg=parts.slice(1).join(' ');
+  var vl=v.toLowerCase();
+  if(DIRNAMES[vl]){move(DIRNAMES[vl]);return;}
+  switch(vl){
+    case '이동':case '가':case 'go':if(DIRNAMES[arg.toLowerCase()])move(DIRNAMES[arg.toLowerCase()]);else p('어느 쪽으로? (북 남 동 서)','dim');return;
+    case '보기':case '봐':case '살피기':case 'l':case 'look':if(arg)lookTarget(arg);else{printRoom();}hud();return;
+    case '공격':case '때려':case '쳐':case 'a':case 'kill':case 'attack':attack(arg);return;
+    case '초식':case '무공':case '기술':case 'skill':{var pp=arg.split(/\s+/);useSkill(pp[0]||'',pp.slice(1).join(' '));return;}
+    case '도망':case '도주':case 'flee':flee();return;
+    case '운기':case '운기조식':case '명상':meditate();return;
+    case '휴식':case '쉬기':rest();return;
+    case '소문':case '귀동냥':rumor();return;
+    case '줍기':case '줍':case '획득':case 'get':pickup(arg);return;
+    case '가방':case '소지품':case '인벤':case 'i':case 'inv':inventory();return;
+    case '장비':case 'eq':equipment();return;
+    case '착용':case '장착':case 'wear':wear(arg);return;
+    case '해제':case '벗기':unwear(arg);return;
+    case '사용':case '먹기':case '복용':case 'use':useItem(arg);return;
+    case '상태':case '능력치':case 'st':case 'score':status();return;
+    case '상점':case '목록':case 'list':shop();return;
+    case '구매':case '사기':case 'buy':buy(arg);return;
+    case '판매':case '팔기':case 'sell':sell(arg);return;
+    case '지도':case 'map':worldMap();return;
+    case '도움':case '도움말':case '?':case 'help':case 'h':help();return;
+    case '외침':case '외쳐':case '/s':case 'shout':shout(arg);return;
+    case '엔딩':if(S.flags.zhizun)zhizun(false);else p('아직 무림지존에 오르지 못했다. 천산의 천마를 꺾어라.','dim');return;
+    case '직업':p('이미 '+S.job+'의 길을 걷고 있다. 직업은 바꿀 수 없다. ('+JOBS[S.job].perk+')','dim');return;
+    case '초기화':case 'reset':confirmReset=true;p('<span class="warn">정말 처음부터 다시 시작할까요? 진행 상황이 모두 사라집니다. "확인"을 입력하세요.</span>');return;
+  }
+  var sk=null;skills().forEach(function(s){if(s.name===v)sk=s;});
+  if(sk){useSkill(String(sk.id),arg);return;}
+  p('알 수 없는 명령이다. '+cmdLink('도움','도움')+'을 참고하라.','dim');
+}
+var confirmReset=false;
+function doReset(){
+  try{localStorage.removeItem(KEY);}catch(e){}
+  endFight(false);cancelMed();S=null;log.innerHTML='';start();
+}
+function run(cmd,echo){
+  if(echo)p('<span class="echo">&gt; '+esc(cmd)+'</span>');
+  try{exec(cmd);}catch(e){p('<span class="warn">오류가 발생했다: '+esc(e.message)+'</span>');}
+  if(S)hud();
+}
+
+/* ---------- 시작 ---------- */
+function start(){
+  banner();
+  var s=load();
+  if(s){
+    S=s;initRT();
+    S.hp=Math.min(S.hp,maxHp());S.mp=Math.min(S.mp,maxMp());
+    p('<span class="good">다시 오셨군요, '+esc(S.name)+' 대협. (Lv.'+S.lvl+' '+title()+')</span>');
+    p('<span class="dim">진행 상황이 자동 저장되어 있습니다. 처음부터 하려면 "초기화".</span>');
+    if(!S.job){
+      p('<span class="mag">✦ 강호가 넓어졌다! 최고 레벨 20, 직업 4종, 직업별 무기와 초식, 낙양·북해 빙궁·천산 천마신교가 새로 열렸다.</span>');
+      askJob();return;
+    }
+    p('');printRoom();hud();
+  }else{
+    awaitName=true;
+    p('강호에 첫발을 내딛는 그대, <b>존함</b>을 알려 주십시오.','desc');
+    p('<span class="dim">(8자 이내로 입력 후 엔터 — 비워 두면 "무명")</span>');
+    $('#in').placeholder='이름을 입력하세요';
+    $('#hpt').textContent='';$('#mpt').textContent='';$('#xpt').textContent='';
+    $('#who').textContent='강호무림';$('#silver').textContent='';
+  }
+}
+
+document.addEventListener('click',function(e){
+  var t=e.target.closest?e.target.closest('[data-cmd]'):null;
+  if(t){run(t.getAttribute('data-cmd'),true);}
+});
+$('#f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var inp=$('#in'),v=inp.value;inp.value='';
+  if(v.trim()){hist.push(v);hpos=hist.length;}
+  if(awaitName){p('<span class="echo">&gt; '+esc(v.trim()||'(무명)')+'</span>');exec(v);}
+  else run(v,true);
+  if(window.matchMedia&&matchMedia('(pointer:fine)').matches)inp.focus();
+});
+$('#in').addEventListener('keydown',function(e){
+  if(e.key==='ArrowUp'&&hist.length){hpos=Math.max(0,hpos-1);this.value=hist[hpos]||'';e.preventDefault();}
+  else if(e.key==='ArrowDown'&&hist.length){hpos=Math.min(hist.length,hpos+1);this.value=hist[hpos]||'';e.preventDefault();}
+});
+setInterval(function(){
+  if(!S||F||awaitName)return;
+  var mh=maxHp(),mm=maxMp();
+  if(S.hp<mh||S.mp<mm){
+    S.hp=Math.min(mh,S.hp+Math.max(1,Math.floor(mh*0.02)));
+    S.mp=Math.min(mm,S.mp+Math.floor(mm*0.04)+1);
+    hud();
+  }
+},5000);
+setInterval(function(){if(S)save();},15000);
+
+start();
+})();
+</script>
+<script type="module">
+/* 외침(전서구): Firebase Realtime Database. 설정값은 공개 식별자이고, 쓰기 제한은 데이터베이스 보안 규칙이 맡는다. */
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+import {getAuth,signInAnonymously,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js';
+import {getDatabase,ref,push,update,query,orderByChild,limitToLast,onChildAdded,serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+const app=initializeApp({
+  apiKey:"AIzaSyA0kS20Qt51m5kDWO4YjEe2ZBppCTQOQbk",
+  authDomain:"mud1-f7e2d.firebaseapp.com",
+  databaseURL:"https://mud1-f7e2d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"mud1-f7e2d",
+  storageBucket:"mud1-f7e2d.firebasestorage.app",
+  messagingSenderId:"667217658412",
+  appId:"1:667217658412:web:622d1b2f88629390b2c789"
+});
+const auth=getAuth(app),db=getDatabase(app);
+let uid=null,listening=false;
+const since=Date.now();
+function hook(){return window.MUD_onShout;}
+onAuthStateChanged(auth,u=>{
+  if(!u)return;uid=u.uid;
+  if(listening)return;listening=true;
+  onChildAdded(query(ref(db,'shouts'),orderByChild('t'),limitToLast(15)),snap=>{
+    const v=snap.val();if(!v||!hook())return;
+    hook()(v,v.t<since);
+  });
+  window.MUDNET.ready=true;
+});
+window.MUDNET={
+  ready:false,
+  send(msg,name,job,kind){
+    if(!uid)return Promise.reject(new Error('offline'));
+    const key=push(ref(db,'shouts')).key;
+    return update(ref(db),{
+      ['shouts/'+key]:{uid,name,job:job||'',msg,k:kind||'shout',t:serverTimestamp()},
+      ['last/'+uid]:serverTimestamp()
+    });
+  }
+};
+signInAnonymously(auth).catch(e=>{window.MUDNET.error=e.code||String(e);});
+</script>
+<script src="../../assets/catalog.js?v=20261127a"></script><script src="../../assets/purpose.js?v=20261127a"></script>
+</body>
+</html>

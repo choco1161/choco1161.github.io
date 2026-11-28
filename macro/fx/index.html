@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noai, noimageai">
+<title>오늘 원화 환율 — 달러·엔·유로·위안 · Derek's Platform</title>
+<meta name="description" content="원/달러, 100엔, 유로, 위안 환율을 평일 하루 여러 번 갱신. 전일 대비 변동, 1개월~5년 추이와 고저, 환전 계산기까지.">
+<meta name="keywords" content="환율,원달러환율,엔화환율,유로환율,위안화,환전계산기">
+<link rel="canonical" href="https://derekhub.kr/macro/fx/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Derek's Platform">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="오늘 원화 환율 — 달러·엔·유로·위안">
+<meta property="og:description" content="원/달러, 100엔, 유로, 위안 환율을 평일 하루 여러 번 갱신. 전일 대비 변동, 1개월~5년 추이와 고저, 환전 계산기까지.">
+<meta property="og:url" content="https://derekhub.kr/macro/fx/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../assets/style.css?v=20261114b">
+<link rel="stylesheet" href="page.css?v=20261114b">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3485743771802527" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="wide">
+  <a class="back" href="../">← 거시경제</a>
+  <h1>원화 환율</h1>
+  <p class="sub">달러·엔·유로·위안이 지금 원화로 얼마인지, 최근 흐름과 함께 — 평일 하루 여러 번 자동 갱신</p>
+  <div data-purpose></div>
+
+  <p id="loading" class="note">환율 데이터를 불러오는 중…</p>
+  <p id="failed" class="empty" hidden>환율 데이터를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</p>
+
+  <div id="app" hidden>
+    <!-- 선택한 통화 요약 -->
+    <section class="hero panel" aria-live="polite">
+      <div class="hero-main">
+        <div class="hero-label" id="heroLabel"></div>
+        <div class="hero-rate"><span id="heroRate"></span><small>원</small></div>
+        <div class="hero-chg" id="heroChg"></div>
+        <div class="hero-time" id="heroTime"></div>
+      </div>
+      <dl class="hero-stats" id="heroStats"></dl>
+    </section>
+
+    <!-- 통화 고르기 -->
+    <div class="pairs" id="pairs" role="tablist" aria-label="통화 선택"></div>
+
+    <section class="block">
+      <div class="block-head">
+        <h2 id="chartTitle">추이</h2>
+        <div class="seg" id="ranges" role="group" aria-label="기간"></div>
+      </div>
+      <div class="chart"><canvas id="cFx" aria-label="환율 추이 차트"></canvas></div>
+      <div class="period" id="period"></div>
+    </section>
+
+    <div class="grid2">
+      <section class="block">
+        <h2>환전 계산기</h2>
+        <div class="calc panel">
+          <div class="calc-row">
+            <input id="amt" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="금액">
+            <select id="calcCur" aria-label="통화"></select>
+            <button type="button" id="swap" class="swap" aria-label="방향 바꾸기">⇄</button>
+          </div>
+          <div class="calc-out" id="calcOut"></div>
+          <p class="note">기준 환율로 단순 계산한 값이에요. 은행 환전·카드 결제는 수수료와 스프레드가 붙어 이보다 불리해요.</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>읽는 법</h2>
+        <ul class="tips">
+          <li>숫자가 <b class="up">오르면</b> 원화 약세예요. 같은 1달러를 사려면 원화를 더 내야 해요.</li>
+          <li>숫자가 <b class="down">내리면</b> 원화 강세예요. 해외여행·직구·해외주식 매수에 유리해요.</li>
+          <li>엔화는 국내 관례대로 <b>100엔</b> 기준이에요.</li>
+          <li>위안화는 달러/원을 달러/위안으로 나눈 교차환율이에요.</li>
+          <li>30년 장기 흐름과 금리차의 관계는 <a href="../rates-30y/#cKrw">한미 금리 30년</a>에서 볼 수 있어요.</li>
+          <li>지금 원화로 어느 여행지가 평소보다 싼지는 <a href="../../travel/fx-compass/">환율 여행 나침반</a>에서 비교해요.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="block">
+      <h2>최근 거래일</h2>
+      <p class="note">각 날짜의 마지막 체결가(그리니치 기준 하루). 화살표는 전일 대비. 공급처 자료에 빠진 날은 표시하지 않아요.</p>
+      <div class="table-wrap"><table class="data" id="recent"></table></div>
+    </section>
+
+    <p class="note src" id="src"></p>
+  </div>
+
+  <style>.guide{max-width:760px;margin:8px 0 48px;padding-top:28px;border-top:1px solid var(--line,rgba(127,127,127,.25));line-height:1.8}.guide h2{font-size:1.2rem;margin:0 0 6px}.guide .lede{color:var(--muted,#8a8a90);margin:0 0 20px}.guide h3{font-size:1.02rem;margin:26px 0 6px}.guide p,.guide li{margin:0 0 10px}.guide ul{padding-left:1.2em;margin:0 0 10px}.guide .by{color:var(--muted,#8a8a90);font-size:.85rem;margin-top:22px}</style>
+  <article class="guide" aria-labelledby="guide-h">
+    <h2 id="guide-h">환율 해설 — 숫자 하나로 읽는 원화의 체력</h2>
+    <p class="lede">위 숫자와 그래프를 볼 때 무엇을 함께 생각하면 좋은지 정리했어요.</p>
+
+    <h3>환율은 '원화로 매긴 외국 돈의 가격'이에요</h3>
+    <p>원/달러 환율이 1,400원이라는 건 1달러를 사는 데 1,400원이 든다는 뜻이에요. 그래서 숫자가 오르면 같은 1달러에 원화를 더 내야 하니 <b>원화 가치가 떨어진 것(원화 약세)</b>이고, 숫자가 내리면 원화 가치가 오른 것(원화 강세)이에요. 처음엔 반대로 느껴지기 쉬워서, "환율이 오른다 = 달러가 비싸진다"로 기억하면 헷갈리지 않아요.</p>
+
+    <h3>환율을 움직이는 네 가지</h3>
+    <ul>
+      <li><b>한미 금리 차이</b> — 미국 금리가 한국보다 높으면 같은 돈을 달러로 굴리는 쪽이 유리해져 달러 수요가 늘기 쉬워요. 장기 흐름은 <a href="../rates-30y/">한미 금리 30년</a>에서 볼 수 있어요.</li>
+      <li><b>무역·경상수지</b> — 수출이 잘돼 달러가 많이 들어오면 원화로 바꾸려는 수요가 커져 원화가 강해지는 경향이 있어요.</li>
+      <li><b>위험 회피 심리</b> — 전쟁이나 금융 불안처럼 세계 경제가 흔들릴 때는 기축통화인 달러로 돈이 몰려 원화가 약해지는 일이 많아요.</li>
+      <li><b>외국인 투자 자금</b> — 외국인이 국내 주식·채권을 많이 사면 원화 수요가 늘고, 팔고 나가면 반대로 움직여요.</li>
+    </ul>
+
+    <h3>생활에서 체감하는 영향</h3>
+    <p>원화가 약해지면 수입품과 원자재 값이 원화 기준으로 올라 물가에 부담이 되고, 해외여행·해외 직구 비용도 커져요. 반대로 수출 기업은 같은 달러 매출을 더 많은 원화로 바꿀 수 있어 실적에 도움이 되는 경우가 많아요. 해외주식에 투자한다면 <b>주가 수익과 환율 변동이 함께</b> 내 수익률에 반영된다는 점을 기억하세요. 주가가 그대로여도 환율이 오르면 원화로 환산한 평가액은 늘어요.</p>
+
+    <h3>환전할 때 알아 둘 점</h3>
+    <p>이 페이지의 환율은 시장에서 거래되는 기준 가격이에요. 은행에서 실제로 외화를 살 때는 여기에 은행 수수료(스프레드)가 붙어 조금 더 비싸게 사고, 팔 때는 조금 더 싸게 팔아요. 환율 우대 쿠폰이나 모바일 환전을 쓰면 이 차이를 줄일 수 있어요. 큰돈을 바꿔야 한다면 한 번에 바꾸기보다 몇 번에 나눠 바꾸면 "하필 제일 비쌀 때" 바꿀 위험을 줄일 수 있어요.</p>
+
+    <p class="by">Derek's Platform 해설 · 시세는 자동으로 갱신되고, 이 해설은 지표를 읽는 일반적인 원리를 정리한 글이에요. 투자 판단의 근거로 삼기 전에 여러 자료를 함께 확인하세요.</p>
+  </article>
+
+  <footer>
+    <p>© 2026 Derek's Platform. All rights reserved.</p>
+    <p class="notice">이 사이트의 글·자료·디자인은 저작권법의 보호를 받습니다. 운영자의 사전 동의 없이 복제·배포·전재하거나 상업적으로 이용할 수 없으며, 출처를 밝힌 짧은 인용만 허용됩니다. AI 학습·데이터 수집(크롤링·스크래핑) 목적의 자동화된 접근과 이용을 금지합니다.</p>
+    <nav class="site-legal" aria-label="사이트 정보" style="max-width:760px;margin:12px 0 0;padding:0;font-size:12px;line-height:1.8;opacity:.75;"><a href="/about/" style="color:inherit">사이트 소개</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a> · <a href="/contact/" style="color:inherit">문의하기</a></nav>
+  </footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="app.js?v=20261114b"></script>
+<script src="../../assets/catalog.js?v=20261127a"></script><script src="../../assets/related.js?v=20261114b"></script><script src="../../assets/purpose.js?v=20261114b"></script>
+</body>
+</html>
